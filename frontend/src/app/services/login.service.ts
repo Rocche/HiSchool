@@ -6,4 +6,8 @@ import { Injectable } from '@angular/core';
 export class LoginService {
 
   constructor() { }
+
+  public authenticate(username: string, password: string): boolean{
+    return true;
+  }
 }
