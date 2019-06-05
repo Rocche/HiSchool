@@ -1,1 +1,22 @@
-<button (click)="login()">LogIn</button>
+<div class="simple-login-container">
+    <div class="row">
+        <div class="col-4 offset-4 text-center">
+            <h2>HiSchool</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 offset-4 form-group">
+            <input type="text" class="form-control" placeholder="Username">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 offset-4 form-group">
+            <input type="password" placeholder="Enter your Password" class="form-control">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 offset-4 form-group text-center">
+            <input type="submit" class="btn btn-info btn-login" (click)="login()">
+        </div>
+    </div>
+</div>
