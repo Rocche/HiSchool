@@ -11,50 +11,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">8:00-9:00</th>
-      <td>Math</td>
-      <td>History</td>
-      <td>Geography</td>
-      <td>Science</td>
-      <td>Religion</td>
-      <td>Physics</td>
-    </tr>
-    <tr>
-      <th scope="row">9:00-10:00</th>
-      <td>Math</td>
-      <td>History</td>
-      <td>Geography</td>
-      <td>Science</td>
-      <td>Religion</td>
-      <td>Physics</td>
-    </tr>
-    <tr>
-      <th scope="row">10:00-11:00</th>
-      <td>Math</td>
-      <td>History</td>
-      <td>Geography</td>
-      <td>Science</td>
-      <td>Religion</td>
-      <td>Physics</td>
-    </tr>
-    <tr>
-      <th scope="row">11:00-12:00</th>
-      <td>Math</td>
-      <td>History</td>
-      <td>Geography</td>
-      <td>Science</td>
-      <td>Religion</td>
-      <td>Physics</td>
-    </tr>
-    <tr>
-      <th scope="row">12:00-13:00</th>
-      <td>Math</td>
-      <td>History</td>
-      <td>Geography</td>
-      <td>Science</td>
-      <td>Religion</td>
-      <td>Physics</td>
+    <tr *ngFor="let hours of this.timetable; let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td *ngFor="let subject of hours">
+        {{subject}}
+      </td>
     </tr>
   </tbody>
 </table>
