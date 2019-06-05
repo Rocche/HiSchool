@@ -1,0 +1,47 @@
+<body *ngIf="isLoggedIn$ | async">
+  <nav class="navbar navbar-light navbar-expand-lg static-top">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu" aria-controls="menu"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse bg-white" data-toggle="collapse" data-target=".navbar-collapse.show"
+        id="menu">
+        <ul *ngIf="role == 'student'" class="navbar-nav ml-auto" routerLinkActive="active">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/student">
+              Timetable
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">
+              Check Notices
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">
+              Logout
+            </a>
+          </li>
+        </ul>
+        <ul *ngIf="role == 'parent'" class="navbar-nav ml-auto" routerLinkActive="active">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/student">
+              Timetable
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">
+              Check Notices
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">
+              Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</body>
