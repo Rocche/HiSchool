@@ -1,0 +1,14 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let notice of this.notices">
+      <th scope="row">{{notice.title}}</th>
+      <td>{{notice.body}}</td>
+    </tr>
+  </tbody>
+</table>

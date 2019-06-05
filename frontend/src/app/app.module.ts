@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TimetableComponent } from './components/timetable/timetable.component';
+import { NoticesComponent } from './components/notices/notices.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent},
   { path: 'student', component: TimetableComponent/*, canActivate: [PatientGuard]*/ },
   { path: 'parent', component: TimetableComponent/*, canActivate: [PatientGuard] */},
   { path: 'secretary', component: TimetableComponent/*, canActivate: [PatientGuard]*/ },
-  { path: 'admin', component: TimetableComponent/*, canActivate: [PatientGuard] */}
+  { path: 'admin', component: TimetableComponent/*, canActivate: [PatientGuard] */},
+  { path: 'notices', component: NoticesComponent }
 ];
 
 @NgModule({
@@ -21,7 +23,8 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     NavbarComponent,
-    TimetableComponent
+    TimetableComponent,
+    NoticesComponent
   ],
   imports: [
     RouterModule.forRoot(
