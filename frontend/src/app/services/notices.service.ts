@@ -19,4 +19,8 @@ export class NoticesService {
   public getNotices(targetUser: string){
     return(this.notices);
   }
+
+  public sendNotice(notice: Notice){
+    console.log(notice);
+  }
 }

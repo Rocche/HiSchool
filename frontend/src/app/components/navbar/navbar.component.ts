@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
     })
   }
 
-  public logout(){
+  public logout(): void{
     let confirmation = confirm("Are you sure you want to log out?");
     if(confirmation){
       this.loginService.logout();

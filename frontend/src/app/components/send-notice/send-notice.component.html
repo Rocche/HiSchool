@@ -1,0 +1,15 @@
+<form>
+  <div class="form-group">
+    <label for="targets">To:</label>
+    <input type="text" class="form-control" id="targets" name = "target" [(ngModel)] = "this.notice.target">
+  </div>
+  <div class="form-group">
+    <label for="title">Title:</label>
+    <input type="text" class="form-control" id="title" name = "title" [(ngModel)] = "this.notice.title">
+  </div>
+  <div class="form-group">
+    <label for="body">Body:</label>
+    <textarea class="form-control" id="body" rows="3" name="body" [(ngModel)] = "this.notice.body"></textarea>
+  </div>
+  <button type="submit" class="btn btn-info" (click)="sendNotice()">Send Notice</button>
+</form>
