@@ -20,7 +20,12 @@ export class LoginService {
     if(username != null){
       this.loggedIn$.next(true);
       this.roleLoggedIn$.next(username);
-      this.routingService.navigateTo(username);
+      this.routingService.navigateTo('/' + username);
     }
+  }
+
+  public logout(): void{
+    this.loggedIn$.next(false);
+    this.routingService.navigateTo('');
   }
 }

@@ -9,6 +9,6 @@ export class RoutingService {
   constructor(private router: Router) { }
 
   public navigateTo(url: string){
-    this.router.navigate(['/' + url]);
+    this.router.navigate([url]);
   }
 }
