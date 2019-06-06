@@ -2,10 +2,10 @@
 <div>
 	<form>
 	<div class="form-group input-group">
-        <input name="name" class="form-control" placeholder="Name" type="text">
+        <input name="name" class="form-control" placeholder="Name" type="text" [(ngModel)] = "this.account.name">
     </div> 
     <div class="form-group input-group">
-      <input name="surname" class="form-control" placeholder="Surname" type="text">
+      <input name="surname" class="form-control" placeholder="Surname" type="text" [(ngModel)] = "this.account.surname">
   </div> 
     <div class="form-group input-group">
         <input name="email" class="form-control" placeholder="Email address" type="email" [(ngModel)] = "this.account.email">
@@ -13,9 +13,9 @@
     <div class="form-group input-group">
 		<select class="form-control" name="role" [(ngModel)] = "this.account.role">
 			<option selected=""> Select user type </option>
-			<option>Student</option>
-			<option>Teacher</option>
-			<option>Parent</option>
+			<option>student</option>
+			<option>parent</option>
+			<option>teacher</option>
 		</select>
 	</div>                                    
     <div class="form-group">
