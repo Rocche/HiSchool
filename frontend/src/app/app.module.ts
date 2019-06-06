@@ -9,6 +9,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { TimetableComponent } from './components/timetable/timetable.component';
 import { NoticesComponent } from './components/notices/notices.component';
 import { SendNoticeComponent } from './components/send-notice/send-notice.component';
+import { CreateAccountComponent } from './components/create-account/create-account.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent},
@@ -17,7 +18,8 @@ const appRoutes: Routes = [
   { path: 'secretary', component: TimetableComponent/*, canActivate: [PatientGuard]*/ },
   { path: 'admin', component: TimetableComponent/*, canActivate: [PatientGuard] */},
   { path: 'notices', component: NoticesComponent },
-  { path: 'send_notice', component: SendNoticeComponent }
+  { path: 'send_notice', component: SendNoticeComponent },
+  { path: 'create_account', component: CreateAccountComponent }
 ];
 
 @NgModule({
@@ -27,7 +29,8 @@ const appRoutes: Routes = [
     NavbarComponent,
     TimetableComponent,
     NoticesComponent,
-    SendNoticeComponent
+    SendNoticeComponent,
+    CreateAccountComponent
   ],
   imports: [
     RouterModule.forRoot(
