@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -10,6 +12,7 @@ import { TimetableComponent } from './components/timetable/timetable.component';
 import { NoticesComponent } from './components/notices/notices.component';
 import { SendNoticeComponent } from './components/send-notice/send-notice.component';
 import { CreateAccountComponent } from './components/create-account/create-account.component';
+import { AbsenceComponent } from './components/absence/absence.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent},
@@ -19,7 +22,8 @@ const appRoutes: Routes = [
   { path: 'admin', component: TimetableComponent/*, canActivate: [PatientGuard] */},
   { path: 'notices', component: NoticesComponent },
   { path: 'send_notice', component: SendNoticeComponent },
-  { path: 'create_account', component: CreateAccountComponent }
+  { path: 'create_account', component: CreateAccountComponent },
+  { path: 'absence', component: AbsenceComponent }
 ];
 
 @NgModule({
@@ -30,7 +34,8 @@ const appRoutes: Routes = [
     TimetableComponent,
     NoticesComponent,
     SendNoticeComponent,
-    CreateAccountComponent
+    CreateAccountComponent,
+    AbsenceComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -38,7 +43,8 @@ const appRoutes: Routes = [
       { enableTracing: false }
     ),
     BrowserModule,
-    FormsModule
+    BrowserAnimationsModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
