@@ -19,10 +19,10 @@ module.exports = function (app, passport) {
     //------------------------ LOGIN RESPONSE MESSAGES --------------------------------//
     function handleLoginResponse(res: Response, serverResponse: any) {
         if (serverResponse instanceof Error) {
-            return res.status(500).send({ ErrorMessage: serverResponse})
+            return res.status(500).send({ ErrorMessage: serverResponse })
         }
-        if (serverResponse instanceof CustomError){
-            return res.status(404).send({ ErrorMessage: serverResponse})
+        if (serverResponse instanceof CustomError) {
+            return res.status(404).send({ ErrorMessage: serverResponse })
         }
         res.status(200).send({ ServerResponse: serverResponse })
     }
@@ -31,7 +31,7 @@ module.exports = function (app, passport) {
     function sendServerResponse(req: Request, res: Response, serverResponse: any) {
         switch (req.method) {
             //------------------------GET RESPONSE MESSAGES--------------------------//
-            case 'GET': {   
+            case 'GET': {
                 // standard response message
                 let stdGetErrMsg = 'Error: could not find any result for input data.'
                 // if serverResponse has not been istantiated, return ErrorMessage
@@ -111,7 +111,7 @@ module.exports = function (app, passport) {
         res.sendFile(path.join(__dirname, '../public/index.html'))
         res.send('barbaraann')
     })
-    
+
     //------------------------------------------------------/api/login-------------------------------------------//
     // GET login
     app.get('/api/login', function (req: Request, res: Response) {
@@ -167,7 +167,7 @@ module.exports = function (app, passport) {
     app.get('/api/user', async (req: Request, res: Response) => {
         try {
             serverResponse = await accountManager.getUser(req)
-            sendServerResponse(req,res,serverResponse)
+            sendServerResponse(req, res, serverResponse)
         }
         catch (err) {
             res.status(500)
@@ -178,7 +178,7 @@ module.exports = function (app, passport) {
     app.post('/api/user', async (req: Request, res: Response) => {
         try {
             serverResponse = await accountManager.postUser(req)
-            sendServerResponse(req,res,serverResponse)
+            sendServerResponse(req, res, serverResponse)
         }
         catch (err) {
             res.status(500)
@@ -220,7 +220,7 @@ module.exports = function (app, passport) {
     /*
     * check user's authorization to call function by checking role
     */
-async function isAuthorized(req, res, next) {
+    async function isAuthorized(req, res, next) {
 
     }
 

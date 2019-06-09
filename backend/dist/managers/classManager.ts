@@ -42,6 +42,6 @@ export class ClassManager extends TableManager {
             }
             this.result = classesArray
         }
-    return this.result
+        return this.result
     }
 }
