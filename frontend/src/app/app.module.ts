@@ -13,6 +13,7 @@ import { NoticesComponent } from './components/notices/notices.component';
 import { SendNoticeComponent } from './components/send-notice/send-notice.component';
 import { CreateAccountComponent } from './components/create-account/create-account.component';
 import { AbsenceComponent } from './components/absence/absence.component';
+import { SubstitutionComponent } from './components/substitution/substitution.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent},
@@ -23,7 +24,8 @@ const appRoutes: Routes = [
   { path: 'notices', component: NoticesComponent },
   { path: 'send_notice', component: SendNoticeComponent },
   { path: 'create_account', component: CreateAccountComponent },
-  { path: 'absence', component: AbsenceComponent }
+  { path: 'absence', component: AbsenceComponent },
+  { path: 'substitutions', component: SubstitutionComponent }
 ];
 
 @NgModule({
@@ -35,7 +37,8 @@ const appRoutes: Routes = [
     NoticesComponent,
     SendNoticeComponent,
     CreateAccountComponent,
-    AbsenceComponent
+    AbsenceComponent,
+    SubstitutionComponent
   ],
   imports: [
     RouterModule.forRoot(

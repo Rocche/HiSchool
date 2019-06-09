@@ -16,7 +16,7 @@ export class AbsenceComponent implements OnInit {
   constructor(private absenceService: AbsenceService) { }
 
   ngOnInit() {
-    this.absence = new TeacherAbsence('teacher', null, null);
+    this.absence = new TeacherAbsence('teacher', null, null, '3A');
     this.date = null;
   }
 

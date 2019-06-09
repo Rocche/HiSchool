@@ -1,0 +1,18 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Teacher</th>
+      <th scope="col">Date</th>
+      <th scope="col">Hour</th>
+      <th scope="col">Class</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let absence of this.absences">
+      <td>{{absence.teacher}}</td>
+      <td>{{absence.date}}</td>
+      <td>{{absence.hour}}</td>
+      <td>{{absence.classroom}}</td>
+    </tr>
+  </tbody>
+</table>
