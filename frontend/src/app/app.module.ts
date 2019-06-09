@@ -14,6 +14,7 @@ import { SendNoticeComponent } from './components/send-notice/send-notice.compon
 import { CreateAccountComponent } from './components/create-account/create-account.component';
 import { AbsenceComponent } from './components/absence/absence.component';
 import { SubstitutionComponent } from './components/substitution/substitution.component';
+import { NoticeboardComponent } from './components/noticeboard/noticeboard.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent},
@@ -25,7 +26,8 @@ const appRoutes: Routes = [
   { path: 'send_notice', component: SendNoticeComponent },
   { path: 'create_account', component: CreateAccountComponent },
   { path: 'absence', component: AbsenceComponent },
-  { path: 'substitutions', component: SubstitutionComponent }
+  { path: 'substitutions', component: SubstitutionComponent },
+  { path: 'noticeboard', component: NoticeboardComponent }
 ];
 
 @NgModule({
@@ -38,7 +40,8 @@ const appRoutes: Routes = [
     SendNoticeComponent,
     CreateAccountComponent,
     AbsenceComponent,
-    SubstitutionComponent
+    SubstitutionComponent,
+    NoticeboardComponent
   ],
   imports: [
     RouterModule.forRoot(

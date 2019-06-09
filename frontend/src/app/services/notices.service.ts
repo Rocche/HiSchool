@@ -29,4 +29,8 @@ export class NoticesService {
     let result = authorized ? 'Notice authorized' : 'Notice not authorized';
     alert(result + ": " + notice.getTitle());
   }
+
+  public getNoticeboard(){
+    return this.notices;
+  }
 }
