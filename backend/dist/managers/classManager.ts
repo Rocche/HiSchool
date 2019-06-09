@@ -1,4 +1,4 @@
-import { Class } from "../models/class"
+import { Class } from "../models/models"
 
 import { Request } from "express"
 import { TableManager } from "./tableManager";
@@ -27,7 +27,7 @@ export class ClassManager extends TableManager {
 
     public async getClasses(): Promise<any> {
 
-        this.sql = 'SELECT * FROM classes'
+        this.sql = 'SELECT * FROM Classes'
         this.params = []
 
         if (this.result.rowCount > 0) {

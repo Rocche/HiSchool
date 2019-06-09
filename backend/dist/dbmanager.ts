@@ -1,10 +1,10 @@
 import { Pool } from "pg"
-import { CustomError } from './models/customError'
+import { CustomError } from './models/utils/customError'
 
 export default class DbManager {
 
     // Custom Error variable to translate db unsuccesfull query results into errors
-    private error: CustomError = new CustomError()
+    private error: CustomError = new CustomError('','')
 
     // check if the parameters array is correct
     private checkParams(params: any[]): boolean {

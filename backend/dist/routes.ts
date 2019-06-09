@@ -162,190 +162,11 @@ module.exports = function (app, passport) {
         }
     })
 
-    //------------------------------------------------------/api/doctor-------------------------------------------//
-    // GET doctor
-    app.get('/api/doctor', isLoggedIn, isAuthorized, async (req: Request, res: Response) => {
-        try {
-            serverResponse = await doctorCtrl.getDoctor(req)
-            sendServerResponse(req,res,serverResponse)
-        }
-        catch (err) {
-            res.status(500)
-                .send(err)
-        }
-    })
-    // GET doctor's patients
-    app.get('/api/doctor/patients', isLoggedIn, isAuthorized, async (req: Request, res: Response) => {
-        try {
-            serverResponse = await doctorCtrl.getDoctorPatients(req)
-            sendServerResponse(req,res,serverResponse)
-        }
-        catch (err) {
-            res.status(500)
-                .send(err)
-        }
-    })
-
-    //------------------------------------------------------/api/message-------------------------------------------//
-
-    // GET message
-    app.get('/api/message', isLoggedIn, isAuthorized, async (req: Request, res: Response) => {
-        try {
-            serverResponse = await messageCtrl.getMessage(req)
-            sendServerResponse(req,res,serverResponse)
-        }
-        catch (err) {
-            res.status(500)
-                .send(err)
-        }
-    })
-    // POST message
-    app.post('/api/message', isLoggedIn, isAuthorized, async (req: Request, res: Response) => {
-        req.body.sender = req.user.username
-        try {
-            serverResponse = await messageCtrl.postMessage(req)
-            sendServerResponse(req,res,serverResponse)
-        }
-        catch (err) {
-            res.status(500)
-                .send(err)
-        }
-    })
-    // DELETE message
-    app.delete('/api/message', isLoggedIn, isAuthorized, async (req: Request, res: Response) => {
-        try {
-            serverResponse = await messageCtrl.deleteMessage(req)
-            sendServerResponse(req,res,serverResponse)
-        }
-        catch (err) {
-            res.status(500)
-                .send(err)
-        }
-    })
-    // GET user's messages
-    app.get('/api/messages/user', isLoggedIn, isAuthorized, async (req: Request, res: Response) => {
-        try {
-            serverResponse = await messageCtrl.getUserMessages(req)
-            sendServerResponse(req,res,serverResponse)
-        }
-        catch (err) {
-            res.status(500)
-                .send(err)
-        }
-    })
-
-    //------------------------------------------------------/api/miband-------------------------------------------//
-    // GET miband
-    app.get('/api/miband', isLoggedIn, isAuthorized, async (req: Request, res: Response) => {
-        try {
-            serverResponse = await mibandCtrl.getData(req)
-            sendServerResponse(req,res,serverResponse)
-        }
-        catch (err) {
-            res.status(500)
-                .send(err)
-        }
-    })
-    // POST miband
-    app.post('/api/miband', isLoggedIn, isAuthorized, async (req: Request, res: Response) => {
-        try {
-            serverResponse = await mibandCtrl.postData(req)
-            sendServerResponse(req,res,serverResponse)
-        }
-        catch (err) {
-            res.status(500)
-                .send(err)
-        }
-    })
-
-    //------------------------------------------------------/api/patient-------------------------------------------//
-    // GET patient
-    app.get('/api/patient', isLoggedIn, isAuthorized, async (req: Request, res: Response) => {
-        try {
-            serverResponse = await patientCtrl.getPatient(req)
-            sendServerResponse(req,res,serverResponse)
-        }
-        catch (err) {
-            res.status(500)
-                .send(err)
-        }
-    })
-    // GET patient's doctor
-    app.get('/api/patient/doctor', isLoggedIn, isAuthorized, async (req: Request, res: Response) => {
-        try {
-            serverResponse = await patientCtrl.getPatientDoctor(req)
-            sendServerResponse(req,res,serverResponse)
-        }
-        catch (err) {
-            res.status(500)
-                .send(err)
-        }
-    })
-    //------------------------------------------------------/api/patient_survey-------------------------------------------//
-    // GET patient's survey
-    app.get('/api/patient_survey', isLoggedIn, isAuthorized, async (req: Request, res: Response) => {
-        try {
-            serverResponse = await patientSurveyCtrl.getPatientSurvey(req);
-            sendServerResponse(req,res,serverResponse)
-        }
-        catch (err) {
-            res.status(500)
-                .send(err)
-        }
-    })
-    // POST patient's survey
-    app.post('/api/patient_survey', isLoggedIn, isAuthorized, async (req: Request, res: Response) => {
-        try {
-            serverResponse = await patientSurveyCtrl.postPatientSurvey(req)
-            sendServerResponse(req,res,serverResponse)
-
-        }
-        catch (err) {
-            res.status(500)
-                .send(err)
-        }
-    })
-    // GET all the patient's surveys
-    app.get('/api/patient_survey/all', isLoggedIn, isAuthorized, async (req: Request, res: Response) => {
-        try {
-            serverResponse = await patientSurveyCtrl.getPatientSurveys(req)
-            sendServerResponse(req,res,serverResponse)
-        }
-        catch (err) {
-            res.status(500)
-                .send(err)
-        }
-    })
-
-    //------------------------------------------------------/api/survey-------------------------------------------//
-    // GET survey
-    app.get('/api/survey', isLoggedIn, isAuthorized, async (req: Request, res: Response) => {
-        try {
-            serverResponse = await surveyCtrl.getSurvey(req)
-            sendServerResponse(req,res,serverResponse)
-        }
-        catch (err) {
-            res.status(500)
-                .send(err)
-        }
-    })
-    // POST Survey
-    app.post('/api/survey', isLoggedIn, isAuthorized, async (req: Request, res: Response) => {
-        try {
-            serverResponse = await surveyCtrl.postSurvey(req)
-            sendServerResponse(req,res,serverResponse)
-        }
-        catch (err) {
-            res.status(500)
-                .send(err)
-        }
-    })
-
     //------------------------------------------------------/api/user-------------------------------------------//
     // GET user
     app.get('/api/user', async (req: Request, res: Response) => {
         try {
-            serverResponse = await userCtrl.getUser(req)
+            serverResponse = await accountManager.getUser(req)
             sendServerResponse(req,res,serverResponse)
         }
         catch (err) {
@@ -356,7 +177,7 @@ module.exports = function (app, passport) {
     // POST user
     app.post('/api/user', async (req: Request, res: Response) => {
         try {
-            serverResponse = await userCtrl.postUser(req)
+            serverResponse = await accountManager.postUser(req)
             sendServerResponse(req,res,serverResponse)
         }
         catch (err) {
@@ -402,3 +223,4 @@ module.exports = function (app, passport) {
 async function isAuthorized(req, res, next) {
 
     }
+

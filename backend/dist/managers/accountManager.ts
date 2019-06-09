@@ -1,15 +1,16 @@
+// import utils
 import * as bcrypt from "bcrypt"
-import { User } from "../models/user";
-import { CustomError } from "../models/customError"
-
 import { Request } from "express"
-import { TableManager } from "./tableManager";
+
+// import models and managers
+import { User, CustomError, Parent, Subject } from "../models/models";
+import { TableManager, ParentManager, SubjectManager } from "./managers";
 
 export class AccountManager extends TableManager {
 
     public async getUser(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM users WHERE username = $1'
+        this.sql = 'SELECT * FROM Users WHERE username = $1'
         this.params = [
             req.body.username
         ]
@@ -44,7 +45,7 @@ export class AccountManager extends TableManager {
         }
 
         // add user to the users table
-        this.sql = "INSERT INTO users ( username, password, email, firstName, lastName, role ) VALUES ($1,$2,$3,$4,$5,$6)"
+        this.sql = "INSERT INTO Users ( username, password, email, firstName, lastName, role ) VALUES ($1,$2,$3,$4,$5,$6)"
         this.params = [
             req.body.username,
             bcrypt.hashSync(req.body.password, 8),
@@ -59,11 +60,11 @@ export class AccountManager extends TableManager {
         if (!(this.result instanceof Error) && !(this.result instanceof CustomError)) {
             switch (req.body.role) {
                 case "STUDENT": {
-                    //statements
+                    this.result = this.checkParent(req)
                     break; 
                 }
                 case "TEACHER": {
-                    //statements; 
+                    //statements
                     break; 
                 }
                 case "PARENT": {
@@ -84,8 +85,23 @@ export class AccountManager extends TableManager {
                 }
             }
         }
+        return this.result
 
     }
+
+    private async checkParent(req:Request): Promise<any> {
+
+        let parentManager = new ParentManager;
+        this.result = await parentManager.getParent(req)
+        if (!(this.result instanceof Parent)) {
+            this.error = new CustomError(
+                "PARENT ERROR",
+                "Parent not found"
+            )
+        }
+        return this.result
+    }
+
 
     private checkUserRole (req:Request): any{
         switch (req.body.role) {

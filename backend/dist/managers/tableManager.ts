@@ -1,6 +1,6 @@
 
 import DbManager from "../dbmanager"
-import { CustomError } from "../models/customError"
+import { CustomError } from "../models/models"
 
 export abstract class TableManager {
 
@@ -13,6 +13,6 @@ export abstract class TableManager {
     // every table controller will return a result, wich could also be an error
     protected result: any = null
     // used to handle some errors caused from the program
-    protected error: CustomError = new CustomError()
+    protected error: CustomError = new CustomError('','')
 
 } 
