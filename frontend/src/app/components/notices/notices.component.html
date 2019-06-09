@@ -3,12 +3,37 @@
     <tr>
       <th scope="col">Title</th>
       <th scope="col">Body</th>
+      <th scope = "col">Type</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let notice of this.notices">
       <th scope="row">{{notice.title}}</th>
       <td>{{notice.body}}</td>
+      <td>Authorization</td>
+      <td><button class="btn btn-info" (click)="this.currentNotice = notice" data-toggle="modal" data-target="#noticeDetails">Open Specification</button></td>
     </tr>
   </tbody>
 </table>
+
+<div class="modal fade" id="noticeDetails" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h3>{{this.currentNotice.title}}</h3>
+          <p>{{this.currentNotice.body}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-info" data-dismiss="modal" data-toggle="modal"
+            data-target="#reply">Authorize</button>
+        </div>
+      </div>
+    </div>
+  </div>

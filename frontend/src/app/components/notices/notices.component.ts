@@ -11,11 +11,13 @@ import { LoginService } from 'src/app/services/login.service';
 export class NoticesComponent implements OnInit {
 
   private notices: Notice[];
+  private currentNotice: Notice;
 
   constructor(private noticesService: NoticesService, private loginService: LoginService) { }
 
   ngOnInit() {
     this.notices = this.noticesService.getNotices('student');
+    this.currentNotice = null;
   }
 
 }
