@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { CustomError } from './models/customError'
+import { CustomError } from './models/models'
 import * as managers from './managers/managers'
 import * as path from 'path'
 
@@ -224,3 +224,4 @@ async function isAuthorized(req, res, next) {
 
     }
 
+}
