@@ -2,15 +2,15 @@ import { ROLES } from './roles';
 
 export class Account{
 
-    private name: string;
-    private surname: string;
+    private firstname: string;
+    private lastname: string;
     private username: string;
     private password: string;
     private role: ROLES;
 
-    constructor(name: string, surname: string, username: string, password: string, role: ROLES){
-        this.name = name;
-        this.surname = surname;
+    constructor(firstname: string, lastname: string, username: string, password: string, role: ROLES){
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.username = username;
         this.password = password;
         this.role = role;
@@ -24,11 +24,15 @@ export class Account{
         this.password = password;
     }
 
-    public getName(){
-        return this.name;
+    public getFirstname(){
+        return this.firstname;
     }
 
-    public getSurname(){
-        return this.surname;
+    public getLastname(){
+        return this.lastname;
+    }
+
+    public getRole(){
+        return this.role;
     }
 }

@@ -9,8 +9,8 @@ export class AccountService {
   constructor() { }
 
   public createAccount(account: Account){
-    account.setUsername(this.generateUsername(account.getName(), account.getSurname()));
-    account.setPassword(this.generatePassword(account.getName(), account.getSurname()));
+    account.setUsername(this.generateUsername(account.getFirstname(), account.getLastname()));
+    account.setPassword(this.generatePassword(account.getFirstname(), account.getLastname()));
     console.log(account);
   }
 
