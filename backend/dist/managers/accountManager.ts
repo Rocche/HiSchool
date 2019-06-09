@@ -3,7 +3,7 @@ import * as bcrypt from "bcrypt"
 import { Request } from "express"
 
 // import models and managers
-import { User, CustomError, Parent, Subject } from "../models/models";
+import { User, UserAuth, CustomError, Parent, Subject } from "../models/models";
 import { TableManager, ParentManager, SubjectManager } from "./managers";
 
 export class AccountManager extends TableManager {
@@ -17,6 +17,26 @@ export class AccountManager extends TableManager {
         this.result = await this.dbManager.getQuery(this.sql, this.params)
         if (this.result.rowCount > 0) {
             let user = new User(
+                this.result.rows[0].username,
+                this.result.rows[0].email,
+                this.result.rows[0].role,
+                this.result.rows[0].firstName,
+                this.result.rows[0].lastName,
+            )
+            this.result = user
+        }
+        return this.result
+    }
+
+    public async getUserAuth(req: Request): Promise<any> {
+
+        this.sql = 'SELECT * FROM Users WHERE username = $1'
+        this.params = [
+            req.body.username
+        ]
+        this.result = await this.dbManager.getQuery(this.sql, this.params)
+        if (this.result.rowCount > 0) {
+            let user = new UserAuth(
                 this.result.rows[0].username,
                 this.result.rows[0].password,
                 this.result.rows[0].email,

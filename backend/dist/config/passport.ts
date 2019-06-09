@@ -1,6 +1,6 @@
 // load all the things we need
 import * as bcrypt from "bcrypt"
-import { SerializedUser, User, CustomError } from '../models/models'
+import { UserAuth, User, CustomError } from '../models/models'
 import { AccountManager } from '../managers/managers'
 var LocalStrategy = require('passport-local').Strategy
 
@@ -15,8 +15,11 @@ module.exports = function (passport) {
     // used to serialize the user for the session at login
     passport.serializeUser(function (user, done) {
         // remove hashed password from user's session information
-        let serializedUser = new SerializedUser(
+        let serializedUser = new User(
             user.username,
+            user.email,
+            user.fName,
+            user.lName,
             user.role
         )
         done(null, serializedUser)
@@ -40,12 +43,12 @@ module.exports = function (passport) {
             var accountManager = new AccountManager()
             try {
                 // find user in the database by username field
-                user = await accountManager.getUser(req)
+                user = await accountManager.getUserAuth(req)
             } catch (err) {
                 return done(err, false)
             }
             // check result has been correctly retrieved and elaborated from database
-            if (!user || !(user instanceof User)) {
+            if (!user || !(user instanceof UserAuth)) {
                 var error = new CustomError("LOGIN ERROR",'user not found')
                 return done(error, false)
             }
