@@ -22,6 +22,7 @@ const appRoutes: Routes = [
   { path: 'parent', component: TimetableComponent/*, canActivate: [PatientGuard] */},
   { path: 'secretary', component: TimetableComponent/*, canActivate: [PatientGuard]*/ },
   { path: 'admin', component: TimetableComponent/*, canActivate: [PatientGuard] */},
+  { path: 'teacher', component: TimetableComponent/*, canActivate: [PatientGuard] */},
   { path: 'notices', component: NoticesComponent },
   { path: 'send_notice', component: SendNoticeComponent },
   { path: 'create_account', component: CreateAccountComponent },

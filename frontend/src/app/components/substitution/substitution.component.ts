@@ -17,12 +17,8 @@ export class SubstitutionComponent implements OnInit {
     this.absences = this.absenceService.getAbsences();
   }
 
-  public confirmSubstitution(absence: TeacherAbsence){
-    this.absenceService.confirmSubstitution(absence);
-  }
-
-  public ignoreSubstitution(absence: TeacherAbsence){
-    this.absenceService.ignoreSubstitution(absence);
+  public setSubstitutionDisponibility(absence: TeacherAbsence, canSubstitute: boolean){
+    this.absenceService.setSubstitutionDisponibility(absence, canSubstitute);
   }
 
 }

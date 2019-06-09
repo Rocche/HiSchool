@@ -15,8 +15,8 @@
       <td>{{absence.date}}</td>
       <td>{{absence.hour}}</td>
       <td>{{absence.class}}</td>
-      <td><button class="btn btn-info" (click) = "confirmSubstitution(absence)">Confirm Substitution</button></td>
-      <td><button class="btn btn-danger" (click) = "ignoreSubstitution(absence)">Ignore Substitution</button></td>
+      <td><button class="btn btn-info" (click) = "setSubstitutionDisponibility(absence, true)">Confirm Substitution</button></td>
+      <td><button class="btn btn-danger" (click) = "setSubstitutionDisponibility(absence, false)">Ignore Substitution</button></td>
     </tr>
   </tbody>
 </table>

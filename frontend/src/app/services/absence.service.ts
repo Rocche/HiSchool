@@ -23,11 +23,9 @@ export class AbsenceService {
     return this.absences;
   }
 
-  public confirmSubstitution(absence: TeacherAbsence){
-    alert("substitution confirmed: " + absence.getDate() + ", " + absence.getHour() + ", " + absence.getClass());
+  public setSubstitutionDisponibility(absence: TeacherAbsence, canSubstitute: boolean){
+    let result = canSubstitute ? 'confirmed' : 'not confirmed';
+    alert("substitution " + result + ": " + absence.getDate() + ", " + absence.getHour() + ", " + absence.getClass());
   }
 
-  public ignoreSubstitution(absence: TeacherAbsence){
-    alert("substitution ignored: " + absence.getDate() + ", " + absence.getHour() + ", " + absence.getClass());
-  }
 }
