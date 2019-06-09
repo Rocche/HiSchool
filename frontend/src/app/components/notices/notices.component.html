@@ -11,7 +11,7 @@
     <tr *ngFor="let notice of this.notices">
       <th scope="row">{{notice.title}}</th>
       <td>{{notice.body}}</td>
-      <td>Authorization</td>
+      <td>{{notice.type}}</td>
       <td><button class="btn btn-info" (click)="this.currentNotice = notice" data-toggle="modal" data-target="#noticeDetails">Open Specification</button></td>
     </tr>
   </tbody>
@@ -29,11 +29,15 @@
           <h3>{{this.currentNotice.title}}</h3>
           <p>{{this.currentNotice.body}}</p>
         </div>
-        <div class="modal-footer">
+        <div *ngIf="this.currentNotice.type == 'authorization'" class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-info" data-dismiss="modal" data-toggle="modal"
-            data-target="#reply">Authorize</button>
+          <button type="button" class="btn btn-info" data-dismiss="modal" (click)="setNoticeAuthorization(true)">Authorize</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="setNoticeAuthorization(false)">Do Not Authorize</button>
         </div>
+        <div *ngIf="this.currentNotice.type == 'normal'" class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-info" data-dismiss="modal">Ok</button>
+          </div>
       </div>
     </div>
   </div>

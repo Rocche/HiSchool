@@ -17,7 +17,10 @@ export class NoticesComponent implements OnInit {
 
   ngOnInit() {
     this.notices = this.noticesService.getNotices('student');
-    this.currentNotice = null;
+    this.currentNotice = new Notice(null, null, null, null);
   }
 
+  public setNoticeAuthorization(authorized: boolean){
+    this.noticesService.setNoticeAuthorization(this.currentNotice, authorized);
+  }
 }

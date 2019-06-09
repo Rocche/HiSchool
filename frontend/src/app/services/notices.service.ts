@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Notice } from '../models/Notice';
+import { NOTICE_TYPES } from '../models/noticeTypes';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,9 @@ export class NoticesService {
 
   constructor() {
     this.notices = [
-      new Notice('student', 'School meeting', 'We inform students that bla bla bla...'),
-      new Notice('student', 'School bomb', 'We inform students that bla bla bla...'),
-      new Notice('student', 'School SBANF', 'We inform students that bla bla bla...')
+      new Notice('student', 'School meeting', 'We inform students that bla bla bla...', NOTICE_TYPES.authorization),
+      new Notice('student', 'School bomb', 'We inform students that bla bla bla...', NOTICE_TYPES.authorization),
+      new Notice('student', 'School SBANF', 'We inform students that bla bla bla...', NOTICE_TYPES.normal)
     ]
   }
 
@@ -22,5 +23,10 @@ export class NoticesService {
 
   public sendNotice(notice: Notice){
     console.log(notice);
+  }
+
+  public setNoticeAuthorization(notice: Notice, authorized: boolean){
+    let result = authorized ? 'Notice authorized' : 'Notice not authorized';
+    alert(result + ": " + notice.getTitle());
   }
 }
