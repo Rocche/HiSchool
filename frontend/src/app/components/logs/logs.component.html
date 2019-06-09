@@ -1,0 +1,15 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Sender</th>
+        <th scope="col">Body</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let log of this.logs">
+        <td>{{log.sender}}</td>
+        <td>{{log.body}}</td>
+      </tr>
+    </tbody>
+  </table>

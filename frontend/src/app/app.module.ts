@@ -15,6 +15,7 @@ import { CreateAccountComponent } from './components/create-account/create-accou
 import { AbsenceComponent } from './components/absence/absence.component';
 import { SubstitutionComponent } from './components/substitution/substitution.component';
 import { NoticeboardComponent } from './components/noticeboard/noticeboard.component';
+import { LogsComponent } from './components/logs/logs.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent},
@@ -28,7 +29,8 @@ const appRoutes: Routes = [
   { path: 'create_account', component: CreateAccountComponent },
   { path: 'absence', component: AbsenceComponent },
   { path: 'substitutions', component: SubstitutionComponent },
-  { path: 'noticeboard', component: NoticeboardComponent }
+  { path: 'noticeboard', component: NoticeboardComponent },
+  { path: 'logs', component: LogsComponent }
 ];
 
 @NgModule({
@@ -42,7 +44,8 @@ const appRoutes: Routes = [
     CreateAccountComponent,
     AbsenceComponent,
     SubstitutionComponent,
-    NoticeboardComponent
+    NoticeboardComponent,
+    LogsComponent
   ],
   imports: [
     RouterModule.forRoot(
