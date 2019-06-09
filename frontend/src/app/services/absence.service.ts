@@ -22,4 +22,12 @@ export class AbsenceService {
   public getAbsences(): TeacherAbsence[]{
     return this.absences;
   }
+
+  public confirmSubstitution(absence: TeacherAbsence){
+    alert("substitution confirmed: " + absence.getDate() + ", " + absence.getHour() + ", " + absence.getClass());
+  }
+
+  public ignoreSubstitution(absence: TeacherAbsence){
+    alert("substitution ignored: " + absence.getDate() + ", " + absence.getHour() + ", " + absence.getClass());
+  }
 }
