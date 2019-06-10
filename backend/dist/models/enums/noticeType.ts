@@ -1,6 +1,6 @@
 export enum NoticeType {
 
-    Standard,
-    Authorization
+    Standard = "Standard",
+    Authorization = "Authorization"
     
 }

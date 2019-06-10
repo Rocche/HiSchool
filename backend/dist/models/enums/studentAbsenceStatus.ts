@@ -1,6 +1,6 @@
 export enum StudentAbsenceStatus {
     
-    Justified,
-    Unjustified
+    Justified = "Justified",
+    Unjustified = "Unjustified"
     
 }

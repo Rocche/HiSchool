@@ -1,8 +1,8 @@
 export enum NoticeStatus {
 
-    Signed,
-    Unsigned,
-    Authorized,
-    Unauthorized
+    Signed = "Signed",
+    Unsigned = "Unsigned",
+    Authorized = "Authorized",
+    Unauthorized = "Unauthorized"
     
 }

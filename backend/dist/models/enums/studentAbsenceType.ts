@@ -1,7 +1,7 @@
 export enum StudentAbsenceType {
 
-    StandardAbsence,
-    LateEntrance,
-    EarlyExit
+    StandardAbsence = "StandardAbsence",
+    LateEntrance = "LateEntrance",
+    EarlyExit = "EarlyExit"
 
 }
