@@ -16,6 +16,7 @@ import { AbsenceComponent } from './components/absence/absence.component';
 import { SubstitutionComponent } from './components/substitution/substitution.component';
 import { NoticeboardComponent } from './components/noticeboard/noticeboard.component';
 import { LogsComponent } from './components/logs/logs.component';
+import { ReserveMeetingComponent } from './components/reserve-meeting/reserve-meeting.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent},
@@ -30,7 +31,8 @@ const appRoutes: Routes = [
   { path: 'absence', component: AbsenceComponent },
   { path: 'substitutions', component: SubstitutionComponent },
   { path: 'noticeboard', component: NoticeboardComponent },
-  { path: 'logs', component: LogsComponent }
+  { path: 'logs', component: LogsComponent },
+  { path: 'reserve_meeting', component: ReserveMeetingComponent }
 ];
 
 @NgModule({
@@ -45,7 +47,8 @@ const appRoutes: Routes = [
     AbsenceComponent,
     SubstitutionComponent,
     NoticeboardComponent,
-    LogsComponent
+    LogsComponent,
+    ReserveMeetingComponent
   ],
   imports: [
     RouterModule.forRoot(

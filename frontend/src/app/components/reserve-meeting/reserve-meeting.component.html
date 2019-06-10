@@ -1,0 +1,24 @@
+<div class="form-group input-group">
+  <input name="teacher" class="form-control" placeholder="Insert Teacher" type="text"
+      [(ngModel)]="this.selectedTeacher">
+  <button class="btn btn-info" (click)="getTeacherMeetingHours()">Search</button>
+</div>
+
+<table class="table" *ngIf="this.meetingHours != null">
+  <thead>
+    <tr>
+      <th scope="col">Teacher</th>
+      <th scope="col">Day of Week</th>
+      <th scope = "col">Hour</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let meetingHour of this.meetingHours">
+      <th scope="row">{{meetingHour.teacher}}</th>
+      <td>{{meetingHour.dayOfWeek}}</td>
+      <td>{{meetingHour.hour}}</td>
+      <td><button class="btn btn-info">Reserve</button></td>
+    </tr>
+  </tbody>
+</table>
