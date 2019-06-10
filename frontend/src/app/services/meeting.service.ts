@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MeetingHour } from '../models/MeetingHour';
 import { Meeting } from '../models/Meeting';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,8 @@ export class MeetingService {
     return this.meetingHours;
   }
 
-  public reserveMeeting(meeting: Meeting){
-    alert("Meeting reserved: " + meeting.getDate() + meeting.getHour());
+  public reserveMeeting(meeting: MeetingHour){
+    alert("Meeting reserved: " + meeting.getDay() + meeting.getHour());
   }
+
 }

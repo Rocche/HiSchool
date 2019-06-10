@@ -9,4 +9,16 @@ export class MeetingHour{
         this.hour = hour;
         this.teacher = teacher;
     }
+
+    public getDay(){
+        return this.dayOfWeek;
+    }
+
+    public getHour(){
+        return this.hour;
+    }
+
+    public getTeacher(){
+        return this.teacher;
+    }
 }
