@@ -1,7 +1,7 @@
-import { Subject } from '../models/models'
+import { Subject } from '../../models/models'
 
 import { Request } from "express"
-import { TableManager, ParentManager } from "./managers";
+import { TableManager, ParentManager } from "../managers";
 
 export class SubjectManager extends TableManager {
 

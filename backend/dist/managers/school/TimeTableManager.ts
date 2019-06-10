@@ -1,6 +1,6 @@
 import { Request } from "express"
-import { TableManager } from "./tableManager";
-import { LessonHour } from "../models/models";
+import { TableManager } from "../utils/tableManager";
+import { LessonHour } from "../../models/models";
 
 export class TimeTableManager extends TableManager {
 

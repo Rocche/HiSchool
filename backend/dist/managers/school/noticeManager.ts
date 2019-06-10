@@ -1,8 +1,8 @@
 import { v4 as uuid } from 'uuid';
-import { Notice, PersonalNotice } from '../models/models'
+import { Notice, PersonalNotice } from '../../models/models'
 
 import { Request } from "express"
-import { TableManager } from "./tableManager";
+import { TableManager } from "../tableManager";
 
 export class NoticeManager extends TableManager {
 

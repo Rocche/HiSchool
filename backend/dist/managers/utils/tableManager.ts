@@ -1,6 +1,6 @@
 
-import DbManager from "../dbmanager"
-import { CustomError } from "../models/models"
+import DbManager from "../../dbmanager"
+import { CustomError } from "../../models/models"
 
 export abstract class TableManager {
 

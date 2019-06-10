@@ -25,3 +25,10 @@ export * from './school/subject'
 export * from './school/lessonHour'
 export * from './school/notice'
 export * from './school/personalNotice'
+export * from './school/teacherAbsence'
+export * from './school/meeting'
+export * from './school/meetingHour'
+
+// others
+export * from './others/log'
+export * from './others/report'

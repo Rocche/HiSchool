@@ -3,8 +3,8 @@ import * as bcrypt from "bcrypt"
 import { Request } from "express"
 
 // import models and managers
-import { User, UserAuth, CustomError, Parent, Subject } from "../models/models";
-import { TableManager, ParentManager, SubjectManager } from "./managers";
+import { User, UserAuth, CustomError, Parent, Subject, Student } from "../../models/models";
+import { TableManager, ParentManager, StudentManager, TeacherManager } from "../managers";
 
 export class AccountManager extends TableManager {
 
@@ -25,28 +25,39 @@ export class AccountManager extends TableManager {
             )
             this.result = user
         }
-        return this.result
-    }
-
-    public async getUserAuth(req: Request): Promise<any> {
-
-        this.sql = 'SELECT * FROM Users WHERE username = $1'
-        this.params = [
-            req.body.username
-        ]
-        this.result = await this.dbManager.getQuery(this.sql, this.params)
-        if (this.result.rowCount > 0) {
-            let user = new UserAuth(
-                this.result.rows[0].username,
-                this.result.rows[0].password,
-                this.result.rows[0].email,
-                this.result.rows[0].role,
-                this.result.rows[0].firstName,
-                this.result.rows[0].lastName,
-            )
-            this.result = user
+        // get addictional user information from the right table
+        if (!(this.result instanceof Error) && !(this.result instanceof CustomError)) {
+            switch (this.result.role) {
+                case "STUDENT": {
+                    let studentManager = new StudentManager();
+                    this.result = await studentManager.getStudent(this.result)
+                    break;
+                }
+                case "TEACHER": {
+                    let teacherManager = new TeacherManager();
+                    this.result = await teacherManager.getTeacher(this.result)
+                    break;
+                }
+                case "PARENT": {
+                    let parentManager = new ParentManager()
+                    this.result = await parentManager.getParent(this.result)
+                    break;
+                }
+                case "SECRETARY": {
+                    //statements; 
+                    break;
+                }
+                case "ADMINISTRATOR": {
+                    //statements; 
+                    break;
+                } default: {
+                    this.error.name = "ROLE ERROR"
+                    this.error.details = "user role incorrect"
+                    return this.error
+                }
+            }
+            return this.result
         }
-        return this.result
     }
 
     public async postUser(req: Request): Promise<any> {
@@ -80,24 +91,35 @@ export class AccountManager extends TableManager {
         if (!(this.result instanceof Error) && !(this.result instanceof CustomError)) {
             switch (req.body.role) {
                 case "STUDENT": {
-                    this.result = this.checkParent(req)
-                    break; 
+                    let user = new User(
+                        req.body.username,
+                        req.body.email,
+                        req.body.firstName,
+                        req.body.lastName,
+                        req.body.role
+                    )
+                    this.result = this.checkParent(user)
+                    let studentManager = new StudentManager()
+                    this.result = await studentManager.postStudent(req)
+                    break;
                 }
                 case "TEACHER": {
-                    //statements
-                    break; 
+                    let teacherManager = new TeacherManager()
+                    this.result = await teacherManager.postTeacher(req)
+                    break;
                 }
                 case "PARENT": {
-                    //statements; 
-                    break; 
+                    let parentManager = new ParentManager()
+                    this.result = await parentManager.postParent(req) 
+                    break;
                 }
                 case "SECRETARY": {
                     //statements; 
-                    break; 
+                    break;
                 }
                 case "ADMINISTRATOR": {
                     //statements; 
-                    break; 
+                    break;
                 } default: {
                     this.error.name = "ROLE ERROR"
                     this.error.details = "user role incorrect"
@@ -109,10 +131,10 @@ export class AccountManager extends TableManager {
 
     }
 
-    private async checkParent(req:Request): Promise<any> {
+    private async checkParent(user: User): Promise<any> {
 
         let parentManager = new ParentManager;
-        this.result = await parentManager.getParent(req)
+        this.result = await parentManager.getParent(user)
         if (!(this.result instanceof Parent)) {
             this.error = new CustomError(
                 "PARENT ERROR",
@@ -123,27 +145,27 @@ export class AccountManager extends TableManager {
     }
 
 
-    private checkUserRole (req:Request): any{
+    private checkUserRole(req: Request): any {
         switch (req.body.role) {
             case "STUDENT": {
                 //statements
-                break; 
+                break;
             }
             case "TEACHER": {
                 //statements; 
-                break; 
+                break;
             }
             case "PARENT": {
                 //statements; 
-                break; 
+                break;
             }
             case "SECRETARY": {
                 //statements; 
-                break; 
+                break;
             }
             case "ADMINISTRATOR": {
                 //statements; 
-                break; 
+                break;
             } default: {
                 this.error.name = "ROLE ERROR"
                 this.error.details = "user role incorrect"
@@ -153,4 +175,25 @@ export class AccountManager extends TableManager {
         return null
     }
 
+    public async getUserAuth(req: Request): Promise<any> {
+
+        this.sql = 'SELECT * FROM Users WHERE username = $1'
+        this.params = [
+            req.body.username
+        ]
+        this.result = await this.dbManager.getQuery(this.sql, this.params)
+        if (this.result.rowCount > 0) {
+            let user = new UserAuth(
+                this.result.rows[0].username,
+                this.result.rows[0].password,
+                this.result.rows[0].email,
+                this.result.rows[0].role,
+                this.result.rows[0].firstName,
+                this.result.rows[0].lastName,
+            )
+            this.result = user
+        }
+        return this.result
+    }
+    
 }
