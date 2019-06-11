@@ -1,17 +1,15 @@
+import { MeetingHour } from './MeetingHour';
+
 export class Meeting{
 
     private date: string;
-    private hour: number;
-    private dayOfWeek: number;
-    private teacher: string;
     private parent: string;
+    private meetingHour: MeetingHour;
 
-    constructor(date: string, hour: number, dayOfWeek: number, teacher: string, parent: string){
+    constructor(date: string, parent: string, meetingHour: MeetingHour){
         this.date = date;
-        this.hour = hour;
-        this.dayOfWeek = dayOfWeek;
-        this.teacher = teacher;
         this.parent = parent;
+        this.meetingHour = meetingHour;
     }
 
     public getDate(){
@@ -19,6 +17,6 @@ export class Meeting{
     }
 
     public getHour(){
-        return this.hour;
+        return this.meetingHour.getHour();
     }
 }

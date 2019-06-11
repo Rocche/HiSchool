@@ -17,8 +17,8 @@ export class MeetingService {
       new MeetingHour(6, 1, 'Gagliardi')
     ];
     this.meetings = [
-      new Meeting('2019-06-10', 3, 4, 'teacher', 'parent'),
-      new Meeting('2019-06-8', 1, 1, 'teacher2', 'parent2'),
+      new Meeting('2019-06-10', 'parent', this.meetingHours[0]),
+      new Meeting('2019-06-8', 'parent2', this.meetingHours[1]),
     ]
    }
 
