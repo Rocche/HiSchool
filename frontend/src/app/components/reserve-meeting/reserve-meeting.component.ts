@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MeetingHour } from 'src/app/models/MeetingHour';
 import { MeetingService } from 'src/app/services/meeting.service';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-reserve-meeting',
@@ -17,11 +18,19 @@ export class ReserveMeetingComponent implements OnInit {
   constructor(private meetingService: MeetingService) { }
 
   ngOnInit() {
-    this.markDisabled = (date: NgbDate) => date.day >= 6;
+    
   }
 
   public getTeacherMeetingHours(){
-    this.meetingHours = this.meetingService.getTeacherMeetingHours(this.selectedTeacher);
+    this.meetingHours = this.meetingService.getTeacherMeetingHours(this.selectedTeacher);let availableDays = [];
+    this.meetingHours.forEach((meetingHour: MeetingHour) => {
+      availableDays.push(meetingHour.getDay());
+    })
+    console.log(availableDays)
+    this.markDisabled = (date: NgbDate) => {
+      let d = moment(date.year + "-" + date.month + "-" + date.day);
+      return !availableDays.includes(d.day());
+    }
   }
 
   public reserveMeeting(meetinghour: MeetingHour){
