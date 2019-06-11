@@ -17,4 +17,7 @@ export class MeetingtableComponent implements OnInit {
     this.meetings = this.meetingService.getMeetings('teacher');
   }
 
+  public dismiss(meeting: Meeting){
+    this.meetingService.dismissMeeting(meeting);
+  }
 }

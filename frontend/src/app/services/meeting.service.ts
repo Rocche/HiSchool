@@ -34,4 +34,8 @@ export class MeetingService {
     return this.meetings;
   }
 
+  public dismissMeeting(meeting: Meeting){
+    alert('Meeting dismissed: ' + ', ' + meeting.getDate() + ', ' +  meeting.getHour());
+  }
+
 }
