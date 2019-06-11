@@ -31,12 +31,12 @@
         </div>
         <div *ngIf="this.currentNotice.type == 'authorization'" class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-info" data-dismiss="modal" (click)="setNoticeAuthorization(true)">Authorize</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="setNoticeAuthorization(false)">Do Not Authorize</button>
+          <button  *ngIf="this.role != 'student'" type="button" class="btn btn-info" data-dismiss="modal" (click)="setNoticeAuthorization(true)">Authorize</button>
+          <button *ngIf="this.role != 'student'" type="button" class="btn btn-danger" data-dismiss="modal" (click)="setNoticeAuthorization(false)">Do Not Authorize</button>
         </div>
         <div *ngIf="this.currentNotice.type == 'normal'" class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-info" data-dismiss="modal">Ok</button>
+            <button *ngIf="this.role != 'student'" type="button" class="btn btn-info" data-dismiss="modal">Ok</button>
           </div>
       </div>
     </div>

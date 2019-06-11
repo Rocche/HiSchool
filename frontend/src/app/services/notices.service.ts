@@ -22,7 +22,7 @@ export class NoticesService {
   }
 
   public sendNotice(notice: Notice){
-    console.log(notice);
+    alert(notice);
   }
 
   public setNoticeAuthorization(notice: Notice, authorized: boolean){
