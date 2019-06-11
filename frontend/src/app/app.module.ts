@@ -17,6 +17,7 @@ import { SubstitutionComponent } from './components/substitution/substitution.co
 import { NoticeboardComponent } from './components/noticeboard/noticeboard.component';
 import { LogsComponent } from './components/logs/logs.component';
 import { ReserveMeetingComponent } from './components/reserve-meeting/reserve-meeting.component';
+import { MeetingtableComponent } from './components/meetingtable/meetingtable.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent},
@@ -32,7 +33,8 @@ const appRoutes: Routes = [
   { path: 'substitutions', component: SubstitutionComponent },
   { path: 'noticeboard', component: NoticeboardComponent },
   { path: 'logs', component: LogsComponent },
-  { path: 'reserve_meeting', component: ReserveMeetingComponent }
+  { path: 'reserve_meeting', component: ReserveMeetingComponent },
+  { path: 'meeting_table', component: MeetingtableComponent }
 ];
 
 @NgModule({
@@ -48,7 +50,8 @@ const appRoutes: Routes = [
     SubstitutionComponent,
     NoticeboardComponent,
     LogsComponent,
-    ReserveMeetingComponent
+    ReserveMeetingComponent,
+    MeetingtableComponent
   ],
   imports: [
     RouterModule.forRoot(

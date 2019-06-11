@@ -4,14 +4,14 @@ export class Meeting{
     private hour: number;
     private dayOfWeek: number;
     private teacher: string;
-    private parents: string[];
+    private parent: string;
 
-    constructor(date: string, hour: number, dayOfWeek: number, teacher: string, parents: string[]){
+    constructor(date: string, hour: number, dayOfWeek: number, teacher: string, parent: string){
         this.date = date;
         this.hour = hour;
         this.dayOfWeek = dayOfWeek;
         this.teacher = teacher;
-        this.parents = parents;
+        this.parent = parent;
     }
 
     public getDate(){
