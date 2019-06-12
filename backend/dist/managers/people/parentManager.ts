@@ -1,7 +1,8 @@
-import { Parent, User } from "../../models/models"
+import { Parent, User, Role } from "../../models/models"
 
 import { Request } from "express"
 import { TableManager } from "../managers";
+import { AccountManager } from "../utils/accountManager";
 
 export class ParentManager extends TableManager {
 
@@ -13,13 +14,22 @@ export class ParentManager extends TableManager {
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
         if (this.result.rowCount > 0) {
+            // get sons information
+            let accountManager = new AccountManager()
+            let sons = []
+            let req: Request;
+            this.result.rows[0].sons.forEach(async son => {
+                req.body.username = son;
+                req.body.role = Role.STUDENT
+                sons.push(await accountManager.getUser(req))
+            });
             let parent = new Parent(
                 user.username,
                 user.email,
                 user.role,
                 user.firstName,
                 user.lastName,
-                this.result.rows[0].sons
+                sons
             )
             this.result = parent
         }
@@ -28,10 +38,9 @@ export class ParentManager extends TableManager {
 
     public async postParent(req: Request): Promise<any> {
 
-        this.sql = 'INSERT INTO Parents ( username, sons ) VALUES ($1,$2)'
+        this.sql = 'INSERT INTO Parents ( username ) VALUES ($1)'
         this.params = [
             req.body.username,
-            req.body.sons
         ]
         this.result = await this.dbManager.postQuery(this.sql, this.params)
         return this.result

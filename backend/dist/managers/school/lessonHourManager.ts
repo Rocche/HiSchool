@@ -2,6 +2,7 @@ import { Request } from "express"
 import { TableManager } from "../utils/tableManager";
 import { LessonHour, Role } from "../../models/models";
 import { AccountManager } from "../utils/accountManager";
+import { SubjectManager } from "./subjectManager";
 
 export class LessonHourManager extends TableManager {
 
@@ -19,12 +20,16 @@ export class LessonHourManager extends TableManager {
             req.body.username = this.result.rows[0].teacher
             req.body.role = Role.TEACHER
             let teacher = await accountManager.getUser(req)
+            // get subject information
+            let subjectManager = new SubjectManager()
+            req.body.ID = this.result.rows[0].subject
+            let subject = await subjectManager.getSubject(req)
             // create lessonHour
             let lessonHour = new LessonHour(
                 this.result.rows[0].ID,
                 this.result.rows[0].class,
                 teacher,
-                this.result.rows[0].subject,
+                subject,
                 this.result.rows[0].dayOfWeek,
                 this.result.rows[0].hour
             )

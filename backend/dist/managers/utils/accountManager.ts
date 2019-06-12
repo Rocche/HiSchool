@@ -3,9 +3,8 @@ import * as bcrypt from "bcrypt"
 import { Request } from "express"
 
 // import models and managers
-import { User, UserAuth, CustomError, Parent, Subject, Student } from "../../models/models";
+import { User, UserAuth, CustomError, Parent } from "../../models/models";
 import { TableManager, ParentManager, StudentManager, TeacherManager } from "../managers";
-import { PersonalNoticeManager } from "../school/personalNoticeManager";
 
 export class AccountManager extends TableManager {
 
@@ -20,9 +19,9 @@ export class AccountManager extends TableManager {
             let user = new User(
                 this.result.rows[0].username,
                 this.result.rows[0].email,
-                this.result.rows[0].role,
                 this.result.rows[0].firstName,
                 this.result.rows[0].lastName,
+                this.result.rows[0].role
             )
             this.result = user
         }
@@ -70,10 +69,11 @@ export class AccountManager extends TableManager {
         }
 
         // check if the user is already on the db
-        if (this.getUser(req.body.username) instanceof User) {
+        this.result = await this.getUser(req)
+        if (this.result instanceof User) {
             this.error.name = "DB ERROR"
             this.error.details = "user already present in the database"
-            return false
+            return this.error
         }
 
         // add user to the users table
@@ -191,9 +191,9 @@ export class AccountManager extends TableManager {
                 this.result.rows[0].username,
                 this.result.rows[0].password,
                 this.result.rows[0].email,
-                this.result.rows[0].role,
                 this.result.rows[0].firstName,
                 this.result.rows[0].lastName,
+                this.result.rows[0].role
             )
             this.result = user
         }

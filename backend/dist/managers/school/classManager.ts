@@ -8,15 +8,14 @@ export class ClassManager extends TableManager {
 
     public async getClass(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM Classes WHERE year = $1, section = $2, branch = $3'
+        this.sql = 'SELECT * FROM Classes WHERE ID = $1'
         this.params = [
-            req.body.year,
-            req.body.section,
-            req.body.branch
+            req.body.ID
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
         if (this.result.rowCount > 0) {
             let cl = new Class(
+                this.result.rows[0].ID,
                 this.result.rows[0].year,
                 this.result.rows[0].section,
                 this.result.rows[0].branch
@@ -35,6 +34,7 @@ export class ClassManager extends TableManager {
             let classesArray = []
             for (let row of this.result.rows) {
                 let cl = new Class(
+                    row.ID,
                     row.year,
                     row.section,
                     row.branch

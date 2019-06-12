@@ -18,7 +18,7 @@ export class TeacherAbsenceManager extends TableManager {
 
         if (this.result.rowCount > 0) {
             // get lessonHour information
-            let lessonHourManager =  new LessonHourManager()
+            let lessonHourManager = new LessonHourManager()
             req.body.ID = this.result.rows[0].lessonHour
             let lessonHour = await lessonHourManager.getLessonHour(req)
             // get substitute teacher information
@@ -38,26 +38,6 @@ export class TeacherAbsenceManager extends TableManager {
         return this.result
     }
 
-    public async postTeacherAbsence(req: Request): Promise<any> {
-        
-        let teacherAbsenceID = uuid()
-        this.sql = 'INSERT INTO TeacherAbsences ( ID, teacher, date, lessonHour, substitute ) VALUES ($1,$2,$3,$4, $5)'
-        this.params = [
-            teacherAbsenceID,
-            req.body.teacher,
-            req.body.date,
-            req.body.lessonHour,
-            'nobody'
-        ]
-        this.result = await this.dbManager.postQuery(this.sql, this.params)
-        
-        // send absence notice
-        req.body.ID = teacherAbsenceID
-        this.result = await this.sendAbsenceNotice(req)
-        
-        return this.result
-    }
-
     public async getTeacherAbsences(req: Request): Promise<any> {
 
         this.sql = 'SELECT * FROM TeacherAbsences'
@@ -69,7 +49,7 @@ export class TeacherAbsenceManager extends TableManager {
         if (this.result.rowCount > 0) {
 
             let teacherAbsencesArray = []
-            let lessonHourManager =  new LessonHourManager()
+            let lessonHourManager = new LessonHourManager()
             let accountManager = new AccountManager();
 
             for (let row of this.result.rows) {
@@ -88,9 +68,29 @@ export class TeacherAbsenceManager extends TableManager {
                     substitute
                 )
                 teacherAbsencesArray.push(teacherAbsence)
-            }       
+            }
             this.result = teacherAbsencesArray
         }
+        return this.result
+    }
+
+    public async postTeacherAbsence(req: Request): Promise<any> {
+
+        let teacherAbsenceID = uuid()
+        this.sql = 'INSERT INTO TeacherAbsences ( ID, teacher, date, lessonHour, substitute ) VALUES ($1,$2,$3,$4, $5)'
+        this.params = [
+            teacherAbsenceID,
+            req.body.teacher,
+            req.body.date,
+            req.body.lessonHour,
+            'nobody'
+        ]
+        this.result = await this.dbManager.postQuery(this.sql, this.params)
+
+        // send absence notice
+        req.body.ID = teacherAbsenceID
+        this.result = await this.sendAbsenceNotice(req)
+
         return this.result
     }
 
@@ -102,10 +102,10 @@ export class TeacherAbsenceManager extends TableManager {
             req.body.ID
         ]
         this.result = await this.dbManager.updateQuery(this.sql, this.params)
-        
+
         // send substitution notices
         this.result = await this.sendSubstitutionNotice(req)
-        
+
         return this.result
     }
 
@@ -119,10 +119,10 @@ export class TeacherAbsenceManager extends TableManager {
         req.body.date = Date.now();
         req.body.type = NoticeType.Standard
         req.body.title = 'SUBSTITUTION'
-        req.body.body = "The lesson of date " + teacherAbsence.date + 
-                        " and hour " + teacherAbsence.lessonHour.hour +
-                        " will be cancelled due to a teacher absence."
-        let classManager = new ClassManager()
+        req.body.body = "The lesson of date " + teacherAbsence.date +
+            " and hour " + teacherAbsence.lessonHour.hour +
+            " will be cancelled due to a teacher absence."
+        let classManager = new ClassManager();
         req.body.class = teacherAbsence.lessonHour.class
         let classStudents = await classManager.getClassStudents(req)
         req.body.targets = classStudents
@@ -140,11 +140,11 @@ export class TeacherAbsenceManager extends TableManager {
         req.body.date = Date.now();
         req.body.type = NoticeType.Standard
         req.body.title = 'SUBSTITUTION'
-        req.body.body = "The lesson of date " + teacherAbsence.date + 
-                        " and hour " + teacherAbsence.lessonHour.hour +
-                        " will be substituted by " + teacherAbsence.substitute.firstName +
-                        " " + teacherAbsence.substitute.lastName + 
-                        "."
+        req.body.body = "The lesson of date " + teacherAbsence.date +
+            " and hour " + teacherAbsence.lessonHour.hour +
+            " will be substituted by " + teacherAbsence.substitute.firstName +
+            " " + teacherAbsence.substitute.lastName +
+            "."
         let classManager = new ClassManager()
         req.body.class = teacherAbsence.lessonHour.class
         let classStudents = await classManager.getClassStudents(req)

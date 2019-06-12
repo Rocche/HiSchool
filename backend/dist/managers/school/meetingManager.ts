@@ -109,7 +109,7 @@ export class MeetingManager extends TableManager {
     private async sendMeetingRequestNotice(req: Request): Promise<any> {
 
         // post a new notice regarding the new meeting request
-        // create notice information
+        // create notice
         let noticeManager = new NoticeManager();
         req.body.date = Date.now();
         req.body.type = NoticeType.Standard
@@ -120,8 +120,8 @@ export class MeetingManager extends TableManager {
                         " and hour " + req.body.meetingHour.hour +
                         ".";
         req.body.targets = [req.body.meetingHour.teacher.username]
-        await noticeManager.postNotice(req)
-
+        this.result = await noticeManager.postNotice(req)
+        return this.result
     }
 
     private async sendMeetingCancellationNotice(req: Request): Promise<any> {
@@ -129,7 +129,7 @@ export class MeetingManager extends TableManager {
         // post a new notice regarding the meeting cancellation
         // get meeting information
         let meeting = await this.getMeeting(req)
-        // create notice information
+        // create notice
         let noticeManager = new NoticeManager();
         req.body.date = Date.now();
         req.body.type = NoticeType.Standard
@@ -140,7 +140,7 @@ export class MeetingManager extends TableManager {
                         " and hour " + meeting.meetingHour.hour +
                         ".";
         req.body.targets = [meeting.parent.username]
-        await noticeManager.postNotice(req)
-
+        this.result = await noticeManager.postNotice(req)
+        return this.result
     }
 }
