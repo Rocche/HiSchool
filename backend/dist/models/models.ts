@@ -30,5 +30,5 @@ export * from './school/meeting'
 export * from './school/meetingHour'
 
 // others
-export * from './others/log'
-export * from './others/report'
+export * from './logs/log'
+export * from './logs/report'

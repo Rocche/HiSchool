@@ -41,9 +41,7 @@ export class TeacherAbsenceManager extends TableManager {
     public async getTeacherAbsences(req: Request): Promise<any> {
 
         this.sql = 'SELECT * FROM TeacherAbsences'
-        this.params = [
-            req.body.ID
-        ]
+        this.params = []
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
         if (this.result.rowCount > 0) {

@@ -1,6 +1,6 @@
 // others
-export * from './others/logManager'
-export * from './others/reportManager'
+export * from './logs/logManager'
+export * from './logs/reportManager'
 
 // people
 export * from './people/studentManager'
