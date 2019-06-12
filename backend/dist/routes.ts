@@ -9,7 +9,16 @@ module.exports = function (app, passport) {
     var serverResponse: any
 
     // initialize all the tables managers
-    var accountManager = new managers.AccountManager
+    var accountManager = new managers.AccountManager;
+    var noticeManager = new managers.NoticeManager;
+    var personalNoticeManager = new managers.PersonalNoticeManager;
+    var logManager = new managers.LogManager;
+    var reportManager = new managers.ReportManager;
+    var lessonHourManager = new managers.LessonHourManager;
+    var timeTableManager = new managers.TimeTableManager;
+    var teacherAbsenceManager = new managers.TeacherAbsenceManager;
+    var meetingHourManager = new managers.MeetingHourManager;
+    var meetingManager = new managers.MeetingManager;
 
     //------------------------ UNAUTHORIZED RESPONSE MESSAGES --------------------------//
     function sendUnauthorizedResponse(res: Response) {
@@ -75,6 +84,30 @@ module.exports = function (app, passport) {
                 }
                 // else, return standar error message
                 res.status(500).send({ ErrorMessage: stdPostErrMsg })
+                return
+            }
+            //------------------------UPDATE RESPONSE MESSAGES--------------------------//
+            case 'UPDATE': {
+                // standard response messages
+                let stdUpdateErrMsg = 'Error: could not update database with input data.'
+                let stdUpdateSuccessMsg = 'Success: data correctly updated into the database'
+                // if serverResponse is an error, return it to show the error
+                if (serverResponse instanceof Error) {
+                    res.status(500).send({ ErrorMessage: serverResponse })
+                    return
+                }
+                // if serverResponse is a custom error, return it to show the error
+                if (serverResponse instanceof CustomError) {
+                    res.status(500).send({ ErrorMessage: serverResponse })
+                    return
+                }
+                // if serverResponse has been instantiated (and not an error), return SuccessMessage
+                if (serverResponse) {
+                    res.status(200).send({ SuccessMessage: stdUpdateSuccessMsg, ServerResponse: serverResponse })
+                    return
+                }
+                // else, return standar error message
+                res.status(500).send({ ErrorMessage: stdUpdateErrMsg })
                 return
             }
             //------------------------DELETE RESPONSE MESSAGES--------------------------//
@@ -178,6 +211,277 @@ module.exports = function (app, passport) {
     app.post('/api/user', async (req: Request, res: Response) => {
         try {
             serverResponse = await accountManager.postUser(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+
+    //------------------------------------------------------/api/notice-------------------------------------------//
+    // GET notice
+    app.get('/api/notice', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await noticeManager.getNotice(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+    // POST notice
+    app.post('/api/notice', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await noticeManager.postNotice(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+    // GET noticeboard
+    app.get('/api/noticeBoard', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await noticeManager.getNoticeBoard(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+
+    //------------------------------------------------------/api/personalNotice-------------------------------------------//
+    // GET personalNotice
+    app.get('/api/personalNotice', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await personalNoticeManager.getPersonalNotice(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+    // GET personalNotices
+    app.get('/api/personalNotices', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await personalNoticeManager.getPersonalNotices(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+
+    //------------------------------------------------------/api/log-------------------------------------------//
+    // GET log
+    app.get('/api/log', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await logManager.getLog(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+    // GET logs
+    app.get('/api/logs', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await logManager.getLogs(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+    //------------------------------------------------------/api/report-------------------------------------------//
+    // GET report
+    app.get('/api/report', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await reportManager.getReport(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+    // POST report
+    app.post('/api/report', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await reportManager.postReport(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+    // GET reports
+    app.get('/api/reports', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await reportManager.getReports(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+
+    //------------------------------------------------------/api/lessonHour-------------------------------------------//
+    // GET lessonHour
+    app.get('/api/lessonHour', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await lessonHourManager.getLessonHour(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+
+    //------------------------------------------------------/api/TimeTable-------------------------------------------//
+    // GET classTimeTable
+    app.get('/api/classTimeTable', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await timeTableManager.getClassTimeTable(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+    // GET teacherTimeTable
+    app.get('/api/teacherTimeTable', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await timeTableManager.getTeacherTimeTable(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+
+    //------------------------------------------------------/api/teacherAbsence-------------------------------------------//
+    // GET teacherAbsence
+    app.get('/api/teacherAbsence', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await teacherAbsenceManager.getTeacherAbsence(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+    // POST teacherAbsence
+    app.post('/api/notice', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await teacherAbsenceManager.postTeacherAbsence(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+    // UPDATE teacherAbsence
+    app.update('/api/teacherAbsence', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await teacherAbsenceManager.updateTeacherAbsence(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+    // GET teacherAbsences
+    app.get('/api/teacherAbsences', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await teacherAbsenceManager.getTeacherAbsences(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+
+    //------------------------------------------------------/api/meetingHour-------------------------------------------//
+    // GET meetingHour
+    app.get('/api/meetingHour', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await meetingHourManager.getMeetingHour(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+    // GET meetingHours
+    app.get('/api/meetingHours', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await meetingHourManager.getMeetingHours(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+
+    //------------------------------------------------------/api/meeting-------------------------------------------//
+    // GET meeting
+    app.get('/api/meeting', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await meetingManager.getMeeting(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+    // POST meeting
+    app.post('/api/meeting', async (req: Request, res: Response) => {
+        req.body.sender = req.user.username
+        try {
+            serverResponse = await meetingManager.postMeeting(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+    // DELETE meeting
+    app.delete('/api/meeting', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await meetingManager.deleteMeeting(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+    // GET meetings
+    app.get('/api/meetings', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await meetingManager.getMeetings(req)
             sendServerResponse(req, res, serverResponse)
         }
         catch (err) {

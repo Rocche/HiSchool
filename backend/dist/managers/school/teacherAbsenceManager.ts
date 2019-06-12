@@ -58,6 +58,42 @@ export class TeacherAbsenceManager extends TableManager {
         return this.result
     }
 
+    public async getTeacherAbsences(req: Request): Promise<any> {
+
+        this.sql = 'SELECT * FROM TeacherAbsences'
+        this.params = [
+            req.body.ID
+        ]
+        this.result = await this.dbManager.getQuery(this.sql, this.params)
+
+        if (this.result.rowCount > 0) {
+
+            let teacherAbsencesArray = []
+            let lessonHourManager =  new LessonHourManager()
+            let accountManager = new AccountManager();
+
+            for (let row of this.result.rows) {
+                // get lessonHour information
+                req.body.ID = row.lessonHour
+                let lessonHour = await lessonHourManager.getLessonHour(req)
+                // get substitute teacher information
+                req.body.username = row.substitute
+                req.body.role = Role.TEACHER
+                let substitute = await accountManager.getUser(req)
+                // create teacherAbsence
+                let teacherAbsence = new TeacherAbsence(
+                    this.result.rows[0].ID,
+                    this.result.rows[0].date,
+                    lessonHour,
+                    substitute
+                )
+                teacherAbsencesArray.push(teacherAbsence)
+            }       
+            this.result = teacherAbsencesArray
+        }
+        return this.result
+    }
+
     public async updateTeacherAbsence(req: Request): Promise<any> {
 
         this.sql = 'UPDATE TeacherAbsences SET substitute = $1 WHERE ID = $2'
