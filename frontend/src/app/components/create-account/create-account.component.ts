@@ -3,6 +3,11 @@ import { Account } from 'src/app/models/Account';
 import { AccountService } from 'src/app/services/account.service';
 import { ROLES } from '../../models/roles';
 import { Subject } from 'rxjs';
+import { ParentService } from 'src/app/services/parent.service';
+import { Parent } from 'src/app/models/Parent';
+import { ClassService } from 'src/app/services/class.service';
+import { Class } from 'src/app/models/Class';
+import { SubjectService } from 'src/app/services/subject.service';
 
 @Component({
   selector: 'app-create-account',
@@ -12,11 +17,16 @@ import { Subject } from 'rxjs';
 export class CreateAccountComponent implements OnInit {
 
   private account: Account;
-  private selectedRole$: Subject<ROLES>;
+  private selectedRole: string;
+  private parents: Parent[];
+  private classes: Class[];
+  private subjects: string[];
 
-  constructor(private accountService: AccountService) { 
+  constructor(private accountService: AccountService, private parentService: ParentService, private classService: ClassService,
+    private subjectService: SubjectService) { 
     this.account = new Account(null, null, null, null, null);
-    this.selectedRole$ = new Subject<ROLES>();
+    this.parents = [];
+    this.selectedRole = "";
   }
 
   ngOnInit() {
@@ -27,7 +37,12 @@ export class CreateAccountComponent implements OnInit {
   }
 
   public selectRole(){
-    this.selectedRole$.next(this.account.getRole());
+    if(this.selectedRole == 'student'){
+      this.parents = this.parentService.getParents();
+      this.classes = this.classService.getClasses();
+    }
+    if(this.selectedRole == 'teacher'){
+      this.subjects = this.subjectService.getSubjects();
+    }
   }
-
 }
