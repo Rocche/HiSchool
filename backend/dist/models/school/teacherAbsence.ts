@@ -1,16 +1,15 @@
 import { LessonHour } from "./lessonHour";
+import { Teacher } from "../people/teacher";
 
 export class TeacherAbsence {
 
     ID: string;
-    teacher: string;
     date: Date;
     lessonHour: LessonHour;
-    substitute: string;
+    substitute: Teacher;
 
-    constructor (ID: string, teacher: string, date: Date, lessonHour: LessonHour, substitute: string) {
+    constructor (ID: string, date: Date, lessonHour: LessonHour, substitute: Teacher) {
         this.ID = ID;
-        this.teacher = teacher;
         this.date = date;
         this.lessonHour = lessonHour;
         this.substitute = substitute;

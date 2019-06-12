@@ -1,7 +1,8 @@
-import { Class } from "../../models/models"
+import { Class, Student, Role } from "../../models/models"
 
 import { Request } from "express"
-import { TableManager } from "../tableManager";
+import { TableManager } from "../managers";
+import { AccountManager } from "../utils/accountManager";
 
 export class ClassManager extends TableManager {
 
@@ -25,7 +26,7 @@ export class ClassManager extends TableManager {
         return this.result
     }
 
-    public async getClasses(): Promise<any> {
+    public async getClasses(req: Request): Promise<any> {
 
         this.sql = 'SELECT * FROM Classes'
         this.params = []
@@ -41,6 +42,38 @@ export class ClassManager extends TableManager {
                 classesArray.push(cl)
             }
             this.result = classesArray
+        }
+        return this.result
+    }
+
+    public async getClassStudents(req: Request): Promise<any> {
+
+        this.sql = 'SELECT * FROM Students INNER JOIN Users ON Students.username = Users.username WHERE class = $1'
+        this.params = [
+            req.body.class
+        ]
+        this.result = await this.dbManager.getQuery(this.sql, this.params)
+        if (this.result.rowCount > 0) {
+            let studentsArray = []
+            let accountManager = new AccountManager()
+            for (let row of this.result.rows) {
+                // get parent information
+                req.body.username = row.parent
+                req.body.role = Role.PARENT
+                let parent = await accountManager.getUser(req)
+                // create student
+                let student = new Student(
+                    row.username,
+                    row.email,
+                    row.role,
+                    row.fName,
+                    row.lName,
+                    row.class,
+                    parent
+                )
+                studentsArray.push(student)
+            }
+            this.result = studentsArray
         }
         return this.result
     }

@@ -9,7 +9,6 @@ export default class DbManager {
     // check if the parameters array is correct
     
     private checkParams(params: any[]): boolean {
-        /*
         for (let element of params) {
             if (element == null) {
                 this.error.name = "PARAMS ERROR"
@@ -17,7 +16,6 @@ export default class DbManager {
                 return false
             }
         }
-        */
         return true
     }
     

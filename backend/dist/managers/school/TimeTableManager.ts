@@ -15,6 +15,7 @@ export class TimeTableManager extends TableManager {
             let lessonHoursArray = []
             for (let row of this.result.rows) {
                 let tempClass = new LessonHour(
+                    row.ID,
                     row.class,
                     row.teacher,
                     row.subject,
@@ -40,6 +41,7 @@ export class TimeTableManager extends TableManager {
             let lessonHoursArray = []
             for (let row of this.result.rows) {
                 let tempClass = new LessonHour(
+                    row.ID,
                     row.class,
                     row.teacher,
                     row.subject,

@@ -1,8 +1,9 @@
 import { v4 as uuid } from 'uuid';
-import { Notice, PersonalNotice } from '../../models/models'
+import { Notice } from '../../models/models'
 
 import { Request } from "express"
-import { TableManager } from "../tableManager";
+import { TableManager } from "../managers";
+import { PersonalNoticeManager } from './personalNoticeManager';
 
 export class NoticeManager extends TableManager {
 
@@ -15,7 +16,7 @@ export class NoticeManager extends TableManager {
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
         if (this.result.rowCount > 0) {
-            let user = new Notice(
+            let notice = new Notice(
                 this.result.rows[0].ID,
                 this.result.rows[0].date,
                 this.result.rows[0].type,
@@ -23,33 +24,33 @@ export class NoticeManager extends TableManager {
                 this.result.rows[0].body
 
             )
-            this.result = user
+            this.result = notice
         }
         return this.result
     }
 
-    public async getPersonalNotice(req: Request): Promise<any> {
+    public async getNoticeBoard(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM PersonalNotices WHERE ID = $1'
-        this.params = [
-            req.body.ID
-        ]
+        this.sql = 'SELECT * FROM Notices'
+        this.params = []
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
         if (this.result.rowCount > 0) {
-            req.body.ID = this.result.rows[0].notice;
-            let user = new Notice(
-                this.result.rows[0].ID,
-                this.result.rows[0].date,
-                this.result.rows[0].target,
-                await this.getNotice(req),
-                this.result.rows[0].status
-            )
-            this.result = user
+            let noticesArray = []
+            for (let row of this.result.rows) {
+                let notice = new Notice(
+                    row.ID,
+                    row.date,
+                    row.type,
+                    row.title,
+                    row.body
+                )
+                noticesArray.push(notice)
+            }
+            this.result = noticesArray
         }
         return this.result
     }
-
 
     public async postNotice(req: Request): Promise<any> {
 
@@ -64,73 +65,12 @@ export class NoticeManager extends TableManager {
         ]
         this.result = await this.dbManager.postQuery(this.sql, this.params)
 
+        let personalNoticeManager = new PersonalNoticeManager();
         req.body.targets.forEach(async target => {
-            await this.postPersonalNotice(noticeID, req.body.date, target)
+            req.body.notice = noticeID
+            req.body.target = target.username
+            await personalNoticeManager.postPersonalNotice(req)
         });
-        return this.result
-    }
-
-    public async postPersonalNotice(noticeID: string, date: Date, target: any): Promise<any> {
-
-        let personalNoticeID = uuid();
-        this.sql = 'INSERT INTO PersonalNotices ( ID, date, target, status, notice ) VALUES ($1,$2,$3,$4,$5)'
-        this.params = [
-            personalNoticeID,
-            date,
-            target,
-            noticeID,
-            "Unsigned",
-        ]
-        this.result = await this.dbManager.postQuery(this.sql, this.params)
-        return this.result
-    }
-
-    public async getNoticeBoard(req: Request): Promise<any> {
-
-        this.sql = 'SELECT * FROM Notices'
-        this.params = []
-        this.result = await this.dbManager.getQuery(this.sql, this.params)
-
-        if (this.result.rowCount > 0) {
-            let noticesArray = []
-            for (let row of this.result.rows) {
-                let tempClass = new Notice(
-                    row.ID,
-                    row.date,
-                    row.type,
-                    row.title,
-                    row.body
-                )
-                noticesArray.push(tempClass)
-            }
-            this.result = noticesArray
-        }
-        return this.result
-    }
-
-    public async getPersonalNotices(req: Request): Promise<any> {
-
-        this.sql = 'SELECT * FROM PersonalNotices WHERE target = $1'
-        this.params = [
-            req.body.target
-        ]
-        this.result = await this.dbManager.getQuery(this.sql, this.params)
-
-        if (this.result.rowCount > 0) {
-            let personalNoticesArray = []
-            for (let row of this.result.rows) {
-                req.body.ID = row.notice;
-                let tempClass = new PersonalNotice(
-                    row.ID,
-                    row.date,
-                    row.target,
-                    await this.getNotice(req),
-                    row.status
-                )
-                personalNoticesArray.push(tempClass)
-            }
-            this.result = personalNoticesArray
-        }
         return this.result
     }
 

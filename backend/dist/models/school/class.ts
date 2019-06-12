@@ -1,5 +1,6 @@
 export class Class {
 
+    ID: string;
     year: number;
     section: string;
     branch: string;

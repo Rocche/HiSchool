@@ -5,6 +5,7 @@ import { Request } from "express"
 // import models and managers
 import { User, UserAuth, CustomError, Parent, Subject, Student } from "../../models/models";
 import { TableManager, ParentManager, StudentManager, TeacherManager } from "../managers";
+import { PersonalNoticeManager } from "../school/personalNoticeManager";
 
 export class AccountManager extends TableManager {
 
@@ -126,6 +127,9 @@ export class AccountManager extends TableManager {
                     return this.error
                 }
             }
+                  ////////////////////////////////
+                 /////// SEND MAIL HERE! ////////
+                ////////////////////////////////
         }
         return this.result
 
