@@ -9,12 +9,28 @@
     </div>
   <div *ngIf="this.targetType != null" class="form-group">
     <label for="targets">To:</label>
-    <select *ngIf="this.targetType == 'class'" class="form-control" name="target_type" [(ngModel)]="this.notice.target">
-        <option *ngFor="let class of this.classes">{{class.year}}{{class.section}}{{class.branch}}</option>
+    <div  *ngIf="this.targetType == 'class'">
+        <select class="form-control" name="target_type" [(ngModel)]="this.selectedClass" (change)="addClass()">
+            <option *ngFor="let class of this.classes" [ngValue]="class">{{class.year}}{{class.section}}{{class.branch}}</option>
+        </select>
+        <table>
+            <tr *ngFor="let class of this.selectedClasses">
+                <td>{{class.year}}{{class.section}}{{class.branch}}</td>
+                <td><button class="btn btn-danger" (click)="removeFromClasses(class)">Remove</button></td>
+            </tr>
+        </table>
+    </div>
+    <div  *ngIf="this.targetType == 'teacher'">
+    <select class="form-control" name="target_type" [(ngModel)]="this.selectedTeacher" (change)="addTeacher()">
+        <option *ngFor="let teacher of this.teachers" [ngValue]="teacher">{{teacher.lastName}} {{teacher.firstName}}</option>
     </select>
-    <select *ngIf="this.targetType == 'teacher'" class="form-control" name="target_type" [(ngModel)]="this.notice.target">
-        <option *ngFor="let teacher of this.teachers">{{teacher.lastName}} {{teacher.firstName}}</option>
-    </select>
+    <table>
+        <tr *ngFor="let class of this.selectedTeachers">
+            <td>{{teacher.lastName}} {{teacher.firstName}}</td>
+            <td><button class="btn btn-danger" (click)="removeFromTeachers(teacher)">Remove</button></td>
+        </tr>
+    </table>
+    </div>
   </div>
   <div *ngIf="this.notice.target != null">
     

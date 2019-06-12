@@ -53,7 +53,7 @@ export class CreateAccountComponent implements OnInit {
   }
 
   public removeFromSubjects(subject: string){
-    const index = this.teacherSubjects.indexOf(subject, 0);
+    let index = this.teacherSubjects.indexOf(subject, 0);
     if (index > -1) {
        this.teacherSubjects.splice(index, 1);
     }

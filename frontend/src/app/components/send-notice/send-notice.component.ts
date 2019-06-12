@@ -18,12 +18,18 @@ export class SendNoticeComponent implements OnInit {
   private targetType: string;
   private classes: Class[];
   private teachers: Teacher[];
+  private selectedTeacher: Teacher;
+  private selectedTeachers: Teacher[];
+  private selectedClass: Class;
+  private selectedClasses: Class[];
 
   constructor(private noticesService: NoticesService, private classService: ClassService, private teacherService: TeacherService) { 
     this.notice = new Notice(null, null, null, NOTICE_TYPES.authorization);
   }
 
   ngOnInit() {
+    this.selectedClasses = [];
+    this.selectedTeachers = [];
   }
 
   public sendNotice(){
@@ -41,6 +47,28 @@ export class SendNoticeComponent implements OnInit {
       default:
         alert("You should select a target type first.");
         break;
+    }
+  }
+
+  public addClass(){
+    this.selectedClasses.push(this.selectedClass);
+  }
+
+  public addTeacher(){
+    this.selectedTeachers.push(this.selectedTeacher);
+  }
+
+  public removeFromClasses(c: Class){
+    let index = this.selectedClasses.indexOf(c, 0);
+    if (index > -1) {
+       this.selectedClasses.splice(index, 1);
+    }
+  }
+
+  public removeFromTeachers(teacher: Teacher){
+    let index = this.selectedTeachers.indexOf(teacher, 0);
+    if (index > -1) {
+       this.selectedTeachers.splice(index, 1);
     }
   }
 }
