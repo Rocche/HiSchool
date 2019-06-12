@@ -69,10 +69,10 @@ export class ReportManager extends TableManager {
         this.sql = 'INSERT INTO Reports ( id, body, date, AdministratorsUsername, LogsId ) VALUES ($1,$2,$3,$4,$5)'
         this.params = [
             reportID,
+            req.body.body,
             req.body.date,
             req.body.username,
-            req.body.log,
-            req.body.body
+            req.body.log
         ]
         this.result = await this.dbManager.postQuery(this.sql, this.params)
         
