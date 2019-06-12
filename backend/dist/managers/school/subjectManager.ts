@@ -7,7 +7,7 @@ export class SubjectManager extends TableManager {
 
     public async getSubject(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM Subjects WHERE ID = $1'
+        this.sql = 'SELECT * FROM Subjects WHERE id = $1'
         this.params = [
             req.body.ID
         ]

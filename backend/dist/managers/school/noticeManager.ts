@@ -9,7 +9,7 @@ export class NoticeManager extends TableManager {
 
     public async getNotice(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM Notices WHERE ID = $1'
+        this.sql = 'SELECT * FROM Notices WHERE id = $1'
         this.params = [
             req.body.ID
         ]
@@ -55,13 +55,14 @@ export class NoticeManager extends TableManager {
     public async postNotice(req: Request): Promise<any> {
 
         let noticeID = uuid();
-        this.sql = 'INSERT INTO Notices ( ID, date, type, title, body ) VALUES ($1,$2,$3,$4,$5)'
+        this.sql = 'INSERT INTO Notices ( ID, date, type, title, body, SecretariesUsername ) VALUES ($1,$2,$3,$4,$5,$6)'
         this.params = [
             noticeID,
             req.body.date,
             req.body.type,
             req.body.title,
-            req.body.body
+            req.body.body,
+            req.body.username
         ]
         this.result = await this.dbManager.postQuery(this.sql, this.params)
 
