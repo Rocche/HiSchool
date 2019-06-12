@@ -157,40 +157,4 @@ export default class DbManager {
             await pool.end()
         }
     }
-
-    /*
-    * connect to the database for a posting miband data
-    */
-    public async postData(sql: string, data: any[]): Promise<any> {
-
-        // create new clients pool
-        let pool = new Pool()
-        let client = await pool.connect()
-        let counter = 0
-        var lastTimeStamp: string
-        try {
-            for (let row of data) {
-                if (row instanceof Array) {
-                    // check that parameters are not null
-                    if (!(this.checkParams(row))) { return this.error }
-                    lastTimeStamp = row[1]
-                    await client.query(sql, row)
-                    counter++
-                    console.log('Added row', counter, ' : ', row)
-                }
-            }
-            return lastTimeStamp
-        }
-        // catch connection error
-        catch (err) {
-            console.log('postData error: ', err)
-            return err
-        }
-        // always realease client and end connection
-        finally {
-            client.release()
-            await pool.end()
-        }
-    }
-
 }
