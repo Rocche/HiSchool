@@ -1,20 +1,23 @@
 <form>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-        <label class="form-check-label" for="inlineRadio1">1</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-        <label class="form-check-label" for="inlineRadio2">2</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" disabled>
-        <label class="form-check-label" for="inlineRadio3">3 (disabled)</label>
-      </div>
-  <div class="form-group">
+    <div class="form-group input-group">
+        <label for="target_type">Select target type:</label>
+        <select class="form-control" name="target_type" [(ngModel)]="this.targetType" (change)="selectTarget()">
+            <option selected=""> Select user type </option>
+            <option>class</option>
+            <option>teacher</option>
+        </select>
+    </div>
+  <div *ngIf="this.targetType != null" class="form-group">
     <label for="targets">To:</label>
-    <input type="text" class="form-control" id="targets" name = "target" [(ngModel)] = "this.notice.target">
+    <select *ngIf="this.targetType == 'class'" class="form-control" name="target_type" [(ngModel)]="this.notice.target">
+        <option *ngFor="let class of this.classes">{{class.year}}{{class.section}}{{class.branch}}</option>
+    </select>
+    <select *ngIf="this.targetType == 'teacher'" class="form-control" name="target_type" [(ngModel)]="this.notice.target">
+        <option *ngFor="let teacher of this.teachers">{{teacher.lastName}} {{teacher.firstName}}</option>
+    </select>
   </div>
+  <div *ngIf="this.notice.target != null">
+    
   <div class="form-group">
     <label for="title">Title:</label>
     <input type="text" class="form-control" id="title" name = "title" [(ngModel)] = "this.notice.title">
@@ -24,4 +27,5 @@
     <textarea class="form-control" id="body" rows="3" name="body" [(ngModel)] = "this.notice.body"></textarea>
   </div>
   <button type="submit" class="btn btn-info" (click)="sendNotice()">Send Notice</button>
+</div>
 </form>
