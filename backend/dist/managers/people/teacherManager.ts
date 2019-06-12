@@ -29,13 +29,31 @@ export class TeacherManager extends TableManager {
 
     public async postTeacher(req: Request): Promise<any> {
 
-        this.sql = 'INSERT INTO Teachers ( username, subjects ) VALUES ($1,$2)'
+        this.sql = 'INSERT INTO Teachers ( UsersUsername ) VALUES ($1)'
         this.params = [
             req.body.username,
-            req.body.subjects
         ]
         this.result = await this.dbManager.postQuery(this.sql, this.params)
+
+        req.body.subjects.forEach(async subject => {
+            this.result = await this.postTS(req)
+        });
+        this.result = await this.postTS
         return this.result
+
+    }
+
+    public async postTS(req: Request): Promise<any> {
+
+        this.sql = 'INSERT INTO Teaches ( TeachersUsername, SubjectsId ) VALUES ($1, $2)'
+        this.params = [
+            req.body.username,
+            req.body.subject.ID
+        ]
+        this.result = await this.dbManager.postQuery(this.sql, this.params)
+
+        return this.result
+
     }
 
 }
