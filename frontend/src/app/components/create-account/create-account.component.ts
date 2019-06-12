@@ -21,12 +21,14 @@ export class CreateAccountComponent implements OnInit {
   private parents: Parent[];
   private classes: Class[];
   private subjects: string[];
+  private teacherSubjects: string[];
+  private selectedSubject: string;
 
   constructor(private accountService: AccountService, private parentService: ParentService, private classService: ClassService,
     private subjectService: SubjectService) { 
     this.account = new Account(null, null, null, null, null);
     this.parents = [];
-    this.selectedRole = "";
+    this.teacherSubjects = [];
   }
 
   ngOnInit() {
@@ -37,12 +39,23 @@ export class CreateAccountComponent implements OnInit {
   }
 
   public selectRole(){
-    if(this.selectedRole == 'student'){
+    if(this.account.getRole() == 'student'){
       this.parents = this.parentService.getParents();
       this.classes = this.classService.getClasses();
     }
-    if(this.selectedRole == 'teacher'){
+    if(this.account.getRole() == 'teacher'){
       this.subjects = this.subjectService.getSubjects();
+    }
+  }
+
+  public addSubject(){
+    this.teacherSubjects.push(this.selectedSubject);
+  }
+
+  public removeFromSubjects(subject: string){
+    const index = this.teacherSubjects.indexOf(subject, 0);
+    if (index > -1) {
+       this.teacherSubjects.splice(index, 1);
     }
   }
 }
