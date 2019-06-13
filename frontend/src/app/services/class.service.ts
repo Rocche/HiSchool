@@ -20,4 +20,9 @@ export class ClassService {
   public getClasses(){
     return this.classes;
   }
+
+  //get class
+  //get timetable(class)
+  //getTeachers(class)
+  //getStudents(class)
 }
