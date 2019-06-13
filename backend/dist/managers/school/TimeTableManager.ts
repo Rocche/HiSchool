@@ -10,7 +10,7 @@ export class TimeTableManager extends TableManager {
 
         this.sql = 'SELECT * FROM LessonHours WHERE ClassesId = $1'
         this.params = [
-            req.body.class
+            req.query.class
         ]
 
         if (this.result.rowCount > 0) {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LoginService } from 'src/app/services/login.service';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,11 +12,11 @@ export class NavbarComponent implements OnInit {
   private isLoggedIn$: Observable<boolean>;
   private role: string;
 
-  constructor(private loginService: LoginService) { }
+  constructor(private accountService: AccountService) { }
 
   ngOnInit() {
-    this.isLoggedIn$ = this.loginService.loggedIn$;
-    this.loginService.roleLoggedIn$
+    this.isLoggedIn$ = this.accountService.loggedIn$;
+    this.accountService.roleLoggedIn$
     .subscribe((role: string) => {
       this.role = role;
     })
@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit {
   public logout(): void{
     let confirmation = confirm("Are you sure you want to log out?");
     if(confirmation){
-      this.loginService.logout();
+      this.accountService.logout();
     }
   }
 

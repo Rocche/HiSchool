@@ -14,7 +14,7 @@
     <tr *ngFor="let hours of this.timetable; let i = index">
       <th scope="row">{{i + 1}}</th>
       <td *ngFor="let subject of hours">
-        {{subject}}
+        {{subject.name}}
       </td>
     </tr>
   </tbody>

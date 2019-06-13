@@ -4,7 +4,7 @@ import { NoticesService } from 'src/app/services/notices.service';
 import { NOTICE_TYPES } from 'src/app/models/noticeTypes';
 import { ClassService } from 'src/app/services/class.service';
 import { Class } from 'src/app/models/Class';
-import { TeacherService } from 'src/app/services/teacher.service';
+//import { TeacherService } from 'src/app/services/teacher.service';
 import { Teacher } from 'src/app/models/Teacher';
 
 @Component({
@@ -23,7 +23,7 @@ export class SendNoticeComponent implements OnInit {
   private selectedClass: Class;
   private selectedClasses: Class[];
 
-  constructor(private noticesService: NoticesService, private classService: ClassService, private teacherService: TeacherService) { 
+  constructor(private noticesService: NoticesService, private classService: ClassService) { 
     this.notice = new Notice(null, null, null, NOTICE_TYPES.authorization);
   }
 
@@ -42,7 +42,7 @@ export class SendNoticeComponent implements OnInit {
         this.classes = this.classService.getClasses();
         break;
       case "teacher":
-        this.teachers = this.teacherService.getTeachers();
+        //this.teachers = this.teacherService.getTeachers();
         break;
       default:
         alert("You should select a target type first.");

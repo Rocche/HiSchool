@@ -3,11 +3,11 @@ import { Account } from 'src/app/models/Account';
 import { AccountService } from 'src/app/services/account.service';
 import { ROLES } from '../../models/roles';
 import { Subject } from 'rxjs';
-import { ParentService } from 'src/app/services/parent.service';
+//import { ParentService } from 'src/app/services/parent.service';
 import { Parent } from 'src/app/models/Parent';
 import { ClassService } from 'src/app/services/class.service';
 import { Class } from 'src/app/models/Class';
-import { SubjectService } from 'src/app/services/subject.service';
+//import { SubjectService } from 'src/app/services/subject.service';
 
 @Component({
   selector: 'app-create-account',
@@ -24,8 +24,7 @@ export class CreateAccountComponent implements OnInit {
   private teacherSubjects: string[];
   private selectedSubject: string;
 
-  constructor(private accountService: AccountService, private parentService: ParentService, private classService: ClassService,
-    private subjectService: SubjectService) { 
+  constructor(private accountService: AccountService, private classService: ClassService) { 
     this.account = new Account(null, null, null, null, null);
     this.parents = [];
     this.teacherSubjects = [];
@@ -40,11 +39,11 @@ export class CreateAccountComponent implements OnInit {
 
   public selectRole(){
     if(this.account.getRole() == 'student'){
-      this.parents = this.parentService.getParents();
+      //this.parents = this.parentService.getParents();
       this.classes = this.classService.getClasses();
     }
     if(this.account.getRole() == 'teacher'){
-      this.subjects = this.subjectService.getSubjects();
+      //this.subjects = this.subjectService.getSubjects();
     }
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Notice } from 'src/app/models/Notice';
 import { NoticesService } from 'src/app/services/notices.service';
-import { LoginService } from 'src/app/services/login.service';
+import { AccountService } from 'src/app/services/account.service';
 import { ROLES } from 'src/app/models/roles';
 
 @Component({
@@ -15,12 +15,12 @@ export class NoticesComponent implements OnInit {
   private currentNotice: Notice;
   private role: string;
 
-  constructor(private noticesService: NoticesService, private loginService: LoginService) { }
+  constructor(private noticesService: NoticesService, private accountService: AccountService) { }
 
   ngOnInit() {
     this.notices = this.noticesService.getNotices('student');
     this.currentNotice = new Notice(null, null, null, null);
-    this.role = this.loginService.role;
+    this.role = this.accountService.role;
   }
 
   public setNoticeAuthorization(authorized: boolean){

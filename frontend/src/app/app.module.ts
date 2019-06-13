@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { NgbDatepickerModule , NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule  } from '@angular/common/http';
 
 
 import { AppComponent } from './app.component';
@@ -60,7 +61,8 @@ const appRoutes: Routes = [
     ),
     BrowserModule,
     FormsModule,
-    NgbDatepickerModule
+    NgbDatepickerModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

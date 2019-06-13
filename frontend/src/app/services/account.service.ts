@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Account } from '../models/Account';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { RoutingService } from './routing.service';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -13,26 +15,35 @@ const httpOptions = {
 })
 export class AccountService {
 
-  constructor(private http: HttpClient) { }
+  public loggedIn$: BehaviorSubject<boolean>;
+  public roleLoggedIn$: Subject<string>;
+  public role: string;
 
-  public createAccount(account: Account){
-    account.setUsername(this.generateUsername(account.getFirstName(), account.getLastName()));
-    account.setPassword(this.generatePassword(account.getFirstName(), account.getLastName()));
+  constructor(private http: HttpClient, private routingService: RoutingService) {
+    this.loggedIn$ = new BehaviorSubject<boolean>(false);
+    this.roleLoggedIn$ = new Subject<string>();
+  }
+
+  public createAccount(account: Account) {
     console.log(account);
   }
 
-  private generateUsername(name: string, surname: string){
-    return name + '_' + surname;
-  }
-
-  private generatePassword(name: string, surname: string){
-    return name + '__' + surname;
-  }
-
-  public authenticate(username: string, password: string){
+  public authenticate(username: string, password: string) {
+    /*
     let body = `username=${username}&password=${password}`;
     return this.http.post("/api/login", body, httpOptions);
+    */
+    if (username != null) {
+      this.loggedIn$.next(true);
+      this.roleLoggedIn$.next(username);
+      this.role = username;
+      this.routingService.navigateTo('/' + username);
+    }
   }
-  //logout
+  
+  public logout(): void{
+    this.loggedIn$.next(false);
+    this.routingService.navigateTo('');
+}
   //createAccount
 }
