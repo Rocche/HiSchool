@@ -48,7 +48,11 @@ export class ClassManager extends TableManager {
 
     public async getClassStudents(req: Request): Promise<any> {
 
+<<<<<<< HEAD
         this.sql = 'SELECT * FROM "Students" INNER JOIN "Users" ON "Students"."UsersUsername" = "Users"."username" WHERE "ClassId" = $1'
+=======
+        this.sql = 'SELECT * FROM "Students" INNER JOIN "Users" ON Students.UsersUsername = Users.username WHERE ClassId = $1'
+>>>>>>> e16671279df51bfa051e956dd346b4ebdb61487b
         this.params = [
             req.body.class
         ]

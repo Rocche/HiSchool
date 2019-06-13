@@ -34,7 +34,7 @@ module.exports = function (app, passport) {
         if (serverResponse instanceof CustomError) {
             return res.status(404).send({ ErrorMessage: serverResponse })
         }
-        res.status(200).send({ ServerResponse: serverResponse })
+        res.status(200).send({ User: serverResponse })
     }
 
     //------------------------ SERVER RESPONSE HANDLER ------------------------//
@@ -172,7 +172,7 @@ module.exports = function (app, passport) {
                         return handleLoginResponse(res, err)
                     }
                     // if authenticated, return the user's role
-                    else handleLoginResponse(res, req.user.role)
+                    else handleLoginResponse(res, req.user)
                 })
             }
         })(req, res, next)

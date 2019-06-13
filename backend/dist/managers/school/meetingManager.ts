@@ -39,7 +39,11 @@ export class MeetingManager extends TableManager {
     public async getMeetings(req: Request): Promise<any> {
 
 
+<<<<<<< HEAD
         this.sql = 'SELECT * FROM "Meetings" INNER JOIN "MeetingHours" ON "Meetings"."MeetingHourId" = "MeetingHours"."id" WHERE "MeetingHours"."TeachersUsername" = $1'
+=======
+        this.sql = 'SELECT * FROM "Meetings" INNER JOIN "MeetingHours" ON Meetings.MeetingHourId = MeetingHours.id WHERE MeetingHours.TeachersUsername = $1'
+>>>>>>> e16671279df51bfa051e956dd346b4ebdb61487b
         this.params = [
             req.body.teacher
         ]
@@ -76,7 +80,11 @@ export class MeetingManager extends TableManager {
     public async postMeeting(req: Request): Promise<any> {
 
         let meetingID = uuid();
+<<<<<<< HEAD
         this.sql = 'INSERT INTO "Meetings" ( id, date, "MeetingHourId", "ParentsUsername" ) VALUES ($1,$2,$3,$4)'
+=======
+        this.sql = 'INSERT INTO "Meetings" ( id, date, MeetingHourId, ParentsUsername ) VALUES ($1,$2,$3,$4)'
+>>>>>>> e16671279df51bfa051e956dd346b4ebdb61487b
         this.params = [
             meetingID,
             req.body.date,
