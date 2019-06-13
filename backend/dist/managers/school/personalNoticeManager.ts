@@ -69,7 +69,7 @@ export class PersonalNoticeManager extends TableManager {
     public async postPersonalNotice(req: Request): Promise<any> {
 
         let personalNoticeID = uuid();
-        this.sql = 'INSERT INTO "PersonalNotices" ( id, "UsersUsername", target, "NoticesId", status ) VALUES ($1,$2,$3,$4,$5)'
+        this.sql = 'INSERT INTO "PersonalNotices" ( id, "UsersUsername", "NoticesId", status ) VALUES ($1,$2,$3,$4,$5)'
         this.params = [
             personalNoticeID,
             req.body.username,
