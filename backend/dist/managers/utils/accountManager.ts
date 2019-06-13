@@ -130,7 +130,7 @@ export class AccountManager extends TableManager {
         }
 
         // add user to the users table
-        this.sql = 'INSERT INTO "Users" ( username, password, email, firstName, lastName, role ) VALUES ($1,$2,$3,$4,$5,$6)'
+        this.sql = 'INSERT INTO "Users" ( username, password, email, "firstName", "lastName", role ) VALUES ($1,$2,$3,$4,$5,$6)'
         this.params = [
             req.body.username,
             bcrypt.hashSync(req.body.password, 8),

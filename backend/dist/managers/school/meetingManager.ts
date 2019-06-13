@@ -76,7 +76,7 @@ export class MeetingManager extends TableManager {
     public async postMeeting(req: Request): Promise<any> {
 
         let meetingID = uuid();
-        this.sql = 'INSERT INTO "Meetings" ( id, date, MeetingHourId, ParentsUsername ) VALUES ($1,$2,$3,$4)'
+        this.sql = 'INSERT INTO "Meetings" ( id, date, "MeetingHourId", "ParentsUsername" ) VALUES ($1,$2,$3,$4)'
         this.params = [
             meetingID,
             req.body.date,

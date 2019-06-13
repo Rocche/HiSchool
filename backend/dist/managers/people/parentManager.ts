@@ -36,7 +36,7 @@ export class ParentManager extends TableManager {
 
     public async postParent(req: Request): Promise<any> {
 
-        this.sql = 'INSERT INTO "Parents" ( UsersUsername ) VALUES ($1)'
+        this.sql = 'INSERT INTO "Parents" ( "UsersUsername" ) VALUES ($1)'
         this.params = [
             req.body.username,
         ]

@@ -67,7 +67,7 @@ export class ReportManager extends TableManager {
     public async postReport(req: Request): Promise<any> {
 
         let reportID = uuid();
-        this.sql = 'INSERT INTO "Reports" ( id, body, date, AdministratorsUsername, LogsId ) VALUES ($1,$2,$3,$4,$5)'
+        this.sql = 'INSERT INTO "Reports" ( id, body, date, "AdministratorsUsername", "LogsId" ) VALUES ($1,$2,$3,$4,$5)'
         this.params = [
             reportID,
             req.body.body,
