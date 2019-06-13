@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MeetingHour } from '../models/MeetingHour';
 import { Meeting } from '../models/Meeting';
 import * as moment from 'moment';
+import { Teacher } from '../models.1/models';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class MeetingService {
     ]
    }
 
-  public getTeacherMeetingHours(teacher: string): MeetingHour[]{
+  public getTeacherMeetingHours(teacher: Teacher): MeetingHour[]{
     return this.meetingHours;
   }
 

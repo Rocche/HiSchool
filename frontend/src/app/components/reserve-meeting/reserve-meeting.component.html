@@ -1,6 +1,7 @@
 <div class="form-group input-group">
-  <input name="teacher" class="form-control" placeholder="Insert Teacher" type="text"
-      [(ngModel)]="this.selectedTeacher">
+    <select class="form-control" name="target_type" [(ngModel)]="this.selectedTeacher" (change)="selectTeacher()">
+        <option *ngFor="let teacher of this.teachers" [ngValue]="teacher">{{teacher.firstName}} {{teacher.lastName}}</option>
+    </select>
   <button class="btn btn-info" (click)="getTeacherMeetingHours()">Search</button>
 </div>
 

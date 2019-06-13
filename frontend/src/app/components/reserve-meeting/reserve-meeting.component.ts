@@ -3,6 +3,8 @@ import { MeetingHour } from 'src/app/models/MeetingHour';
 import { MeetingService } from 'src/app/services/meeting.service';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
+import { Teacher, Class } from 'src/app/models.1/models';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-reserve-meeting',
@@ -12,13 +14,14 @@ import * as moment from 'moment';
 export class ReserveMeetingComponent implements OnInit {
 
   private meetingHours: MeetingHour[];
-  private selectedTeacher: string;
+  private teachers: Teacher[];
+  private selectedTeacher: Teacher;
   private markDisabled;
 
-  constructor(private meetingService: MeetingService) { }
+  constructor(private meetingService: MeetingService, private userService: UserService) { }
 
   ngOnInit() {
-    
+    this.teachers = this.userService.getTeachers(new Class('0', 3, 'A', 'S'));
   }
 
   public getTeacherMeetingHours(){
