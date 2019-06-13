@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TimetableService } from 'src/app/services/timetable.service';
 import { LessonHour } from 'src/app/models.1/school/lessonHour';
 import { ClassService } from 'src/app/services/class.service';
+import { Subject } from 'src/app/models.1/models';
 
 @Component({
   selector: 'app-timetable',
@@ -10,7 +11,7 @@ import { ClassService } from 'src/app/services/class.service';
 })
 export class TimetableComponent implements OnInit {
 
-  public timetable: string[][];
+  public timetable: Subject[][];
 
   constructor(private classService: ClassService) { }
 
@@ -21,8 +22,8 @@ export class TimetableComponent implements OnInit {
       })
   }
 
-  private buildStudentTimetable(timetable: LessonHour[]){
-    let tt: string[][] = [];
+  private buildStudentTimetable(timetable: LessonHour[]): Subject[][]{
+    let tt: Subject[][] = [];
     for(let i = 0; i < 5; i++){
       let l = timetable.filter(hour => hour.hour == i);
       let subjects = []

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Notice } from '../models/Notice';
 import { NOTICE_TYPES } from '../models/noticeTypes';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class NoticesService {
 
   private notices: Notice[];
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.notices = [
       new Notice('student', 'School meeting', 'We inform students that bla bla bla...', NOTICE_TYPES.authorization),
       new Notice('student', 'School bomb', 'We inform students that bla bla bla...', NOTICE_TYPES.authorization),
@@ -18,7 +19,7 @@ export class NoticesService {
   }
 
   public getNotices(targetUser: string){
-    return(this.notices);
+    return this.http.get('/api/personalNotices?target=' + targetUser);
   }
 
   public sendNotice(notice: Notice){
