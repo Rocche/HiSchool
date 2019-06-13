@@ -7,7 +7,7 @@ export class MeetingManager extends TableManager {
 
     public async getMeeting(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM Meetings WHERE ID = $1'
+        this.sql = 'SELECT * FROM Meetings WHERE id = $1'
         this.params = [
             req.body.ID
         ]
@@ -38,7 +38,7 @@ export class MeetingManager extends TableManager {
     public async getMeetings(req: Request): Promise<any> {
 
 
-        this.sql = 'SELECT * FROM Meetings INNER JOIN MeetingHours ON Meetings.meetingHour = MeetingHours.ID WHERE MeetingHours.teacher = $1'
+        this.sql = 'SELECT * FROM Meetings INNER JOIN MeetingHours ON Meetings.MeetingHourId = MeetingHours.id WHERE MeetingHours.TeachersUsername = $1'
         this.params = [
             req.body.teacher
         ]
@@ -75,7 +75,7 @@ export class MeetingManager extends TableManager {
     public async postMeeting(req: Request): Promise<any> {
 
         let meetingID = uuid();
-        this.sql = 'INSERT INTO Meetings ( ID, date, meetingHour, parent ) VALUES ($1,$2,$3,$4)'
+        this.sql = 'INSERT INTO Meetings ( id, date, MeetingHourId, ParentsUsername ) VALUES ($1,$2,$3,$4)'
         this.params = [
             meetingID,
             req.body.date,
@@ -96,7 +96,7 @@ export class MeetingManager extends TableManager {
         // send meeting cancelling notice
         this.result = await this.sendMeetingCancellationNotice(req)
 
-        this.sql = "DELETE FROM Meetings WHERE ID = $1"
+        this.sql = "DELETE FROM Meetings WHERE id = $1"
         this.params = [
             meetingID
         ]

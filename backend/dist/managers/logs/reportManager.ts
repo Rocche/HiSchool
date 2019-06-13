@@ -8,7 +8,7 @@ export class ReportManager extends TableManager {
 
     public async getReport(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM Reports WHERE ID = $1'
+        this.sql = 'SELECT * FROM Reports WHERE id = $1'
         this.params = [
             req.body.ID
         ]
@@ -66,13 +66,13 @@ export class ReportManager extends TableManager {
     public async postReport(req: Request): Promise<any> {
 
         let reportID = uuid();
-        this.sql = 'INSERT INTO Reports ( ID, date, username, log, body ) VALUES ($1,$2,$3,$4,$5)'
+        this.sql = 'INSERT INTO Reports ( id, body, date, AdministratorsUsername, LogsId ) VALUES ($1,$2,$3,$4,$5)'
         this.params = [
             reportID,
+            req.body.body,
             req.body.date,
             req.body.username,
-            req.body.log,
-            req.body.body
+            req.body.log
         ]
         this.result = await this.dbManager.postQuery(this.sql, this.params)
         

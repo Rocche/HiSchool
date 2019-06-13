@@ -6,7 +6,7 @@ export class LogManager extends TableManager {
 
     public async getLog(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM Logs WHERE ID = $1'
+        this.sql = 'SELECT * FROM Logs WHERE id = $1'
         this.params = [
             req.body.ID
         ]
