@@ -182,7 +182,7 @@ export class AccountManager extends TableManager {
 
     public async getUserAuth(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM Users WHERE username = $1'
+        this.sql = 'SELECT * FROM "Users" WHERE username = $1'
         this.params = [
             req.body.username
         ]
