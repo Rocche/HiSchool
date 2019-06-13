@@ -120,11 +120,14 @@ export class TeacherAbsenceManager extends TableManager {
         req.body.body = "The lesson of date " + teacherAbsence.date +
             " and hour " + teacherAbsence.lessonHour.hour +
             " will be cancelled due to a teacher absence."
+        // get target class' students information
         let classManager = new ClassManager();
         req.body.class = teacherAbsence.lessonHour.class
         let classStudents = await classManager.getClassStudents(req)
+        // post notice
         req.body.targets = classStudents
-        await noticeManager.postNotice(req)
+        this.result = await noticeManager.postNotice(req)
+        return this.result
 
     }
 
@@ -143,11 +146,14 @@ export class TeacherAbsenceManager extends TableManager {
             " will be substituted by " + teacherAbsence.substitute.firstName +
             " " + teacherAbsence.substitute.lastName +
             "."
+        // get target class' students information
         let classManager = new ClassManager()
         req.body.class = teacherAbsence.lessonHour.class
         let classStudents = await classManager.getClassStudents(req)
+        // post notice
         req.body.targets = classStudents
-        await noticeManager.postNotice(req)
+        this.result = await noticeManager.postNotice(req)
+        return this.result
 
     }
 }

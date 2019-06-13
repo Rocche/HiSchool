@@ -100,8 +100,10 @@ export class AccountManager extends TableManager {
                         req.body.role
                     )
                     this.result = this.checkParent(user)
-                    let studentManager = new StudentManager()
-                    this.result = await studentManager.postStudent(req)
+                    if (!(this.result instanceof Error) && !(this.result instanceof CustomError)) {
+                        let studentManager = new StudentManager()
+                        this.result = await studentManager.postStudent(req)
+                    }
                     break;
                 }
                 case "TEACHER": {
@@ -111,7 +113,7 @@ export class AccountManager extends TableManager {
                 }
                 case "PARENT": {
                     let parentManager = new ParentManager()
-                    this.result = await parentManager.postParent(req) 
+                    this.result = await parentManager.postParent(req)
                     break;
                 }
                 case "SECRETARY": {
@@ -127,9 +129,9 @@ export class AccountManager extends TableManager {
                     return this.error
                 }
             }
-                  ////////////////////////////////
-                 /////// SEND MAIL HERE! ////////
-                ////////////////////////////////
+            ////////////////////////////////
+            /////// SEND MAIL HERE! ////////
+            ////////////////////////////////
         }
         return this.result
 
@@ -199,5 +201,5 @@ export class AccountManager extends TableManager {
         }
         return this.result
     }
-    
+
 }
