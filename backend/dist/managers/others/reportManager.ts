@@ -1,8 +1,9 @@
 import { Request } from "express"
-import { TableManager, NoticeManager } from "../managers";
+import { NoticeManager } from "../managers";
 import { Report, NoticeType } from "../../models/models";
 import { LogManager } from "./logManager";
 import { v4 as uuid } from 'uuid';
+import { TableManager } from "../utils/tableManager";
 
 export class ReportManager extends TableManager {
 

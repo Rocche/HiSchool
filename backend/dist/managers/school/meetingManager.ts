@@ -1,7 +1,8 @@
 import { Request } from "express"
-import { TableManager, MeetingHourManager, AccountManager, NoticeManager  } from "../managers";
+import { MeetingHourManager, AccountManager, NoticeManager  } from "../managers";
 import { Meeting, Role, NoticeType } from "../../models/models";
 import { v4 as uuid } from 'uuid';
+import { TableManager } from "../utils/tableManager";
 
 export class MeetingManager extends TableManager {
 

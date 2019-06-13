@@ -4,7 +4,8 @@ import { Request } from "express"
 
 // import models and managers
 import { User, UserAuth, CustomError, Parent } from "../../models/models";
-import { TableManager, ParentManager, StudentManager, TeacherManager } from "../managers";
+import { ParentManager, StudentManager, TeacherManager } from "../managers";
+import { TableManager } from "./tableManager";
 
 export class AccountManager extends TableManager {
 

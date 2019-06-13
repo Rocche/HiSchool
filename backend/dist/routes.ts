@@ -399,7 +399,7 @@ module.exports = function (app, passport) {
         }
     })
     // UPDATE teacherAbsence
-    app.update('/api/teacherAbsence', async (req: Request, res: Response) => {
+    app.put('/api/teacherAbsence', async (req: Request, res: Response) => {
         try {
             serverResponse = await teacherAbsenceManager.updateTeacherAbsence(req)
             sendServerResponse(req, res, serverResponse)

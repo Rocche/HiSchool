@@ -1,7 +1,7 @@
 import { Teacher, User } from "../../models/models"
 
 import { Request } from "express"
-import { TableManager } from "../managers";
+import { TableManager } from "../utils/tableManager";
 
 export class TeacherManager extends TableManager {
 

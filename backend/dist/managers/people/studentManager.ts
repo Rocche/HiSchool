@@ -2,8 +2,8 @@ import { User, Role } from "../../models/models"
 import { Student } from "../../models/models"
 
 import { Request } from "express"
-import { TableManager } from "../managers";
 import { AccountManager } from "../utils/accountManager";
+import { TableManager } from "../utils/tableManager";
 
 export class StudentManager extends TableManager {
 

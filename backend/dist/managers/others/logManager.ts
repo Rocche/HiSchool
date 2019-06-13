@@ -1,6 +1,6 @@
 import { Request } from "express"
-import { TableManager,  } from "../managers";
 import { Log } from "../../models/models";
+import { TableManager } from "../utils/tableManager";
 
 export class LogManager extends TableManager {
 

@@ -1,7 +1,7 @@
 import { Parent, User, Role } from "../../models/models"
 
 import { Request } from "express"
-import { TableManager } from "../managers";
+import { TableManager } from "../utils/tableManager";
 import { AccountManager } from "../utils/accountManager";
 
 export class ParentManager extends TableManager {
