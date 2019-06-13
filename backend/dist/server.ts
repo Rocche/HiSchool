@@ -6,7 +6,6 @@ var path     = require('path')
 var fs       = require('fs')
 var https           = require('https')
 var compression     = require('compression')
-var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
 var cookieParser = require('cookie-parser')
 var bodyParser   = require('body-parser')
 var session      = require('express-session')
