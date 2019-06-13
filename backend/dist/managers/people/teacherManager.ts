@@ -7,7 +7,7 @@ export class TeacherManager extends TableManager {
 
     public async getTeacher(user: User): Promise<any> {
 
-        this.sql = 'SELECT * FROM Teachers WHERE username = $1'
+        this.sql = 'SELECT * FROM "Teachers" WHERE username = $1'
         this.params = [
             user.username
         ]
@@ -29,7 +29,7 @@ export class TeacherManager extends TableManager {
 
     public async postTeacher(req: Request): Promise<any> {
 
-        this.sql = 'INSERT INTO Teachers ( UsersUsername ) VALUES ($1)'
+        this.sql = 'INSERT INTO "Teachers" ( "UsersUsername" ) VALUES ($1)'
         this.params = [
             req.body.username,
         ]
@@ -45,7 +45,7 @@ export class TeacherManager extends TableManager {
 
     public async postTS(req: Request): Promise<any> {
 
-        this.sql = 'INSERT INTO Teaches ( TeachersUsername, SubjectsId ) VALUES ($1, $2)'
+        this.sql = 'INSERT INTO "Teaches" ( "TeachersUsername", "SubjectsId" ) VALUES ($1, $2)'
         this.params = [
             req.body.username,
             req.body.subject.ID

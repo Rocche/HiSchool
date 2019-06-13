@@ -8,7 +8,7 @@ export class ParentManager extends TableManager {
 
     public async getParent(user: User): Promise<any> {
 
-        this.sql = 'SELECT * FROM Parents WHERE UsersUsername = $1'
+        this.sql = 'SELECT * FROM "Parents" WHERE "UsersUsername" = $1'
         this.params = [
             user.username
         ]
@@ -38,7 +38,7 @@ export class ParentManager extends TableManager {
 
     public async postParent(req: Request): Promise<any> {
 
-        this.sql = 'INSERT INTO Parents ( UsersUsername ) VALUES ($1)'
+        this.sql = 'INSERT INTO "Parents" ( "UsersUsername" ) VALUES ($1)'
         this.params = [
             req.body.username,
         ]

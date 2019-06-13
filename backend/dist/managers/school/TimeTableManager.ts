@@ -8,7 +8,7 @@ export class TimeTableManager extends TableManager {
 
     public async getClassTimeTable(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM LessonHours WHERE ClassesId = $1'
+        this.sql = 'SELECT * FROM "LessonHours" WHERE "ClassesId" = $1'
         this.params = [
             req.query.class
         ]
@@ -44,7 +44,7 @@ export class TimeTableManager extends TableManager {
 
     public async getTeacherTimeTable(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM LessonHours WHERE TeachersUsername = $1'
+        this.sql = 'SELECT * FROM "LessonHours" WHERE "TeachersUsername" = $1'
         this.params = [
             req.body.teacher
         ]

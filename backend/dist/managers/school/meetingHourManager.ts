@@ -7,7 +7,7 @@ export class MeetingHourManager extends TableManager {
 
     public async getMeetingHour(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM MeetingHours WHERE id = $1'
+        this.sql = 'SELECT * FROM "MeetingHours" WHERE id = $1'
         this.params = [
             req.body.ID
         ]
@@ -34,7 +34,7 @@ export class MeetingHourManager extends TableManager {
     public async getMeetingHours(req: Request): Promise<any> {
 
 
-        this.sql = 'SELECT * FROM MeetingHours'
+        this.sql = 'SELECT * FROM "MeetingHours"'
         this.params = []
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 

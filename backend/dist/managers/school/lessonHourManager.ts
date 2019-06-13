@@ -8,7 +8,7 @@ export class LessonHourManager extends TableManager {
 
     public async getLessonHour(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM LessonHours WHERE id = $1'
+        this.sql = 'SELECT * FROM "LessonHours" WHERE id = $1'
         this.params = [
             req.body.ID
         ]

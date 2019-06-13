@@ -11,7 +11,7 @@ export class TeacherAbsenceManager extends TableManager {
 
     public async getTeacherAbsence(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM TeacherAbsences WHERE id = $1'
+        this.sql = 'SELECT * FROM "TeacherAbsences" WHERE id = $1'
         this.params = [
             req.body.ID
         ]
@@ -41,7 +41,7 @@ export class TeacherAbsenceManager extends TableManager {
 
     public async getTeacherAbsences(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM TeacherAbsences'
+        this.sql = 'SELECT * FROM "TeacherAbsences"'
         this.params = [
             req.body.ID
         ]
@@ -78,7 +78,7 @@ export class TeacherAbsenceManager extends TableManager {
     public async postTeacherAbsence(req: Request): Promise<any> {
 
         let teacherAbsenceID = uuid()
-        this.sql = 'INSERT INTO TeacherAbsences ( id, TeachersUsername, date, lessonHour, substitute ) VALUES ($1,$2,$3,$4,$5)'
+        this.sql = 'INSERT INTO "TeacherAbsences" ( id, "TeachersUsername", date, "LessonHoursId", substitute ) VALUES ($1,$2,$3,$4,$5)'
         this.params = [
             teacherAbsenceID,
             req.body.teacher,
@@ -97,7 +97,7 @@ export class TeacherAbsenceManager extends TableManager {
 
     public async updateTeacherAbsence(req: Request): Promise<any> {
 
-        this.sql = 'UPDATE TeacherAbsences SET substitute = $1 WHERE id = $2'
+        this.sql = 'UPDATE "TeacherAbsences" SET substitute = $1 WHERE id = $2'
         this.params = [
             req.body.substitute,
             req.body.ID
