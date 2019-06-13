@@ -39,26 +39,33 @@ module.exports = function (passport) {
         passReqToCallback: true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
         async function (req, username, password, done) {
-            var user: any
+            var userAuth: any
             var accountManager = new AccountManager()
             try {
                 // find user in the database by username field
-                user = await accountManager.getUserAuth(req)
+                userAuth = await accountManager.getUserAuth(req)
             } catch (err) {
                 return done(err, false)
             }
             // check result has been correctly retrieved and elaborated from database
-            if (!user || !(user instanceof UserAuth)) {
+            if (!userAuth || !(userAuth instanceof UserAuth)) {
                 var error = new CustomError("LOGIN ERROR",'user not found')
                 return done(error, false)
             }
             // match input and user passwords
             // if they don't match, return error
-            if (!(bcrypt.compareSync(req.body.password, user.password))) {
+            if (!(bcrypt.compareSync(req.body.password, userAuth.password))) {
                 var error = new CustomError("LOGIN ERROR","password not matching")
                 return done(error, false)
             }
             // return user correctly logged in
+            let user = new User(
+                userAuth.username,
+                userAuth.email,
+                userAuth.firstName,
+                userAuth.lastName,
+                userAuth.role
+            )
             return done(null, user)
         }
     ))

@@ -8,7 +8,7 @@ export class SubjectManager extends TableManager {
 
     public async getSubject(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM Subjects WHERE id = $1'
+        this.sql = 'SELECT * FROM "Subjects" WHERE id = $1'
         this.params = [
             req.body.ID
         ]
@@ -26,7 +26,7 @@ export class SubjectManager extends TableManager {
 
     public async getSubjects(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM Subjects'
+        this.sql = 'SELECT * FROM "Subjects"'
         this.params = []
 
         if (this.result.rowCount > 0) {

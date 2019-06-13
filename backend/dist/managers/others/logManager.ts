@@ -6,7 +6,7 @@ export class LogManager extends TableManager {
 
     public async getLog(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM Logs WHERE id = $1'
+        this.sql = 'SELECT * FROM "Logs" WHERE id = $1'
         this.params = [
             req.body.ID
         ]
@@ -26,7 +26,7 @@ export class LogManager extends TableManager {
 
     public async getLogs(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM Logs'
+        this.sql = 'SELECT * FROM "Logs"'
         this.params = []
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 

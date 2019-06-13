@@ -8,7 +8,7 @@ export class ClassManager extends TableManager {
 
     public async getClass(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM Classes WHERE id = $1'
+        this.sql = 'SELECT * FROM "Classes" WHERE id = $1'
         this.params = [
             req.body.ID
         ]
@@ -27,7 +27,7 @@ export class ClassManager extends TableManager {
 
     public async getClasses(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM Classes'
+        this.sql = 'SELECT * FROM "Classes"'
         this.params = []
 
         if (this.result.rowCount > 0) {
@@ -48,7 +48,7 @@ export class ClassManager extends TableManager {
 
     public async getClassStudents(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM Students INNER JOIN Users ON Students.UsersUsername = Users.username WHERE ClassId = $1'
+        this.sql = 'SELECT * FROM "Students" INNER JOIN "Users" ON Students.UsersUsername = Users.username WHERE ClassId = $1'
         this.params = [
             req.body.class
         ]

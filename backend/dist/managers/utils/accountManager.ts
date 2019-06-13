@@ -11,9 +11,9 @@ export class AccountManager extends TableManager {
 
     public async getUser(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM Users WHERE username = $1'
+        this.sql = 'SELECT * FROM "Users" WHERE username = $1'
         this.params = [
-            req.body.username
+            req.query.username
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
         if (this.result.rowCount > 0) {
@@ -78,7 +78,7 @@ export class AccountManager extends TableManager {
         }
 
         // add user to the users table
-        this.sql = "INSERT INTO Users ( username, password, email, firstName, lastName, role ) VALUES ($1,$2,$3,$4,$5,$6)"
+        this.sql = 'INSERT INTO "Users" ( username, password, email, firstName, lastName, role ) VALUES ($1,$2,$3,$4,$5,$6)'
         this.params = [
             req.body.username,
             bcrypt.hashSync(req.body.password, 8),
