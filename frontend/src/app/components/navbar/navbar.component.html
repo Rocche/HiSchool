@@ -1,0 +1,113 @@
+<body *ngIf="isLoggedIn$ | async">
+  <nav class="navbar navbar-light navbar-expand-lg static-top">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu" aria-controls="menu"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse bg-white" data-toggle="collapse" data-target=".navbar-collapse.show"
+        id="menu">
+        <ul *ngIf="role == 'student'" class="navbar-nav ml-auto" routerLinkActive="active">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/student">
+              Timetable
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/notices">
+              Notices
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="logout()">
+              Logout
+            </a>
+          </li>
+        </ul>
+        <ul *ngIf="role == 'parent'" class="navbar-nav ml-auto" routerLinkActive="active">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/student">
+              Timetable
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/notices">
+              Notices
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/reserve_meeting">
+              Reserve Meeting
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="logout()">
+              Logout
+            </a>
+          </li>
+        </ul>
+        <ul *ngIf="role == 'secretary'" class="navbar-nav ml-auto" routerLinkActive="active">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/noticeboard">
+              Noticeboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/send_notice">
+              Send Notice
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/create_account">
+              New Account
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="logout()">
+              Logout
+            </a>
+          </li>
+        </ul>
+        <ul *ngIf="role == 'teacher'" class="navbar-nav ml-auto" routerLinkActive="active">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/notices">
+              Notices
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/absence">
+              Communicate Absence
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/substitutions">
+              Available Substitutions
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/meeting_table">
+              Meeting Table
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="logout()">
+              Logout
+            </a>
+          </li>
+        </ul>
+        <ul *ngIf="role == 'admin'" class="navbar-nav ml-auto" routerLinkActive="active">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/logs">
+                Logs
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" (click)="logout()">
+                Logout
+              </a>
+            </li>
+          </ul>
+      </div>
+    </div>
+  </nav>
+</body>

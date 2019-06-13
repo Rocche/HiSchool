@@ -1,0 +1,47 @@
+<form>
+    <div class="form-group input-group">
+        <label for="target_type">Select target type:</label>
+        <select class="form-control" name="target_type" [(ngModel)]="this.targetType" (change)="selectTarget()">
+            <option selected=""> Select user type </option>
+            <option>class</option>
+            <option>teacher</option>
+        </select>
+    </div>
+  <div *ngIf="this.targetType != null" class="form-group">
+    <label for="targets">To:</label>
+    <div  *ngIf="this.targetType == 'class'">
+        <select class="form-control" name="target_type" [(ngModel)]="this.selectedClass" (change)="addClass()">
+            <option *ngFor="let class of this.classes" [ngValue]="class">{{class.year}}{{class.section}}{{class.branch}}</option>
+        </select>
+        <table>
+            <tr *ngFor="let class of this.selectedClasses">
+                <td>{{class.year}}{{class.section}}{{class.branch}}</td>
+                <td><button class="btn btn-danger" (click)="removeFromClasses(class)">Remove</button></td>
+            </tr>
+        </table>
+    </div>
+    <div  *ngIf="this.targetType == 'teacher'">
+    <select class="form-control" name="target_type" [(ngModel)]="this.selectedTeacher" (change)="addTeacher()">
+        <option *ngFor="let teacher of this.teachers" [ngValue]="teacher">{{teacher.lastName}} {{teacher.firstName}}</option>
+    </select>
+    <table>
+        <tr *ngFor="let class of this.selectedTeachers">
+            <td>{{teacher.lastName}} {{teacher.firstName}}</td>
+            <td><button class="btn btn-danger" (click)="removeFromTeachers(teacher)">Remove</button></td>
+        </tr>
+    </table>
+    </div>
+  </div>
+  <div *ngIf="this.notice.target != null">
+    
+  <div class="form-group">
+    <label for="title">Title:</label>
+    <input type="text" class="form-control" id="title" name = "title" [(ngModel)] = "this.notice.title">
+  </div>
+  <div class="form-group">
+    <label for="body">Body:</label>
+    <textarea class="form-control" id="body" rows="3" name="body" [(ngModel)] = "this.notice.body"></textarea>
+  </div>
+  <button type="submit" class="btn btn-info" (click)="sendNotice()">Send Notice</button>
+</div>
+</form>

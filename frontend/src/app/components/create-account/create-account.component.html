@@ -1,0 +1,57 @@
+<div class="container">
+    <div>
+        <form>
+            <div class="form-group input-group">
+                <input name="name" class="form-control" placeholder="First Name" type="text"
+                    [(ngModel)]="this.account.firstname">
+            </div>
+            <div class="form-group input-group">
+                <input name="surname" class="form-control" placeholder="Last Name" type="text"
+                    [(ngModel)]="this.account.lastname">
+            </div>
+            <div class="form-group input-group">
+                <input name="email" class="form-control" placeholder="Email address" type="email"
+                    [(ngModel)]="this.account.email">
+            </div>
+            <div class="form-group input-group">
+                <select class="form-control" name="role" [(ngModel)]="this.account.role" (change)="selectRole()">
+                    <option selected=""> Select user type </option>
+                    <option>student</option>
+                    <option>parent</option>
+                    <option>teacher</option>
+                </select>
+            </div>
+            <div *ngIf="this.account.role == 'student'">
+                <div class="form-group">
+                    <select class="form-control" name="parent">
+                            <option selected=""> Select parent </option>
+                        <option *ngFor="let parent of this.parents">{{parent.firstName}} {{parent.lastName}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                        <select class="form-control" name="class">
+                            <option selected=""> Select class </option>
+                            <option *ngFor="let class of this.classes">{{class.year}}{{class.section}}{{class.branch}}</option>
+                        </select>
+                </div>
+            </div>
+            <div *ngIf="this.account.role == 'teacher'">
+                <div class="form-group">
+                    <select class="form-control" name="subject" [(ngModel)] ="selectedSubject" (change)="addSubject()">
+                        <option selected=""> Select subject </option>
+                        <option *ngFor="let subject of this.subjects">{{subject}}</option>
+                    </select>
+                </div>
+                <table>
+                    <tr *ngFor="let subject of this.teacherSubjects">
+                        <td>{{subject}}</td>
+                        <td><button class="btn btn-danger" (click)="removeFromSubjects(subject)">Remove</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-info" (click)="createAccount()"> Create Account </button>
+            </div>
+        </form>
+    </div>
+</div>

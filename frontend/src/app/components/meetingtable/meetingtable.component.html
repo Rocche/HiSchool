@@ -1,0 +1,18 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Sender</th>
+      <th scope="col">Date</th>
+      <th scope = "col">Hour</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let meeting of this.meetings">
+      <th scope="row">{{meeting.parent}}</th>
+      <td>{{meeting.date}}</td>
+      <td>{{meeting.meetingHour.hour}}</td>
+      <td><button class="btn btn-danger" (click)="dismiss(meeting)">Dismiss</button></td>
+    </tr>
+  </tbody>
+</table>

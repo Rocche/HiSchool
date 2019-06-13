@@ -1,0 +1,12 @@
+<div class="col-centered text-center">
+    <input class="form-control text-center" placeholder="yyyy-mm-dd" name="d" [(ngModel)]="this.date" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()">
+    <select class="form-control" name="hour" [(ngModel)]="this.absence.hour">
+        <option selected=""> Select absence hour </option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+    </select>
+    <button type="submit" class="btn btn-info" (click) = "addAbsence()">Confirm Absence</button>
+</div>
