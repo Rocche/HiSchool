@@ -78,11 +78,7 @@ export class TeacherAbsenceManager extends TableManager {
     public async postTeacherAbsence(req: Request): Promise<any> {
 
         let teacherAbsenceID = uuid()
-<<<<<<< HEAD
-        this.sql = 'INSERT INTO "TeacherAbsences" ( id, "TeachersUsername", date, "LessonHoursId", substitute ) VALUES ($1,$2,$3,$4,$5)'
-=======
         this.sql = 'INSERT INTO "TeacherAbsences" ( id, TeachersUsername, date, lessonHour, substitute ) VALUES ($1,$2,$3,$4,$5)'
->>>>>>> e16671279df51bfa051e956dd346b4ebdb61487b
         this.params = [
             teacherAbsenceID,
             req.body.teacher,

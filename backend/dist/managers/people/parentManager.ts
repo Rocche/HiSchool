@@ -8,11 +8,7 @@ export class ParentManager extends TableManager {
 
     public async getParent(user: User): Promise<any> {
 
-<<<<<<< HEAD
         this.sql = 'SELECT * FROM "Parents" WHERE "UsersUsername" = $1'
-=======
-        this.sql = 'SELECT * FROM "Parents" WHERE UsersUsername = $1'
->>>>>>> e16671279df51bfa051e956dd346b4ebdb61487b
         this.params = [
             user.username
         ]
@@ -23,9 +19,7 @@ export class ParentManager extends TableManager {
             let sons = []
             let req: Request;
             this.result.rows[0].sons.forEach(async son => {
-                req.body.username = son;
-                req.body.role = Role.STUDENT
-                sons.push(await accountManager.getUser(req))
+                sons.push(await accountManager.getUserByUsername(son))
             });
             let parent = new Parent(
                 user.username,
@@ -42,11 +36,7 @@ export class ParentManager extends TableManager {
 
     public async postParent(req: Request): Promise<any> {
 
-<<<<<<< HEAD
-        this.sql = 'INSERT INTO "Parents" ( "UsersUsername" ) VALUES ($1)'
-=======
         this.sql = 'INSERT INTO "Parents" ( UsersUsername ) VALUES ($1)'
->>>>>>> e16671279df51bfa051e956dd346b4ebdb61487b
         this.params = [
             req.body.username,
         ]

@@ -61,6 +61,58 @@ export class AccountManager extends TableManager {
         }
     }
 
+    public async getUserByUsername(username: string): Promise<any> {
+
+        this.sql = 'SELECT * FROM "Users" WHERE username = $1'
+        this.params = [
+            username
+        ]
+        this.result = await this.dbManager.getQuery(this.sql, this.params)
+        if (this.result.rowCount > 0) {
+            let user = new User(
+                this.result.rows[0].username,
+                this.result.rows[0].email,
+                this.result.rows[0].firstName,
+                this.result.rows[0].lastName,
+                this.result.rows[0].role
+            )
+            this.result = user
+        }
+        // get addictional user information from the right table
+        if (!(this.result instanceof Error) && !(this.result instanceof CustomError)) {
+            switch (this.result.role) {
+                case "STUDENT": {
+                    let studentManager = new StudentManager();
+                    this.result = await studentManager.getStudent(this.result)
+                    break;
+                }
+                case "TEACHER": {
+                    let teacherManager = new TeacherManager();
+                    this.result = await teacherManager.getTeacher(this.result)
+                    break;
+                }
+                case "PARENT": {
+                    let parentManager = new ParentManager()
+                    this.result = await parentManager.getParent(this.result)
+                    break;
+                }
+                case "SECRETARY": {
+                    //statements; 
+                    break;
+                }
+                case "ADMINISTRATOR": {
+                    //statements; 
+                    break;
+                } default: {
+                    this.error.name = "ROLE ERROR"
+                    this.error.details = "user role incorrect"
+                    return this.error
+                }
+            }
+            return this.result
+        }
+    }
+
     public async postUser(req: Request): Promise<any> {
 
         // check if the role of the new user is correct
@@ -78,11 +130,7 @@ export class AccountManager extends TableManager {
         }
 
         // add user to the users table
-<<<<<<< HEAD
-        this.sql = 'INSERT INTO "Users" ( username, password, email, firstname, surname, role ) VALUES ($1,$2,$3,$4,$5,$6)'
-=======
         this.sql = 'INSERT INTO "Users" ( username, password, email, firstName, lastName, role ) VALUES ($1,$2,$3,$4,$5,$6)'
->>>>>>> e16671279df51bfa051e956dd346b4ebdb61487b
         this.params = [
             req.body.username,
             bcrypt.hashSync(req.body.password, 8),

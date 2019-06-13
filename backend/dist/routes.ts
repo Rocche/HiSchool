@@ -34,7 +34,7 @@ module.exports = function (app, passport) {
         if (serverResponse instanceof CustomError) {
             return res.status(404).send({ ErrorMessage: serverResponse })
         }
-        res.status(200).send({ User: serverResponse })
+        res.status(200).send({ ServerResponse: serverResponse })
     }
 
     //------------------------ SERVER RESPONSE HANDLER ------------------------//

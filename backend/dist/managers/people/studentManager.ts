@@ -4,16 +4,12 @@ import { Student } from "../../models/models"
 import { Request } from "express"
 import { AccountManager } from "../utils/accountManager";
 import { TableManager } from "../utils/tableManager";
+import { request } from "https";
 
 export class StudentManager extends TableManager {
 
     public async getStudent(user: User): Promise<any> {
-
-<<<<<<< HEAD
         this.sql = 'SELECT * FROM "Students" WHERE "UsersUsername" = $1'
-=======
-        this.sql = 'SELECT * FROM "Students" WHERE UsersUsername = $1'
->>>>>>> e16671279df51bfa051e956dd346b4ebdb61487b
         this.params = [
             user.username
         ]
@@ -22,9 +18,10 @@ export class StudentManager extends TableManager {
             // get parent information
             let accountManager = new AccountManager()
             let req: Request;
-            req.body.username = this.result.rows[0].parent
-            req.body.role = Role.PARENT
-            let parent = await accountManager.getUser(req)
+            req.query.username = this.result.rows[0].ParentsUsername
+            console.log('BBBB ' + req.query.username)
+            req.query.role = Role.PARENT
+            let parent = await accountManager.getUserByUsername(this.result.rows[0].ParentsUsername)
             let student = new Student(
                 user.username,
                 user.email,
@@ -41,11 +38,7 @@ export class StudentManager extends TableManager {
     }
     public async postStudent(req: Request): Promise<any> {
 
-<<<<<<< HEAD
         this.sql = 'INSERT INTO "Students" ( "UsersUsername", "ClassId", "ParentsUsername" ) VALUES ($1,$2, $3)'
-=======
-        this.sql = 'INSERT INTO "Students" ( UsersUsername, ClassId, ParentsUsername ) VALUES ($1,$2, $3)'
->>>>>>> e16671279df51bfa051e956dd346b4ebdb61487b
         this.params = [
             req.body.username,
             req.body.class,
