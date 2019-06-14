@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Notice } from '../models/Notice';
 import { NOTICE_TYPES } from '../models/noticeTypes';
 import { HttpClient } from '@angular/common/http';
+import { unwatchFile } from 'fs';
+import { Role } from '../models.1/models';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +20,16 @@ export class NoticesService {
     ]
   }
 
-  public getNotices(targetUser: string){
-    return this.http.get('/api/personalNotices?target=' + targetUser);
+  public getNotices(){
+    let user = JSON.parse(localStorage.getItem('user'));
+    let target;
+    if(user.role == Role.STUDENT || user.role == Role.TEACHER){
+      target = user.username;
+    }
+    if(user.role == Role.PARENT){
+      target = user.sons[0].username;
+    }
+    return this.http.get('/api/personalNotices?target=' + target);
   }
 
   public sendNotice(notice: Notice){
