@@ -7,7 +7,7 @@
       </button>
       <div class="collapse navbar-collapse bg-white" data-toggle="collapse" data-target=".navbar-collapse.show"
         id="menu">
-        <ul *ngIf="role == 'student'" class="navbar-nav ml-auto" routerLinkActive="active">
+        <ul *ngIf="role == 'STUDENT'" class="navbar-nav ml-auto" routerLinkActive="active">
           <li class="nav-item">
             <a class="nav-link" routerLink="/student">
               Timetable
@@ -24,7 +24,7 @@
             </a>
           </li>
         </ul>
-        <ul *ngIf="role == 'parent'" class="navbar-nav ml-auto" routerLinkActive="active">
+        <ul *ngIf="role == 'PARENT'" class="navbar-nav ml-auto" routerLinkActive="active">
           <li class="nav-item">
             <a class="nav-link" routerLink="/student">
               Timetable
@@ -46,7 +46,7 @@
             </a>
           </li>
         </ul>
-        <ul *ngIf="role == 'secretary'" class="navbar-nav ml-auto" routerLinkActive="active">
+        <ul *ngIf="role == 'SECRETARY'" class="navbar-nav ml-auto" routerLinkActive="active">
           <li class="nav-item">
             <a class="nav-link" routerLink="/noticeboard">
               Noticeboard
@@ -68,7 +68,7 @@
             </a>
           </li>
         </ul>
-        <ul *ngIf="role == 'teacher'" class="navbar-nav ml-auto" routerLinkActive="active">
+        <ul *ngIf="role == 'TEACHER'" class="navbar-nav ml-auto" routerLinkActive="active">
           <li class="nav-item">
             <a class="nav-link" routerLink="/notices">
               Notices
@@ -95,7 +95,7 @@
             </a>
           </li>
         </ul>
-        <ul *ngIf="role == 'admin'" class="navbar-nav ml-auto" routerLinkActive="active">
+        <ul *ngIf="role == 'ADMINISTRATOR'" class="navbar-nav ml-auto" routerLinkActive="active">
             <li class="nav-item">
               <a class="nav-link" routerLink="/logs">
                 Logs
