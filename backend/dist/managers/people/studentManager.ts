@@ -30,7 +30,7 @@ export class StudentManager extends TableManager {
                 user.role,
                 user.firstName,
                 user.lastName,
-                this.result.rows[0].class,
+                this.result.rows[0].ClassesId,
                 this.result.rows[0].ParentsUsername
             )
             this.result = student

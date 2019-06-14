@@ -12,6 +12,7 @@ export class TimeTableManager extends TableManager {
         this.params = [
             req.query.class
         ]
+        this.result = await this.dbManager.getQuery(this.sql, this.params)
 
         if (this.result.rowCount > 0) {
             let lessonHoursArray = []
@@ -22,7 +23,7 @@ export class TimeTableManager extends TableManager {
                 let teacher = await accountManager.getUser(req)
                 // get subject information
                 let subjectManager = new SubjectManager()
-                req.body.ID = row.subject
+                req.body.ID = row.SubjectsId
                 let subject = await subjectManager.getSubject(req)
                 // create lessonHour
                 let lessonHour = new LessonHour(
@@ -48,6 +49,7 @@ export class TimeTableManager extends TableManager {
             req.body.teacher
         ]
 
+        this.result = await this.dbManager.getQuery(this.sql, this.params)
         if (this.result.rowCount > 0) {
             let lessonHoursArray = []
             for (let row of this.result.rows) {

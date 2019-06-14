@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TimetableService } from 'src/app/services/timetable.service';
 import { LessonHour } from 'src/app/models.1/school/lessonHour';
 import { ClassService } from 'src/app/services/class.service';
-import { Subject } from 'src/app/models.1/models';
+import { Subject, Role } from 'src/app/models.1/models';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
   selector: 'app-timetable',
@@ -13,15 +14,13 @@ export class TimetableComponent implements OnInit {
 
   public timetable: Subject[][];
 
-  constructor(private classService: ClassService) { }
+  constructor(private classService: ClassService, private accountService: AccountService) { }
 
   ngOnInit() {
-    /*
-    this.classService.getTimeTable('3A')
+    this.classService.getTimeTable()
       .subscribe((res: LessonHour[]) => {
         this.timetable = this.buildStudentTimetable(res);
       })
-      */
   }
 
   private buildStudentTimetable(timetable: LessonHour[]): Subject[][]{
