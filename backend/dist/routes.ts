@@ -22,6 +22,15 @@ module.exports = function (app, passport) {
     var subjectManager = new managers.SubjectManager;
     var classManager = new managers.ClassManager;
 
+    /*
+    // people managers
+    var studentManager = new managers.StudentManager;
+    var parentManager = new managers.ParentManager;
+    var teacherManager = new managers.TeacherManager;
+    var secretaryManager = new managers.SecretaryManager;
+    var administratorManager = new managers.AdministratorManager;
+    */
+
     //------------------------ UNAUTHORIZED RESPONSE MESSAGES --------------------------//
     function sendUnauthorizedResponse(res: Response) {
         res.status(401).send({ ErrorMessage: 'You are not authorized to call this function' })
@@ -534,7 +543,7 @@ module.exports = function (app, passport) {
         }
     })
     // GET class teachers
-    app.get('/api/classTeachers', async (req: Request, res: Response) => {
+    app.get('/api/subjects', async (req: Request, res: Response) => {
         try {
             serverResponse = await classManager.getClassTeachers(req)
             sendServerResponse(req, res, serverResponse)

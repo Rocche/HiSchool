@@ -6,6 +6,8 @@ export * from './others/reportManager'
 export * from './people/studentManager'
 export * from './people/teacherManager'
 export * from './people/parentManager'
+export * from './people/secretaryManager'
+export * from './people/administratorManager'
 
 // school
 export * from './school/classManager'

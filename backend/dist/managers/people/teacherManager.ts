@@ -7,7 +7,7 @@ export class TeacherManager extends TableManager {
 
     public async getTeacher(user: User): Promise<any> {
 
-        this.sql = 'SELECT * FROM "Teachers" WHERE username = $1'
+        this.sql = 'SELECT * FROM "Teachers" WHERE "UsersUsername = $1'
         this.params = [
             user.username
         ]
@@ -18,9 +18,8 @@ export class TeacherManager extends TableManager {
                 user.email,
                 user.role,
                 user.firstName,
-                user.lastName,
-                this.result.rows[0].subjects
-            )
+                user.lastName
+        )
             this.result = teacher
         }
         return this.result
