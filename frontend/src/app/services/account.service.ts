@@ -3,6 +3,7 @@ import { Account } from '../models/Account';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RoutingService } from './routing.service';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { Role, User, Student } from '../models.1/models';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -29,16 +30,26 @@ export class AccountService {
   }
 
   public authenticate(username: string, password: string) {
-    /*
     let body = `username=${username}&password=${password}`;
-    return this.http.post("/api/login", body, httpOptions);
-    */
-    if (username != null) {
-      this.loggedIn$.next(true);
-      this.roleLoggedIn$.next(username);
-      this.role = username;
-      this.routingService.navigateTo('/' + username);
-    }
+    this.http.post("/api/login", body, httpOptions)
+      .subscribe((res: any) => {
+        let role = res.ServerResponse.role;
+        //get User object
+        this.http.get("/api/user?username="+username)
+          .subscribe((res: any) => {
+            localStorage.setItem('user', JSON.stringify(res));
+            this.loggedIn$.next(true);
+            this.roleLoggedIn$.next(res.role);
+            this.role = res.role;
+            this.routingService.navigateTo('/' + res.role.toLowerCase());
+          },
+          error => {
+            alert("Something went terribly wrong")
+          })
+      },
+      error => {
+        alert("Username or password not correct")
+      })
   }
   
   public logout(): void{
