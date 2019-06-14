@@ -71,7 +71,7 @@ export class ClassManager extends TableManager {
     
     public async getClassTeachers(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM "LessonHours" WHERE "ClassesId" = $1 GROUP BY "TeachersUsername"'
+        this.sql = 'SELECT "TeachersUsername" FROM "LessonHours" WHERE "ClassesId" = $1 GROUP BY "TeachersUsername"'
         this.params = [
             req.query.class
         ]

@@ -16,10 +16,12 @@ export class TimetableComponent implements OnInit {
   constructor(private classService: ClassService) { }
 
   ngOnInit() {
+    /*
     this.classService.getTimeTable('3A')
       .subscribe((res: LessonHour[]) => {
         this.timetable = this.buildStudentTimetable(res);
       })
+      */
   }
 
   private buildStudentTimetable(timetable: LessonHour[]): Subject[][]{

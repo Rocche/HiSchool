@@ -34,7 +34,6 @@ export class AccountService {
     this.http.post("/api/login", body, httpOptions)
       .subscribe((res: any) => {
         let role = res.ServerResponse.role;
-        //get User object
         this.http.get("/api/user?username="+username)
           .subscribe((res: any) => {
             localStorage.setItem('user', JSON.stringify(res));
@@ -53,8 +52,16 @@ export class AccountService {
   }
   
   public logout(): void{
-    this.loggedIn$.next(false);
-    this.routingService.navigateTo('');
+    this.http.get("/api/logout")
+      .subscribe((res: any) => {
+        this.loggedIn$.next(false);
+        this.routingService.navigateTo('');
+        this.roleLoggedIn$.next(null);
+        this.role = null;
+      },
+      error => {
+        alert("Error logout: " + error)
+      })
 }
   //createAccount
 }
