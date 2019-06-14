@@ -1,5 +1,5 @@
 <div class="form-group input-group">
-    <select class="form-control" name="target_type" [(ngModel)]="this.selectedTeacher" (change)="selectTeacher()">
+    <select class="form-control" name="target_type" [(ngModel)]="this.selectedTeacher">
         <option *ngFor="let teacher of this.teachers" [ngValue]="teacher">{{teacher.firstName}} {{teacher.lastName}}</option>
     </select>
   <button class="btn btn-info" (click)="getTeacherMeetingHours()">Search</button>
@@ -18,7 +18,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let meetingHour of this.meetingHours">
-            <th scope="row">{{meetingHour.teacher}}</th>
+            <th scope="row">{{meetingHour.teacher.firstName}} {{meetingHour.teacher.lastName}}</th>
             <td>{{meetingHour.dayOfWeek}}</td>
             <td>{{meetingHour.hour}}</td>
             <td><button class="btn btn-info" (click)="reserveMeeting(meetingHour)">Reserve</button></td>

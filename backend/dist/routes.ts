@@ -539,7 +539,7 @@ module.exports = function (app, passport) {
         }
     })
     // GET class teachers
-    app.get('/api/subjects', async (req: Request, res: Response) => {
+    app.get('/api/classTeachers', async (req: Request, res: Response) => {
         try {
             serverResponse = await classManager.getClassTeachers(req)
             sendServerResponse(req, res, serverResponse)

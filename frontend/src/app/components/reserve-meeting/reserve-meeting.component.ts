@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MeetingHour } from 'src/app/models/MeetingHour';
+import { MeetingHour } from 'src/app/models.1/school/meetingHour';
 import { MeetingService } from 'src/app/services/meeting.service';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
@@ -21,23 +21,32 @@ export class ReserveMeetingComponent implements OnInit {
   constructor(private meetingService: MeetingService, private userService: UserService) { }
 
   ngOnInit() {
-    this.teachers = this.userService.getTeachers(new Class('0', 3, 'A', 'S'));
+    this.userService.getTeachers()
+      .subscribe((res: Teacher[]) => {
+        this.teachers = res;
+      },
+      error => {
+        alert("Error getting teachers");
+      })
   }
 
   public getTeacherMeetingHours(){
-    this.meetingHours = this.meetingService.getTeacherMeetingHours(this.selectedTeacher);let availableDays = [];
-    this.meetingHours.forEach((meetingHour: MeetingHour) => {
-      availableDays.push(meetingHour.getDay());
-    })
-    console.log(availableDays)
-    this.markDisabled = (date: NgbDate) => {
-      let d = moment(date.year + "-" + date.month + "-" + date.day);
-      return !availableDays.includes(d.day());
-    }
+    this.meetingService.getTeacherMeetingHours(this.selectedTeacher.username)
+      .subscribe((res: MeetingHour[]) => {
+        this.meetingHours = res;
+        let availableDays = [];
+        this.meetingHours.forEach((meetingHour: MeetingHour) => {
+          availableDays.push(meetingHour.dayOfWeek);
+          this.markDisabled = (date: NgbDate) => {
+            let d = moment(date.year + "-" + date.month + "-" + date.day);
+            return !availableDays.includes(d.day());
+          }
+        })
+      })
   }
-
+  /*
   public reserveMeeting(meetinghour: MeetingHour){
     this.meetingService.reserveMeeting(meetinghour);
   }
-
+  */
 }
