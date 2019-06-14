@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Notice } from 'src/app/models/Notice';
+import { Notice } from 'src/app/models.1/school/notice';
 import { NoticesService } from 'src/app/services/notices.service';
 
 @Component({
@@ -15,8 +15,14 @@ export class NoticeboardComponent implements OnInit {
   constructor(private noticesService: NoticesService) { }
 
   ngOnInit() {
-    this.noticeboard = this.noticesService.getNoticeboard();
-    this.currentNotice = new Notice(null, null, null, null);
+    this.noticesService.getNoticeboard()
+      .subscribe((res: Notice[]) => {
+        this.noticeboard = res;
+      },
+      error => {
+        alert("Error while getting noticeboard")
+      })
+    this.currentNotice = new Notice(null, null, null, null, null);
   }
 
 }

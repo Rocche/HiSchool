@@ -42,6 +42,6 @@ export class NoticesService {
   }
 
   public getNoticeboard(){
-    return this.notices;
+    return this.http.get('/api/noticeBoard');
   }
 }
