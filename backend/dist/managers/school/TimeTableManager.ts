@@ -1,6 +1,6 @@
 import { Request } from "express"
 import { TableManager } from "../utils/tableManager";
-import { LessonHour, Role } from "../../models/models";
+import { LessonHour } from "../../models/models";
 import { AccountManager } from "../utils/accountManager";
 import { SubjectManager } from "./subjectManager";
 
@@ -19,7 +19,6 @@ export class TimeTableManager extends TableManager {
                 // get teacher information
                 let accountManager = new AccountManager()
                 req.body.username = row.teacher
-                req.body.role = Role.TEACHER
                 let teacher = await accountManager.getUser(req)
                 // get subject information
                 let subjectManager = new SubjectManager()
@@ -55,7 +54,6 @@ export class TimeTableManager extends TableManager {
                 // get teacher information
                 let accountManager = new AccountManager()
                 req.body.username = row.teacher
-                req.body.role = Role.TEACHER
                 let teacher = await accountManager.getUser(req)
                 // get subject information
                 let subjectManager = new SubjectManager()

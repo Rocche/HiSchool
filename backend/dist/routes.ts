@@ -20,6 +20,7 @@ module.exports = function (app, passport) {
     var meetingHourManager = new managers.MeetingHourManager;
     var meetingManager = new managers.MeetingManager;
     var subjectManager = new managers.SubjectManager;
+    var classManager = new managers.ClassManager;
 
     //------------------------ UNAUTHORIZED RESPONSE MESSAGES --------------------------//
     function sendUnauthorizedResponse(res: Response) {
@@ -520,6 +521,31 @@ module.exports = function (app, passport) {
         }
     })
 
+    //------------------------------------------------------/api/class-------------------------------------------//
+    // GET class students
+    app.get('/api/classStudents', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await classManager.getClassStudents(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+    // GET class teachers
+    app.get('/api/classTeachers', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await classManager.getClassTeachers(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+
+    
     // ==========================================================================================================================================================
     // ==============================================   OTHER FUNCTIONS   =======================================================================================
     // ==========================================================================================================================================================
