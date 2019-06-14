@@ -281,11 +281,7 @@ module.exports = function (app, passport) {
     // GET personalNotices
     app.get('/api/personalNotices', async (req: Request, res: Response) => {
         try {
-            //serverResponse = await personalNoticeManager.getPersonalNotices(req)
-            serverResponse = [
-                new PersonalNotice('0', new Date('29-01-1997'), 'student', new Notice('0', new Date('29-01-1997'), NoticeType.Standard, 'bomb', 'BOOOOM'), NoticeStatus.Unsigned),
-                new PersonalNotice('0', new Date('30-01-1997'), 'student', new Notice('0', new Date('30-01-1997'), NoticeType.Authorization, 'sbanf', 'SBAAAAAANF'), NoticeStatus.Unsigned)
-            ]
+            serverResponse = await personalNoticeManager.getPersonalNotices(req)
             sendServerResponse(req, res, serverResponse)
         }
         catch (err) {

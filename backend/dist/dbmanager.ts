@@ -47,6 +47,7 @@ export default class DbManager {
         }
         // catch connection error
         catch (err) {
+            console.log(sql)
             console.log('getQuery error: ', err)
             return err
         }
@@ -74,6 +75,7 @@ export default class DbManager {
         }
         // catch connection error
         catch (err) {
+            console.log(sql)
             console.log('postQuery error: ', err)
             return err
         }
@@ -111,7 +113,8 @@ export default class DbManager {
         }
         // catch connection error
         catch (err) {
-            console.log('deleteQuery error: ', err)
+            console.log(sql)
+            console.log('updateQuery error: ', err)
             return err
         }
         // always realease client and end connection
@@ -148,6 +151,7 @@ export default class DbManager {
         }
         // catch connection error
         catch (err) {
+            console.log(sql)
             console.log('deleteQuery error: ', err)
             return err
         }

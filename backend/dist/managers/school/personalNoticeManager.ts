@@ -36,9 +36,9 @@ export class PersonalNoticeManager extends TableManager {
 
     public async getPersonalNotices(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM "PersonalNotices" WHERE target = $1'
+        this.sql = 'SELECT * FROM "PersonalNotices" WHERE "UsersUsername" = $1'
         this.params = [
-            req.body.target
+            req.query.target
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
@@ -49,13 +49,13 @@ export class PersonalNoticeManager extends TableManager {
 
             for (let row of this.result.rows) {
                 // get notice information
-                req.body.ID = row.notice;
+                req.query.id = row.NoticesId;
                 let notice = await noticeManager.getNotice(req)
                 // create personalNotice
                 let personalNotice = new PersonalNotice(
-                    row.ID,
-                    row.date,
-                    row.target,
+                    row.NoticesId,
+                    notice.date,
+                    row.UsersUsername,
                     notice,
                     row.status
                 )

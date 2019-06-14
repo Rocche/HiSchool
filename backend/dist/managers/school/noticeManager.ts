@@ -11,13 +11,13 @@ export class NoticeManager extends TableManager {
 
         this.sql = 'SELECT * FROM "Notices" WHERE id = $1'
         this.params = [
-            req.body.ID
+            req.query.id
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
         if (this.result.rowCount > 0) {
             let notice = new Notice(
-                this.result.rows[0].ID,
+                this.result.rows[0].id,
                 this.result.rows[0].date,
                 this.result.rows[0].type,
                 this.result.rows[0].title,
