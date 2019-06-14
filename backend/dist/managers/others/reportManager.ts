@@ -11,7 +11,7 @@ export class ReportManager extends TableManager {
 
         this.sql = 'SELECT * FROM "Reports" WHERE id = $1'
         this.params = [
-            req.body.ID
+            req.query.ID
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
