@@ -3,13 +3,13 @@ import { Parent } from "../people/parent";
 
 export class Meeting {
     
-    ID: string;
+    id: string;
     date: Date;
     meetingHour: MeetingHour;
     parent: Parent;
 
-    constructor (ID: string, date: Date, meetingHour: MeetingHour, parent: Parent) {
-        this.ID = ID;
+    constructor (id: string, date: Date, meetingHour: MeetingHour, parent: Parent) {
+        this.id = id;
         this. date = date;
         this.meetingHour = meetingHour;
         this.parent = parent;

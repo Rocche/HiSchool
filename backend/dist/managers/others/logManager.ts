@@ -8,15 +8,15 @@ export class LogManager extends TableManager {
 
         this.sql = 'SELECT * FROM "Logs" WHERE id = $1'
         this.params = [
-            req.query.ID
+            req.query.id
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
         if (this.result.rowCount > 0) {
             let log = new Log(
-                this.result.rows[0].ID,
+                this.result.rows[0].id,
                 this.result.rows[0].date,
-                this.result.rows[0].username,
+                this.result.rows[0].UsersUsername,
                 this.result.rows[0].body
             )
             this.result = log
@@ -34,9 +34,9 @@ export class LogManager extends TableManager {
             let logsArray = []
             for (let row of this.result.rows) {
                 let log = new Log(
-                    row.ID,
+                    row.id,
                     row.date,
-                    row.username,
+                    row.UsersUsername,
                     row.body
                 )
                 logsArray.push(log)

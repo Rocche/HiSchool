@@ -2,14 +2,14 @@ import { NoticeType } from '../models'
 
 export class Notice {
 
-    ID: string;
+    id: string;
     date: Date;
     type: NoticeType;
     title: string;
     body: string;
     
-    constructor (ID: string, date:Date, type: NoticeType, title:string, body:string) {
-        this.ID = ID;
+    constructor (id: string, date:Date, type: NoticeType, title:string, body:string) {
+        this.id = id;
         this.date = date;
         this.type = type;
         this.title = title;

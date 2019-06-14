@@ -1,8 +1,9 @@
-import { Class, Student, Role, Teacher } from "../../models/models"
+import { Class } from "../../models/models"
 
 import { Request } from "express"
 import { TableManager } from "../utils/tableManager";
 import { AccountManager } from "../utils/accountManager";
+import { BranchManager } from "../managers";
 
 export class ClassManager extends TableManager {
 
@@ -10,15 +11,20 @@ export class ClassManager extends TableManager {
 
         this.sql = 'SELECT * FROM "Classes" WHERE id = $1'
         this.params = [
-            req.query.ID
+            req.query.id
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
         if (this.result.rowCount > 0) {
+            // get branch information
+            let branchManager = new BranchManager();
+            req.query.id = this.result.rows[0].BranchesId
+            let branch = await branchManager.getBranch(req)
+            // create class
             let cl = new Class(
-                this.result.rows[0].ID,
+                this.result.rows[0].id,
                 this.result.rows[0].year,
                 this.result.rows[0].section,
-                this.result.rows[0].branch
+                branch
             )
             this.result = cl
         }
@@ -31,13 +37,20 @@ export class ClassManager extends TableManager {
         this.params = []
 
         if (this.result.rowCount > 0) {
+
+            let branchManager = new BranchManager();
             let classesArray = []
+
             for (let row of this.result.rows) {
+            // get branch information
+            req.query.id = this.result.rows[0].BranchesId
+            let branch = await branchManager.getBranch(req)
+            // create class
                 let cl = new Class(
                     row.ID,
                     row.year,
                     row.section,
-                    row.branch
+                    branch
                 )
                 classesArray.push(cl)
             }

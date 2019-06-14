@@ -2,15 +2,15 @@ import { DayOfWeek, Hour, Class, Teacher, Subject } from '../models'
 
 export class LessonHour{
 
-    ID: string;
+    id: string;
     class: string;
     teacher: Teacher;
     subject: Subject;
     dayOfWeek: DayOfWeek;
     hour: Hour;
 
-    constructor (ID: string, cl:string, teacher: Teacher, subject: Subject, dayOfWeek: DayOfWeek, hour: Hour) {
-        this.ID = ID;
+    constructor (id: string, cl:string, teacher: Teacher, subject: Subject, dayOfWeek: DayOfWeek, hour: Hour) {
+        this.id = id;
         this.class = cl;
         this.teacher = teacher;
         this.subject = subject;

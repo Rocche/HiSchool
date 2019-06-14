@@ -10,6 +10,7 @@ export * from './people/secretaryManager'
 export * from './people/administratorManager'
 
 // school
+export * from './school/branchManager'
 export * from './school/classManager'
 export * from './school/lessonHourManager'
 export * from './school/meetingHourManager'

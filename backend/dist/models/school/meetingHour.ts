@@ -4,13 +4,13 @@ import { Teacher } from "../people/teacher";
 
 export class MeetingHour {
     
-    ID: string;
+    id: string;
     dayOfWeek: DayOfWeek;
     hour: Hour;
     teacher: Teacher;
 
-    constructor (ID:string, dayOfWeek: DayOfWeek, hour: Hour, teacher: Teacher) {
-        this.ID = ID;
+    constructor (id: string, dayOfWeek: DayOfWeek, hour: Hour, teacher: Teacher) {
+        this.id = id;
         this.dayOfWeek = dayOfWeek;
         this.hour = hour;
         this.teacher = teacher;

@@ -11,20 +11,20 @@ export class ReportManager extends TableManager {
 
         this.sql = 'SELECT * FROM "Reports" WHERE id = $1'
         this.params = [
-            req.query.ID
+            req.query.id
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
         if (this.result.rowCount > 0) {
             // get log information
             let logManager = new LogManager()
-            req.body.ID = this.result.rows[0].log
+            req.body.id = this.result.rows[0].LogsId
             let log = await logManager.getLog(req)
             // create report
             let report = new Report(
-                this.result.rows[0].ID,
+                this.result.rows[0].id,
                 this.result.rows[0].date,
-                this.result.rows[0].username,
+                this.result.rows[0].AdministratorsUsername,
                 log,
                 this.result.rows[0].body
 
@@ -47,13 +47,13 @@ export class ReportManager extends TableManager {
 
             for (let row of this.result.rows) {
                 // get log information
-                req.body.ID = row.log;
+                req.body.id = row.LogsId;
                 let log = await logManager.getLog(req)
                 // create report
                 let report = new Report(
-                    row.ID,
+                    row.id,
                     row.date,
-                    row.username,
+                    row.AdministratorsUsername,
                     log,
                     row.body
                 )
@@ -73,7 +73,7 @@ export class ReportManager extends TableManager {
             req.body.body,
             req.body.date,
             req.body.username,
-            req.body.log
+            req.body.log.id
         ]
         this.result = await this.dbManager.postQuery(this.sql, this.params)
         

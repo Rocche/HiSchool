@@ -20,6 +20,7 @@ export * from './enums/studentAbsenceStatus'
 export * from './enums/studentAbsenceType'
 
 // school
+export * from './school/branch'
 export * from './school/class'
 export * from './school/subject'
 export * from './school/lessonHour'

@@ -2,14 +2,14 @@ import { Notice, NoticeStatus } from '../models'
 
 export class PersonalNotice {
 
-    ID: string;
+    id: string;
     date: Date;
     target: string;
     notice: Notice;
     status: NoticeStatus
 
-    constructor (ID: string, date:Date, target:string, notice: Notice, status:NoticeStatus) {
-        this.ID = ID;
+    constructor (id: string, date:Date, target:string, notice: Notice, status:NoticeStatus) {
+        this.id = id;
         this.date = date;
         this.target = target;
         this.notice = notice;

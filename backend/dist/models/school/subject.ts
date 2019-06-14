@@ -1,10 +1,10 @@
 export class Subject {
 
-    ID: string;
+    id: string;
     name: string;
 
-    constructor(ID:string, name:string) {
-        this.ID = ID;
+    constructor(id:string, name:string) {
+        this.id = id;
         this.name = name;
     }
     
