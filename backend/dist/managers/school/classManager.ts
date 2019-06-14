@@ -1,4 +1,4 @@
-import { Class, Student, Role } from "../../models/models"
+import { Class, Student, Role, Teacher } from "../../models/models"
 
 import { Request } from "express"
 import { TableManager } from "../utils/tableManager";
@@ -10,7 +10,7 @@ export class ClassManager extends TableManager {
 
         this.sql = 'SELECT * FROM "Classes" WHERE id = $1'
         this.params = [
-            req.body.ID
+            req.query.ID
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
         if (this.result.rowCount > 0) {
@@ -48,32 +48,45 @@ export class ClassManager extends TableManager {
 
     public async getClassStudents(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM "Students" INNER JOIN "Users" ON "Students"."UsersUsername" = "Users".username WHERE "ClassId" = $1'
+        this.sql = 'SELECT * FROM "Students" WHERE "ClassesId" = $1'
         this.params = [
-            req.body.class
+            req.query.class
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
         if (this.result.rowCount > 0) {
             let studentsArray = []
             let accountManager = new AccountManager()
             for (let row of this.result.rows) {
-                // get parent information
-                req.body.username = row.parent
-                req.body.role = Role.PARENT
-                let parent = await accountManager.getUser(req)
-                // create student
-                let student = new Student(
-                    row.username,
-                    row.email,
-                    row.role,
-                    row.fName,
-                    row.lName,
-                    row.class,
-                    parent
-                )
+                // get student information
+                req.query.username = row.UsersUsername
+                let student = await accountManager.getUser(req)
+                // push student in array
                 studentsArray.push(student)
             }
             this.result = studentsArray
+        }
+        return this.result
+    }
+
+    
+    public async getClassTeachers(req: Request): Promise<any> {
+
+        this.sql = 'SELECT * FROM "LessonHours" WHERE "ClassesId" = $1 GROUP BY "TeachersUsername"'
+        this.params = [
+            req.query.class
+        ]
+        this.result = await this.dbManager.getQuery(this.sql, this.params)
+        if (this.result.rowCount > 0) {
+            let teachersArray = []
+            let accountManager = new AccountManager()
+            for (let row of this.result.rows) {
+                // get teacher information
+                req.query.username = row.TeachersUsername
+                let teacher = await accountManager.getUser(req)
+                // push teacher in array
+                teachersArray.push(teacher)
+            }
+            this.result = teachersArray
         }
         return this.result
     }
