@@ -10,23 +10,22 @@ export class MeetingManager extends TableManager {
 
         this.sql = 'SELECT * FROM "Meetings" WHERE id = $1'
         this.params = [
-            req.body.ID
+            req.body.id
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
         if (this.result.rowCount > 0) {
             // get meetingHour information
             let meetingHourManager = new MeetingHourManager();
-            req.body.ID = this.result.rows[0].meetingHour
+            req.body.id = this.result.rows[0].MeetingHoursId
             let meetingHour = await meetingHourManager.getMeetingHour(req)
             // get parent information
             let accountManager = new AccountManager();
-            req.body.username = this.result.rows[0].parent;
-            req.body.role = Role.PARENT
+            req.body.username = this.result.rows[0].ParentsId;
             let parent = await accountManager.getUser(req)
             // create meeting
             let meeting = new Meeting(
-                this.result.rows[0].ID,
+                this.result.rows[0].id,
                 this.result.rows[0].date,
                 meetingHour,
                 parent,
@@ -53,15 +52,14 @@ export class MeetingManager extends TableManager {
 
             for (let row of this.result.rows) {
                 // get meetingHour information
-                req.body.ID = row.meetingHour
+                req.body.id = row.MeetingHoursId
                 let meetingHour = await meetingHourManager.getMeetingHour(req)
                 // get parent information
-                req.body.username = row.parent;
-                req.body.role =  Role.PARENT
+                req.body.username = row.ParentsId;
                 let parent = await accountManager.getUser(req)
                 // create meeting
                 let meeting= new Meeting(
-                    row.ID,
+                    row.id,
                     row.date,
                     meetingHour,
                     parent
@@ -80,7 +78,7 @@ export class MeetingManager extends TableManager {
         this.params = [
             meetingID,
             req.body.date,
-            req.body.meetingHour.ID,
+            req.body.meetingHour.id,
             req.body.parent.username,
         ]
         this.result = await this.dbManager.postQuery(this.sql, this.params)

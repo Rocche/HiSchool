@@ -13,23 +13,22 @@ export class TeacherAbsenceManager extends TableManager {
 
         this.sql = 'SELECT * FROM "TeacherAbsences" WHERE id = $1'
         this.params = [
-            req.body.ID
+            req.body.id
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
         if (this.result.rowCount > 0) {
             // get lessonHour information
             let lessonHourManager = new LessonHourManager()
-            req.body.ID = this.result.rows[0].lessonHour
+            req.body.id = this.result.rows[0].LessonHoursId
             let lessonHour = await lessonHourManager.getLessonHour(req)
             // get substitute teacher information
             let accountManager = new AccountManager();
             req.body.username = this.result.rows[0].substitute
-            req.body.role = Role.TEACHER
             let substitute = await accountManager.getUser(req)
             // create teacherAbsence
             let teacherAbsence = new TeacherAbsence(
-                this.result.rows[0].ID,
+                this.result.rows[0].id,
                 this.result.rows[0].date,
                 lessonHour,
                 substitute
@@ -43,7 +42,7 @@ export class TeacherAbsenceManager extends TableManager {
 
         this.sql = 'SELECT * FROM "TeacherAbsences"'
         this.params = [
-            req.body.ID
+            req.body.id
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
@@ -55,15 +54,14 @@ export class TeacherAbsenceManager extends TableManager {
 
             for (let row of this.result.rows) {
                 // get lessonHour information
-                req.body.ID = row.lessonHour
+                req.body.id = row.LessonHoursId
                 let lessonHour = await lessonHourManager.getLessonHour(req)
                 // get substitute teacher information
                 req.body.username = row.substitute
-                req.body.role = Role.TEACHER
                 let substitute = await accountManager.getUser(req)
                 // create teacherAbsence
                 let teacherAbsence = new TeacherAbsence(
-                    this.result.rows[0].ID,
+                    this.result.rows[0].id,
                     this.result.rows[0].date,
                     lessonHour,
                     substitute
@@ -78,18 +76,18 @@ export class TeacherAbsenceManager extends TableManager {
     public async postTeacherAbsence(req: Request): Promise<any> {
 
         let teacherAbsenceID = uuid()
-        this.sql = 'INSERT INTO "TeacherAbsences" ( id, "TeachersUsername", date, "lessonHour", substitute ) VALUES ($1,$2,$3,$4,$5)'
+        this.sql = 'INSERT INTO "TeacherAbsences" ( id, "TeachersUsername", date, "LessonHoursId", substitute ) VALUES ($1,$2,$3,$4,$5)'
         this.params = [
             teacherAbsenceID,
-            req.body.teacher,
+            req.body.teacher.username,
             req.body.date,
-            req.body.lessonHour,
+            req.body.lessonHour.id,
             'nobody'
         ]
         this.result = await this.dbManager.postQuery(this.sql, this.params)
 
         // send absence notice
-        req.body.ID = teacherAbsenceID
+        req.body.id = teacherAbsenceID
         this.result = await this.sendAbsenceNotice(req)
 
         return this.result
@@ -100,7 +98,7 @@ export class TeacherAbsenceManager extends TableManager {
         this.sql = 'UPDATE "TeacherAbsences" SET substitute = $1 WHERE id = $2'
         this.params = [
             req.body.substitute,
-            req.body.ID
+            req.body.id
         ]
         this.result = await this.dbManager.updateQuery(this.sql, this.params)
 
@@ -124,7 +122,7 @@ export class TeacherAbsenceManager extends TableManager {
             " and hour " + teacherAbsence.lessonHour.hour +
             " will be cancelled due to a teacher absence."
         let classManager = new ClassManager();
-        req.body.class = teacherAbsence.lessonHour.class
+        req.body.class = teacherAbsence.lessonHour.ClassesId
         let classStudents = await classManager.getClassStudents(req)
         req.body.targets = classStudents
         await noticeManager.postNotice(req)
@@ -147,7 +145,7 @@ export class TeacherAbsenceManager extends TableManager {
             " " + teacherAbsence.substitute.lastName +
             "."
         let classManager = new ClassManager()
-        req.body.class = teacherAbsence.lessonHour.class
+        req.body.class = teacherAbsence.lessonHour.ClassesId
         let classStudents = await classManager.getClassStudents(req)
         req.body.targets = classStudents
         await noticeManager.postNotice(req)

@@ -11,18 +11,18 @@ export class PersonalNoticeManager extends TableManager {
 
         this.sql = 'SELECT * FROM "PersonalNotices" WHERE id = $1'
         this.params = [
-            req.body.ID
+            req.body.id
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
         if (this.result.rowCount > 0) {
             // get notice information
             let noticeManager = new NoticeManager()
-            req.body.ID = this.result.rows[0].notice;
+            req.body.id = this.result.rows[0].NoticesId;
             let notice = await noticeManager.getNotice(req)
             // create personalNotice
             let personalNotice = new PersonalNotice(
-                this.result.rows[0].ID,
+                this.result.rows[0].id,
                 this.result.rows[0].date,
                 this.result.rows[0].target,
                 notice,
@@ -73,7 +73,7 @@ export class PersonalNoticeManager extends TableManager {
         this.params = [
             personalNoticeID,
             req.body.username,
-            req.body.notice,
+            req.body.notice.id,
             "Unsigned",
         ]
         this.result = await this.dbManager.postQuery(this.sql, this.params)

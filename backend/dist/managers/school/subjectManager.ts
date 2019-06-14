@@ -10,12 +10,12 @@ export class SubjectManager extends TableManager {
 
         this.sql = 'SELECT * FROM "Subjects" WHERE id = $1'
         this.params = [
-            req.body.ID
+            req.body.id
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
         if (this.result.rowCount > 0) {
             let subject = new Subject(
-                this.result.rows[0].ID,
+                this.result.rows[0].id,
                 this.result.rows[0].name
             )
             this.result = subject
@@ -33,7 +33,7 @@ export class SubjectManager extends TableManager {
             let subjectsArray = []
             for (let row of this.result.rows) {
                 let tempClass = new Subject(
-                    row.ID,
+                    row.id,
                     row.name
                 )
                 subjectsArray.push(tempClass)

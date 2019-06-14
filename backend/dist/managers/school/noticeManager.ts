@@ -39,7 +39,7 @@ export class NoticeManager extends TableManager {
             let noticesArray = []
             for (let row of this.result.rows) {
                 let notice = new Notice(
-                    row.ID,
+                    row.id,
                     row.date,
                     row.type,
                     row.title,

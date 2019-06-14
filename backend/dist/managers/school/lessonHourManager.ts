@@ -1,6 +1,6 @@
 import { Request } from "express"
 import { TableManager } from "../utils/tableManager";
-import { LessonHour, Role } from "../../models/models";
+import { LessonHour } from "../../models/models";
 import { AccountManager } from "../utils/accountManager";
 import { SubjectManager } from "./subjectManager";
 
@@ -10,23 +10,22 @@ export class LessonHourManager extends TableManager {
 
         this.sql = 'SELECT * FROM "LessonHours" WHERE id = $1'
         this.params = [
-            req.body.ID
+            req.body.id
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
         if (this.result.rowCount > 0) {
             // get teacher information
             let accountManager = new AccountManager();
-            req.body.username = this.result.rows[0].teacher
-            req.body.role = Role.TEACHER
+            req.body.username = this.result.rows[0].TeachersUsername
             let teacher = await accountManager.getUser(req)
             // get subject information
             let subjectManager = new SubjectManager()
-            req.body.ID = this.result.rows[0].subject
+            req.body.id = this.result.rows[0].SubjectsId
             let subject = await subjectManager.getSubject(req)
             // create lessonHour
             let lessonHour = new LessonHour(
-                this.result.rows[0].ID,
+                this.result.rows[0].id,
                 this.result.rows[0].class,
                 teacher,
                 subject,

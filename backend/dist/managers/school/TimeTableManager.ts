@@ -19,16 +19,16 @@ export class TimeTableManager extends TableManager {
             for (let row of this.result.rows) {
                 // get teacher information
                 let accountManager = new AccountManager()
-                req.body.username = row.teacher
+                req.body.username = row.TeachersUsername
                 let teacher = await accountManager.getUser(req)
                 // get subject information
                 let subjectManager = new SubjectManager()
-                req.body.ID = row.SubjectsId
+                req.body.id = row.SubjectsId
                 let subject = await subjectManager.getSubject(req)
                 // create lessonHour
                 let lessonHour = new LessonHour(
-                    row.ID,
-                    row.class,
+                    row.id,
+                    row.ClassesId,
                     teacher,
                     subject,
                     row.dayOfWeek,
@@ -55,15 +55,15 @@ export class TimeTableManager extends TableManager {
             for (let row of this.result.rows) {
                 // get teacher information
                 let accountManager = new AccountManager()
-                req.body.username = row.teacher
+                req.body.username = row.TeachersUsername
                 let teacher = await accountManager.getUser(req)
                 // get subject information
                 let subjectManager = new SubjectManager()
-                req.body.ID = row.subject
+                req.body.id = row.SubjectsId
                 let subject = await subjectManager.getSubject(req)
                 let lessonHour = new LessonHour(
-                    row.ID,
-                    row.class,
+                    row.id,
+                    row.ClassesId,
                     teacher,
                     subject,
                     row.dayOfWeek,
