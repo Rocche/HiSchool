@@ -17,11 +17,13 @@ export class StudentManager extends TableManager {
         if (this.result.rowCount > 0) {
             // get parent information
             let accountManager = new AccountManager()
+            /*
             let req: Request;
             req.query.username = this.result.rows[0].ParentsUsername
             console.log('BBBB ' + req.query.username)
             req.query.role = Role.PARENT
             let parent = await accountManager.getUserByUsername(this.result.rows[0].ParentsUsername)
+            */
             let student = new Student(
                 user.username,
                 user.email,
@@ -29,7 +31,7 @@ export class StudentManager extends TableManager {
                 user.firstName,
                 user.lastName,
                 this.result.rows[0].class,
-                parent
+                this.result.rows[0].ParentsUsername
             )
             this.result = student
         }

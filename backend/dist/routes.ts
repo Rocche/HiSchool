@@ -359,40 +359,7 @@ module.exports = function (app, passport) {
     // GET classTimeTable
     app.get('/api/classTimeTable', async (req: Request, res: Response) => {
         try {
-            //serverResponse = await timeTableManager.getClassTimeTable(req)
-            let lessons = [
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'), 0, 0),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),1, 0),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),2, 0),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),3, 0),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),4, 0),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),5, 0),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),0, 1),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),1, 1),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),2, 1),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),3, 1),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),4, 1),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),5, 1),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),0, 2),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),1, 2),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),2, 2),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),3, 2),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),4, 2),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),5, 2),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),0, 3),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),1, 3),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),2, 3),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),3, 3),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),4, 3),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),5, 3),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),0, 4),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),1, 4),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),2, 4),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),3, 4),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),4, 4),
-                new LessonHour('0', '3A', new Teacher('pippo', 'p@p', Role.TEACHER, 'pippo', 'pippo', ['math']), new Subject('0', 'math'),5, 4)
-              ]
-              serverResponse = lessons
+            serverResponse = await timeTableManager.getClassTimeTable(req)
             sendServerResponse(req, res, serverResponse)
         }
         catch (err) {
