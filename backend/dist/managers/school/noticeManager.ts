@@ -55,15 +55,15 @@ export class NoticeManager extends TableManager {
     public async postNotice(req: Request): Promise<any> {
 
         let noticeID = uuid();
-        this.sql = 'INSERT INTO "Notices" ( id, date, type, title, body, "SecretariesUsername" ) VALUES ($1,$2,$3,$4,$5,$6)'
+        this.sql = 'INSERT INTO "Notices" ( id, date, type, title, body) VALUES ($1,$2,$3,$4,$5)'
         this.params = [
             noticeID,
-            req.body.date,
+            new Date(req.body.date),
             req.body.type,
             req.body.title, 
-            req.body.body,
-            req.body.username
+            req.body.body
         ]
+        console.log(req.body)
         this.result = await this.dbManager.postQuery(this.sql, this.params)
 
         let personalNoticeManager = new PersonalNoticeManager();

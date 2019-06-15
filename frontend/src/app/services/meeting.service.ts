@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
-import { MeetingHour } from '../models/MeetingHour';
+import { MeetingHour } from '../models.1/school/meetingHour';
 import { Meeting } from '../models/Meeting';
 import * as moment from 'moment';
-import { Teacher } from '../models.1/models';
-import { HttpClient } from '@angular/common/http';
+import { Teacher, Parent, User } from '../models.1/models';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -14,22 +20,19 @@ export class MeetingService {
   private meetings: Meeting[];
 
   constructor(private http: HttpClient) {
-    this.meetingHours = [
-      new MeetingHour(2, 2, 'Marcantoni'),
-      new MeetingHour(6, 1, 'Gagliardi')
-    ];
-    this.meetings = [
-      new Meeting('2019-06-10', 'parent', this.meetingHours[0]),
-      new Meeting('2019-06-8', 'parent2', this.meetingHours[1]),
-    ]
    }
 
   public getTeacherMeetingHours(teacherUsername: string){
     return this.http.get("/api/meetingHours?teacher=" + teacherUsername);
   }
 
-  public reserveMeeting(meeting: MeetingHour){
-    alert("Meeting reserved: " + meeting.getDay() + meeting.getHour());
+  public reserveMeeting(parent: User, meetingHour: MeetingHour, date: Date){
+    let body: any = {};
+    body.parent = parent;
+    body.meetingHour = meetingHour;
+    body.date = date;
+    body = JSON.stringify(body);
+    return this.http.post("/api/meeting", body, httpOptions);
   }
 
   public getMeetings(teacher: string){

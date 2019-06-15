@@ -482,10 +482,10 @@ module.exports = function (app, passport) {
     })
     // POST meeting
     app.post('/api/meeting', async (req: Request, res: Response) => {
-        req.body.sender = req.user.username
         try {
             serverResponse = await meetingManager.postMeeting(req)
             sendServerResponse(req, res, serverResponse)
+            console.log("FATTO CIAOOOOOOOO")
         }
         catch (err) {
             res.status(500)

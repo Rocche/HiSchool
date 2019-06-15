@@ -72,7 +72,7 @@ export class MeetingManager extends TableManager {
     }
 
     public async postMeeting(req: Request): Promise<any> {
-
+        
         let meetingID = uuid();
         this.sql = 'INSERT INTO "Meetings" ( id, date, "MeetingHourId", "ParentsUsername" ) VALUES ($1,$2,$3,$4)'
         this.params = [
@@ -106,7 +106,6 @@ export class MeetingManager extends TableManager {
     }
 
     private async sendMeetingRequestNotice(req: Request): Promise<any> {
-
         // post a new notice regarding the new meeting request
         // create notice
         let noticeManager = new NoticeManager();
@@ -117,8 +116,12 @@ export class MeetingManager extends TableManager {
                         " requested a meeting in date" + req.body.date.toDateString() +
                         " and hour " + req.body.meetingHour.hour +
                         ".";
+<<<<<<< HEAD
         req.body.date = Date.now();
         req.body.targets = [req.body.meetingHour.teacher.username]
+=======
+        req.body.targets = [req.body.meetingHour.teacher]
+>>>>>>> 312fc692dfd48403301ced0a5baf09391fa995be
         this.result = await noticeManager.postNotice(req)
         return this.result
     }
