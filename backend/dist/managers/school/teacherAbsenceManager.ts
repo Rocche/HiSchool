@@ -1,4 +1,4 @@
-import { TeacherAbsence, NoticeType, Role } from '../../models/models'
+import { TeacherAbsence, NoticeType, Role, CustomError } from '../../models/models'
 import { v4 as uuid } from 'uuid';
 
 import { Request } from "express"
@@ -117,9 +117,11 @@ export class TeacherAbsenceManager extends TableManager {
         ]
         this.result = await this.dbManager.postQuery(this.sql, this.params)
 
-        // send absence notice
-        req.body.id = teacherAbsenceID
-        this.result = await this.sendAbsenceNotice(req)
+        if (!(this.result instanceof Error) || (this.result instanceof CustomError)) {
+            // send absence notice
+            req.body.id = teacherAbsenceID
+            this.result = await this.sendAbsenceNotice(req)
+        }
 
         return this.result
     }
