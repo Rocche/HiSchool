@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TimetableService } from 'src/app/services/timetable.service';
 import { LessonHour } from 'src/app/models.1/school/lessonHour';
 import { ClassService } from 'src/app/services/class.service';
 import { Subject, Role } from 'src/app/models.1/models';

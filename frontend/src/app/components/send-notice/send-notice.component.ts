@@ -37,26 +37,27 @@ export class SendNoticeComponent implements OnInit {
   }
 
   public sendNotice(){
-    if(this.targetType == 'classes'){
-      let targets = [];
+    console.log(this.targetType)
+    if(this.targetType == 'class'){
+      let targets: Student[] = [];
       this.selectedClasses.forEach((c: Class) => {
         this.classService.getClassStudent(c)
           .subscribe((res: Student[]) => {
             res.forEach((student: Student) => {
-              targets.push(student.username);
+              targets.push(student);
             });
+            this.noticesService.sendNoticeToClasses(this.noticeType, this.title, this.body, targets)
+              .subscribe(res => {
+                alert("Notice sent succesfully.")
+              },
+              error => {
+                alert("There was an error while sending the notice")
+              })
           },
           error => {
             alert("Error while getting students")
           })
       });
-      this.noticesService.sendNoticeToClasses(this.noticeType, this.title, this.body, targets)
-        .subscribe(res => {
-          alert("Notice sent succesfully.")
-        },
-        error => {
-          alert("There was an error while sending the notice")
-        })
     }
     else{
       this.noticesService.sendNoticeToTeachers(this.noticeType, this.title, this.body,this.selectedTeachers)

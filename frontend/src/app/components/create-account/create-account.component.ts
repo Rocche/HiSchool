@@ -34,13 +34,13 @@ export class CreateAccountComponent implements OnInit {
   }
 
   public createAccount(){
-    this.accountService.createAccount(this.account);
+    //this.accountService.createAccount(this.account);
   }
 
   public selectRole(){
     if(this.account.role == Role.STUDENT){
       //this.parents = this.parentService.getParents();
-      this.classes = this.classService.getClasses();
+      //this.classes = this.classService.getClasses();
     }
     if(this.account.role == Role.TEACHER){
       //this.subjects = this.subjectService.getSubjects();

@@ -32,26 +32,21 @@ export class NoticesService {
     return this.http.get('/api/personalNotices?target=' + target);
   }
 
-  public sendNoticeToClasses(type: string, title: string, body: string, targets: string[]){
+  public sendNoticeToClasses(type: string, title: string, body: string, targets: Student[]){
     let http_body: any = {};
     http_body.type = type;
     http_body.title = title;
     http_body.body = body;
     http_body.targets = targets;
-    console.log(http_body.targets)
     return this.http.post('/api/notice', http_body, httpOptions);
   }
 
   public sendNoticeToTeachers(type: string, title: string, body: string, targets: Teacher[]){
-    let targetTeachers = [];
-    targets.forEach((target: Teacher) => {
-      targetTeachers.push(target.username);
-    });
     let http_body: any = {};
     http_body.type = type;
     http_body.title = title;
     http_body.body = body;
-    http_body.targets = targetTeachers;
+    http_body.targets = targets;
     return this.http.post('/api/notice', http_body, httpOptions);
   }
   /*
