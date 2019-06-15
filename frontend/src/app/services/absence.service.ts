@@ -28,8 +28,9 @@ export class AbsenceService {
     return this.http.post('/api/teacherAbsence', body, httpOptions);
   }
 
-  public getAbsences(): TeacherAbsence[]{
-    return this.absences;
+  public getAbsences(){
+    let username = JSON.parse(localStorage.getItem('user')).username;
+    return this.http.get('/api/availableTeacherAbsences?teacher=' + username);
   }
 
   public setSubstitutionDisponibility(absence: TeacherAbsence, canSubstitute: boolean){

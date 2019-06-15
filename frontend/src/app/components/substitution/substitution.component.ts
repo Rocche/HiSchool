@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbsenceService } from 'src/app/services/absence.service';
-import { TeacherAbsence } from 'src/app/models/TeacherAbsence';
+import { TeacherAbsence } from 'src/app/models.1/school/teacherAbsence';
 
 @Component({
   selector: 'app-substitution',
@@ -14,11 +14,17 @@ export class SubstitutionComponent implements OnInit {
   constructor(private absenceService: AbsenceService) { }
 
   ngOnInit() {
-    this.absences = this.absenceService.getAbsences();
+    this.absenceService.getAbsences()
+      .subscribe((res: TeacherAbsence[]) => {
+        this.absences = res;
+      },
+      error => {
+        alert("There was an error getting substitutions")
+      })
   }
 
-  public setSubstitutionDisponibility(absence: TeacherAbsence, canSubstitute: boolean){
-    this.absenceService.setSubstitutionDisponibility(absence, canSubstitute);
+  public setSubstitutionDisponibility(absence: TeacherAbsence){
+    this.absenceService.setSubstitutionDisponibility(absence);
   }
 
 }
