@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Notice } from '../models/Notice';
 import { NOTICE_TYPES } from '../models/noticeTypes';
 import { HttpClient } from '@angular/common/http';
-import { unwatchFile } from 'fs';
 import { Role } from '../models.1/models';
 
 @Injectable({

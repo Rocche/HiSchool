@@ -3,7 +3,13 @@ import { MeetingHour } from '../models/MeetingHour';
 import { Meeting } from '../models/Meeting';
 import * as moment from 'moment';
 import { Teacher } from '../models.1/models';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+};
 
 @Injectable({
   providedIn: 'root'

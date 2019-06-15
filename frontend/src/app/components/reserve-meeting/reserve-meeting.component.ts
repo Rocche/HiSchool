@@ -31,6 +31,9 @@ export class ReserveMeetingComponent implements OnInit {
   }
 
   public getTeacherMeetingHours(){
+    if(this.selectedTeacher == null){
+      alert("You must select a teacher in order to reserve a meeting");
+    }
     this.meetingService.getTeacherMeetingHours(this.selectedTeacher.username)
       .subscribe((res: MeetingHour[]) => {
         this.meetingHours = res;
@@ -49,4 +52,23 @@ export class ReserveMeetingComponent implements OnInit {
     this.meetingService.reserveMeeting(meetinghour);
   }
   */
+
+  private fromDayOfWeekToString(dayOfWeek: number): string{
+    switch(dayOfWeek){
+      case 1:
+        return "Monday";
+      case 2:
+        return "Monday";
+      case 3:
+        return "Monday";
+      case 4:
+        return "Monday";
+      case 5:
+        return "Monday";
+      case 6:
+        return "Monday";
+      default:
+        return "Undefined";
+    }
+  }
 }
