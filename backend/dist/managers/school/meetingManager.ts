@@ -38,7 +38,11 @@ export class MeetingManager extends TableManager {
     public async getMeetings(req: Request): Promise<any> {
 
 
-        this.sql = 'SELECT * FROM "Meetings" INNER JOIN "MeetingHours" ON "Meetings"."MeetingHoursId" = "MeetingHours".id WHERE "MeetingHours"."TeachersUsername" = $1'
+        this.sql = 'SELECT ("Meetings".id AS id, "Meetings".date, "Meetings"."ParentsUsername", "Meetings"."MeetingHoursId", \
+                            "MeetingHours".id AS meetinghoursid, "MeetingHours".hour, "MeetingHours"."dayOfWeek", "MeetingHours"."TeachersUsername") \
+        FROM "Meetings" INNER JOIN "MeetingHours" \
+        ON "Meetings"."MeetingHoursId" = "MeetingHours".id \
+        WHERE "MeetingHours"."TeachersUsername" = $1'
         this.params = [
             req.query.teacher
         ]
@@ -52,7 +56,7 @@ export class MeetingManager extends TableManager {
 
             for (let row of this.result.rows) {
                 // get meetingHour information
-                req.query.id = row.MeetingHoursId
+                req.query.id = row.meetinghoursid
                 let meetingHour = await meetingHourManager.getMeetingHour(req)
                 // get parent information
                 req.query.username = row.ParentsUsername;
