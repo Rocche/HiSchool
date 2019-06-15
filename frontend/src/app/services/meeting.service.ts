@@ -35,8 +35,9 @@ export class MeetingService {
     return this.http.post("/api/meeting", body, httpOptions);
   }
 
-  public getMeetings(teacher: string){
-    return this.meetings;
+  public getMeetings(){
+    let username = JSON.parse(localStorage.getItem('user')).username;
+    return this.http.get('/api/meetings?teacher=' + username);
   }
 
   public dismissMeeting(meeting: Meeting){

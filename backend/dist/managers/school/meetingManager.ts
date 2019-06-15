@@ -38,7 +38,7 @@ export class MeetingManager extends TableManager {
     public async getMeetings(req: Request): Promise<any> {
 
 
-        this.sql = 'SELECT * FROM "Meetings" INNER JOIN "MeetingHours" ON Meetings.MeetingHourId = MeetingHours.id WHERE MeetingHours.TeachersUsername = $1'
+        this.sql = 'SELECT * FROM "Meetings" INNER JOIN "MeetingHours" ON "Meetings"."MeetingHoursId" = "MeetingHours".id WHERE "MeetingHours"."TeachersUsername" = $1'
         this.params = [
             req.query.teacher
         ]
@@ -55,7 +55,7 @@ export class MeetingManager extends TableManager {
                 req.query.id = row.MeetingHoursId
                 let meetingHour = await meetingHourManager.getMeetingHour(req)
                 // get parent information
-                req.query.username = row.ParentsId;
+                req.query.username = row.ParentsUsername;
                 let parent = await accountManager.getUser(req)
                 // create meeting
                 let meeting= new Meeting(
@@ -108,20 +108,16 @@ export class MeetingManager extends TableManager {
     private async sendMeetingRequestNotice(req: Request): Promise<any> {
         // post a new notice regarding the new meeting request
         // create notice
+        let strDate = new Date(req.body.date).toDateString()
         let noticeManager = new NoticeManager();
         req.body.type = NoticeType.Standard
         req.body.title = 'NEW MEETING'
         req.body.body = "Parent " + req.body.parent.firstName +
                         " " + req.body.parent.lastName +
-                        " requested a meeting in date" + req.body.date.toDateString() +
+                        " requested a meeting in date " + strDate +
                         " and hour " + req.body.meetingHour.hour +
                         ".";
-<<<<<<< HEAD
-        req.body.date = Date.now();
-        req.body.targets = [req.body.meetingHour.teacher.username]
-=======
         req.body.targets = [req.body.meetingHour.teacher]
->>>>>>> 312fc692dfd48403301ced0a5baf09391fa995be
         this.result = await noticeManager.postNotice(req)
         return this.result
     }
@@ -132,12 +128,13 @@ export class MeetingManager extends TableManager {
         // get meeting information
         let meeting = await this.getMeeting(req)
         // create notice
+        let strDate = new Date(meeting.date).toDateString()
         let noticeManager = new NoticeManager();
         req.body.type = NoticeType.Standard
         req.body.title = 'MEETING CANCELLATION'
         req.body.body = "Teacher " + meeting.meetingHour.teacher.firstName +
                         " " + meeting.meetingHour.teacher.lastName +
-                        " cancelled the meeting in date" + meeting.date.toDateString() +
+                        " cancelled the meeting in date " + strDate +
                         " and hour " + meeting.meetingHour.hour +
                         ".";
         req.body.date = Date.now();
