@@ -91,7 +91,7 @@ export class MeetingManager extends TableManager {
 
     public async deleteMeeting(req: Request): Promise<any>{
 
-        let meetingID = req.body.ID
+        let meetingID = req.query.ID
         // send meeting cancelling notice
         this.result = await this.sendMeetingCancellationNotice(req)
 
