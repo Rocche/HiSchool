@@ -70,7 +70,7 @@ export class NoticeManager extends TableManager {
         req.body.targets.forEach(async target => {
             req.body.notice = noticeID
             req.body.target = target.username
-            await personalNoticeManager.postPersonalNotice(req)
+            this.result = await personalNoticeManager.postPersonalNotice(req)
         });
         return this.result
     }

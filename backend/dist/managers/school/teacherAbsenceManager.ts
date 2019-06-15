@@ -71,9 +71,10 @@ export class TeacherAbsenceManager extends TableManager {
 
     public async getAvailableTeacherAbsences(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM "TeacherAbsences" WHERE "substitute" = $1'
+        this.sql = 'SELECT * FROM "TeacherAbsences" WHERE "substitute" = $1 AND "TeachersUsername" <> $2 '
         this.params = [
-            'nobody'
+            'nobody',
+            req.query.teacher
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
@@ -155,8 +156,11 @@ export class TeacherAbsenceManager extends TableManager {
             " and hour " + teacherAbsence.lessonHour.hour +
             " will be cancelled due to a teacher absence."
         let classManager = new ClassManager();
-        req.query.class = teacherAbsence.lessonHour.ClassesId
+        req.query.class = teacherAbsence.lessonHour.class
         let classStudents = await classManager.getClassStudents(req)
+        if (classStudents instanceof Error || classStudents instanceof CustomError){
+            return classStudents
+        }
         req.body.targets = classStudents
         this.result = await noticeManager.postNotice(req)
         return this.result
@@ -178,8 +182,11 @@ export class TeacherAbsenceManager extends TableManager {
             " " + teacherAbsence.substitute.lastName +
             "."
         let classManager = new ClassManager()
-        req.body.class = teacherAbsence.lessonHour.ClassesId
+        req.body.class = teacherAbsence.lessonHour.class
         let classStudents = await classManager.getClassStudents(req)
+        if (classStudents instanceof Error || classStudents instanceof CustomError){
+            return classStudents
+        }
         req.body.targets = classStudents
         this.result = await noticeManager.postNotice(req)
         return this.result

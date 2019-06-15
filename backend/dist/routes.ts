@@ -161,7 +161,8 @@ module.exports = function (app, passport) {
     // GET test
     app.get('/api/test', async (req: Request, res: Response) => {
         try {
-            let serverResponse = new Date(Date.now()).toDateString()
+            let today = new Date()
+            let serverResponse = today
             sendServerResponse(req, res, serverResponse)
         }
         catch (err) {

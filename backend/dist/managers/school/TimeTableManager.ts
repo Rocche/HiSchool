@@ -18,11 +18,11 @@ export class TimeTableManager extends TableManager {
             for (let row of this.result.rows) {
                 // get teacher information
                 let accountManager = new AccountManager()
-                req.body.username = row.TeachersUsername
+                req.query.username = row.TeachersUsername
                 let teacher = await accountManager.getUser(req)
                 // get subject information
                 let subjectManager = new SubjectManager()
-                req.body.id = row.SubjectsId
+                req.query.id = row.SubjectsId
                 let subject = await subjectManager.getSubject(req)
                 // create lessonHour
                 let lessonHour = new LessonHour(
@@ -45,7 +45,7 @@ export class TimeTableManager extends TableManager {
 
         this.sql = 'SELECT * FROM "LessonHours" WHERE "TeachersUsername" = $1'
         this.params = [
-            req.body.teacher
+            req.query.teacher
         ]
 
         this.result = await this.dbManager.getQuery(this.sql, this.params)
@@ -54,11 +54,11 @@ export class TimeTableManager extends TableManager {
             for (let row of this.result.rows) {
                 // get teacher information
                 let accountManager = new AccountManager()
-                req.body.username = row.TeachersUsername
+                req.query.username = row.TeachersUsername
                 let teacher = await accountManager.getUser(req)
                 // get subject information
                 let subjectManager = new SubjectManager()
-                req.body.id = row.SubjectsId
+                req.query.id = row.SubjectsId
                 let subject = await subjectManager.getSubject(req)
                 let lessonHour = new LessonHour(
                     row.id,
