@@ -110,14 +110,14 @@ export class MeetingManager extends TableManager {
         // post a new notice regarding the new meeting request
         // create notice
         let noticeManager = new NoticeManager();
-        req.body.date = Date.now();
         req.body.type = NoticeType.Standard
         req.body.title = 'NEW MEETING'
         req.body.body = "Parent " + req.body.parent.firstName +
                         " " + req.body.parent.lastName +
-                        " requested a meeting in date" + req.body.date +
+                        " requested a meeting in date" + req.body.date.toDateString() +
                         " and hour " + req.body.meetingHour.hour +
                         ".";
+        req.body.date = Date.now();
         req.body.targets = [req.body.meetingHour.teacher.username]
         this.result = await noticeManager.postNotice(req)
         return this.result
@@ -130,14 +130,14 @@ export class MeetingManager extends TableManager {
         let meeting = await this.getMeeting(req)
         // create notice
         let noticeManager = new NoticeManager();
-        req.body.date = Date.now();
         req.body.type = NoticeType.Standard
         req.body.title = 'MEETING CANCELLATION'
         req.body.body = "Teacher " + meeting.meetingHour.teacher.firstName +
                         " " + meeting.meetingHour.teacher.lastName +
-                        " cancelled the meeting in date" + meeting.date +
+                        " cancelled the meeting in date" + meeting.date.toDateString() +
                         " and hour " + meeting.meetingHour.hour +
                         ".";
+        req.body.date = Date.now();
         req.body.targets = [meeting.parent.username]
         this.result = await noticeManager.postNotice(req)
         return this.result
