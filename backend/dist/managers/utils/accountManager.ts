@@ -180,9 +180,6 @@ export class AccountManager extends TableManager {
                     return this.error
                 }
             }
-                  ////////////////////////////////
-                 /////// SEND MAIL HERE! ////////
-                ////////////////////////////////
         }
         return this.result
 
