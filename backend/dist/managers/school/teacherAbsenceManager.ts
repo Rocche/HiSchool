@@ -159,7 +159,8 @@ export class TeacherAbsenceManager extends TableManager {
         req.query.class = teacherAbsence.lessonHour.ClassesId
         let classStudents = await classManager.getClassStudents(req)
         req.body.targets = classStudents
-        await noticeManager.postNotice(req)
+        this.result = await noticeManager.postNotice(req)
+        return this.result
 
     }
 
@@ -182,7 +183,8 @@ export class TeacherAbsenceManager extends TableManager {
         req.body.class = teacherAbsence.lessonHour.ClassesId
         let classStudents = await classManager.getClassStudents(req)
         req.body.targets = classStudents
-        await noticeManager.postNotice(req)
+        this.result = await noticeManager.postNotice(req)
+        return this.result
 
     }
 }
