@@ -7,21 +7,20 @@ import { TableManager } from "../utils/tableManager";
 export class MeetingManager extends TableManager {
 
     public async getMeeting(req: Request): Promise<any> {
-
         this.sql = 'SELECT * FROM "Meetings" WHERE id = $1'
         this.params = [
-            req.body.id
+            req.query.id
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
         if (this.result.rowCount > 0) {
             // get meetingHour information
             let meetingHourManager = new MeetingHourManager();
-            req.body.id = this.result.rows[0].MeetingHoursId
+            req.query.id = this.result.rows[0].MeetingHoursId
             let meetingHour = await meetingHourManager.getMeetingHour(req)
             // get parent information
             let accountManager = new AccountManager();
-            req.body.username = this.result.rows[0].ParentsId;
+            req.query.username = this.result.rows[0].ParentsId;
             let parent = await accountManager.getUser(req)
             // create meeting
             let meeting = new Meeting(
@@ -91,7 +90,11 @@ export class MeetingManager extends TableManager {
 
     public async deleteMeeting(req: Request): Promise<any>{
 
+<<<<<<< HEAD
         let meetingID = req.query.ID
+=======
+        let meetingID = req.query.id
+>>>>>>> 4611b139c0809f17259fb0ed08cf4337afa7888f
         // send meeting cancelling notice
         this.result = await this.sendMeetingCancellationNotice(req)
 
@@ -123,7 +126,7 @@ export class MeetingManager extends TableManager {
     }
 
     private async sendMeetingCancellationNotice(req: Request): Promise<any> {
-
+        console.log("send meeting cancellation")
         // post a new notice regarding the meeting cancellation
         // get meeting information
         let meeting = await this.getMeeting(req)

@@ -63,7 +63,6 @@ export class NoticeManager extends TableManager {
             req.body.title, 
             req.body.body
         ]
-        console.log(req.body)
         this.result = await this.dbManager.postQuery(this.sql, this.params)
 
         let personalNoticeManager = new PersonalNoticeManager();
