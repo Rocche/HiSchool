@@ -183,7 +183,7 @@ export class TeacherAbsenceManager extends TableManager {
             " " + teacherAbsence.substitute.lastName +
             "."
         let classManager = new ClassManager()
-        req.body.class = teacherAbsence.lessonHour.class
+        req.query.class = teacherAbsence.lessonHour.class
         let classStudents = await classManager.getClassStudents(req)
         if (classStudents instanceof Error || classStudents instanceof CustomError){
             return classStudents

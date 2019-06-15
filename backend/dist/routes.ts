@@ -117,7 +117,7 @@ module.exports = function (app, passport) {
                     res.status(200).send({ SuccessMessage: stdUpdateSuccessMsg, ServerResponse: serverResponse })
                     return
                 }
-                // else, return standar error message
+                // else, return standard error message
                 res.status(500).send({ ErrorMessage: stdUpdateErrMsg })
                 return
             }
@@ -141,7 +141,7 @@ module.exports = function (app, passport) {
                     res.status(200).send({ SuccessMessage: stdDeleteSuccessMsg })
                     return
                 }
-                // else, return standar error message
+                // else, return standard error message
                 res.status(500).send({ ErrorMessage: stdDeleteErrMsg })
             }
             default: {
