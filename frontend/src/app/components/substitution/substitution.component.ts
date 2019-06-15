@@ -14,17 +14,28 @@ export class SubstitutionComponent implements OnInit {
   constructor(private absenceService: AbsenceService) { }
 
   ngOnInit() {
-    this.absenceService.getAbsences()
-      .subscribe((res: TeacherAbsence[]) => {
-        this.absences = res;
-      },
-      error => {
-        alert("There was an error getting substitutions")
-      })
+    this.getAbsences();
   }
 
   public setSubstitutionDisponibility(absence: TeacherAbsence){
-    this.absenceService.setSubstitutionDisponibility(absence);
+    this.absenceService.setSubstitutionDisponibility(absence.id)
+      .subscribe(res => {
+        alert("Substitution set correctly");
+        this.getAbsences();
+      },
+      error => {
+        alert("There was an error setting the substitution");
+      })
+  }
+
+  private getAbsences(){
+    this.absenceService.getAbsences()
+    .subscribe((res: TeacherAbsence[]) => {
+      this.absences = res;
+    },
+    error => {
+      alert("There was an error getting substitutions")
+    })
   }
 
 }
