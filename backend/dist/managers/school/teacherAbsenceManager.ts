@@ -153,7 +153,7 @@ export class TeacherAbsenceManager extends TableManager {
             " and hour " + teacherAbsence.lessonHour.hour +
             " will be cancelled due to a teacher absence."
         let classManager = new ClassManager();
-        req.body.class = teacherAbsence.lessonHour.ClassesId
+        req.query.class = teacherAbsence.lessonHour.ClassesId
         let classStudents = await classManager.getClassStudents(req)
         req.body.targets = classStudents
         await noticeManager.postNotice(req)
