@@ -25,7 +25,7 @@ export class LessonHourManager extends TableManager {
             // create lessonHour
             let lessonHour = new LessonHour(
                 this.result.rows[0].id,
-                this.result.rows[0].class,
+                this.result.rows[0].ClassesId,
                 teacher,
                 subject,
                 this.result.rows[0].dayOfWeek,

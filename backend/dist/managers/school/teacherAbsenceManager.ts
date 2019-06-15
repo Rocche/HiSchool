@@ -147,16 +147,18 @@ export class TeacherAbsenceManager extends TableManager {
         // post a new notice regarding the substitution
         // get teacherAbsence information
         let teacherAbsence = await this.getTeacherAbsence(req)
+        let strDate = new Date(teacherAbsence.date).toDateString()
         // create notice information
         let noticeManager = new NoticeManager();
         req.body.type = NoticeType.Standard
         req.body.title = 'SUBSTITUTION'
-        req.body.body = "The lesson of date " + teacherAbsence.date +
+        req.body.body = "The lesson of date " + strDate +
             " and hour " + teacherAbsence.lessonHour.hour +
             " will be cancelled due to a teacher absence."
         let classManager = new ClassManager();
-        req.query.class = teacherAbsence.lessonHour.ClassesId
+        req.query.class = teacherAbsence.lessonHour.class
         let classStudents = await classManager.getClassStudents(req)
+        console.log(req.query.class)
         req.body.targets = classStudents
         this.result = await noticeManager.postNotice(req)
         return this.result
