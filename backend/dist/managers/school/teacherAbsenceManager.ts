@@ -159,13 +159,9 @@ export class TeacherAbsenceManager extends TableManager {
         let classManager = new ClassManager();
         req.query.class = teacherAbsence.lessonHour.class
         let classStudents = await classManager.getClassStudents(req)
-<<<<<<< HEAD
         if (classStudents instanceof Error || classStudents instanceof CustomError){
             return classStudents
         }
-=======
-        console.log(req.query.class)
->>>>>>> e6290b64cb1a9b899d1da219d23980a485a04686
         req.body.targets = classStudents
         this.result = await noticeManager.postNotice(req)
         return this.result
