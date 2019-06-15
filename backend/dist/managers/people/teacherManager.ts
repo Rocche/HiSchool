@@ -2,6 +2,7 @@ import { Teacher, User } from "../../models/models"
 
 import { Request } from "express"
 import { TableManager } from "../utils/tableManager";
+import { SubjectManager } from "../school/subjectManager";
 
 export class TeacherManager extends TableManager {
 
@@ -13,17 +14,19 @@ export class TeacherManager extends TableManager {
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
         if (this.result.rowCount > 0) {
+            // get subjects information
+            let subjects = await this.getTeacherSubjects(user)
             let teacher = new Teacher(
                 user.username,
                 user.email,
                 user.role,
                 user.firstName,
-                user.lastName
-        )
+                user.lastName,
+                subjects
+            )
             this.result = teacher
         }
         return this.result
-        
     }
 
     public async postTeacher(req: Request): Promise<any> {
@@ -50,6 +53,18 @@ export class TeacherManager extends TableManager {
             req.body.subject.ID
         ]
         this.result = await this.dbManager.postQuery(this.sql, this.params)
+
+        return this.result
+
+    }
+
+    public async getTeacherSubjects(user:User): Promise<any> {
+
+        this.sql = 'SELECT ("SubjectsId") FROM "Teaches" WHERE "TeachersUsername" = $1 GROUP BY "SubjectsId"'
+        this.params = [
+            user.username
+        ]
+        this.result = await this.dbManager.getQuery(this.sql, this.params)
 
         return this.result
 

@@ -1,8 +1,7 @@
 import { Request } from "express"
 import { TableManager } from "../utils/tableManager";
 import { LessonHour } from "../../models/models";
-import { AccountManager } from "../utils/accountManager";
-import { SubjectManager } from "./subjectManager";
+import { AccountManager, SubjectManager } from "../managers";
 
 export class LessonHourManager extends TableManager {
 

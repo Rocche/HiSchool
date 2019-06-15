@@ -1,7 +1,6 @@
 import { Request } from "express"
-import { NoticeManager } from "../managers";
+import { NoticeManager, LogManager } from "../managers";
 import { Report, NoticeType } from "../../models/models";
-import { LogManager } from "./logManager";
 import { v4 as uuid } from 'uuid';
 import { TableManager } from "../utils/tableManager";
 

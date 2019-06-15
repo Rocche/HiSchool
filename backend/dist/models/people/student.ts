@@ -1,6 +1,5 @@
 import { User } from "../utils/user";
 import { Role } from "../enums/role";
-import { Parent } from "./parent";
 
 export class Student extends User{
 
