@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { Notice } from '../../models/models'
+import { Notice, CustomError } from '../../models/models'
 
 import { Request } from "express"
 import { TableManager } from "../utils/tableManager";
@@ -56,6 +56,13 @@ export class NoticeManager extends TableManager {
 
         let noticeID = uuid();
         req.body.date = new Date();
+
+        if (req.body.targets == null){
+            this.error.name = "TARGETS ERROR"
+            this.error.details = "No target selected"
+            return this.error
+        }
+
         this.sql = 'INSERT INTO "Notices" ( id, date, type, title, body) VALUES ($1,$2,$3,$4,$5)'
         this.params = [
             noticeID,
@@ -66,12 +73,15 @@ export class NoticeManager extends TableManager {
         ]
         this.result = await this.dbManager.postQuery(this.sql, this.params)
 
-        let personalNoticeManager = new PersonalNoticeManager();
-        req.body.targets.forEach(async target => {
-            req.body.notice = noticeID
-            req.body.target = target.username
-            this.result = await personalNoticeManager.postPersonalNotice(req)
-        });
+        if (!(this.result instanceof Error || this.result instanceof CustomError)){
+            let personalNoticeManager = new PersonalNoticeManager();
+            req.body.targets.forEach(async target => {
+                req.body.notice = noticeID
+                req.body.target = target.username
+                this.result = await personalNoticeManager.postPersonalNotice(req)
+            });
+        }
+
         return this.result
     }
 
