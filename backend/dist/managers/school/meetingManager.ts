@@ -38,16 +38,17 @@ export class MeetingManager extends TableManager {
     public async getMeetings(req: Request): Promise<any> {
 
 
-        this.sql = 'SELECT ("Meetings".id AS id, "Meetings".date, "Meetings"."ParentsUsername", "Meetings"."MeetingHoursId", \
-                            "MeetingHours".id AS meetinghoursid, "MeetingHours".hour, "MeetingHours"."dayOfWeek", "MeetingHours"."TeachersUsername") \
-                            FROM "Meetings" INNER JOIN "MeetingHours" \
-                            ON "Meetings"."MeetingHoursId" = "MeetingHours".id \
-                            WHERE "MeetingHours"."TeachersUsername" = $1'
+        this.sql = 'SELECT "Meetings".id AS id, "Meetings".date, "Meetings"."ParentsUsername", "Meetings"."MeetingHoursId", \
+                            "MeetingHours".id AS "meetingHoursId", "MeetingHours".hour, "MeetingHours"."dayOfWeek", "MeetingHours"."TeachersUsername" \
+                    FROM "Meetings" INNER JOIN "MeetingHours" \
+                    ON "Meetings"."MeetingHoursId" = "MeetingHours".id \
+                    WHERE "MeetingHours"."TeachersUsername" = $1'
         this.params = [
             req.query.teacher
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
+        console.log(this.result);
         if (this.result.rowCount > 0) {
 
             let meetingHourManager = new MeetingHourManager();
@@ -56,7 +57,7 @@ export class MeetingManager extends TableManager {
 
             for (let row of this.result.rows) {
                 // get meetingHour information
-                req.query.id = row.meetinghoursid
+                req.query.id = row.meetingHoursId
                 let meetingHour = await meetingHourManager.getMeetingHour(req)
                 // get parent information
                 req.query.username = row.ParentsUsername;
