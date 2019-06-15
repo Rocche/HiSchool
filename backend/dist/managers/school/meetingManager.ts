@@ -40,7 +40,7 @@ export class MeetingManager extends TableManager {
 
         this.sql = 'SELECT * FROM "Meetings" INNER JOIN "MeetingHours" ON Meetings.MeetingHourId = MeetingHours.id WHERE MeetingHours.TeachersUsername = $1'
         this.params = [
-            req.body.teacher
+            req.query.teacher
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
@@ -52,10 +52,10 @@ export class MeetingManager extends TableManager {
 
             for (let row of this.result.rows) {
                 // get meetingHour information
-                req.body.id = row.MeetingHoursId
+                req.query.id = row.MeetingHoursId
                 let meetingHour = await meetingHourManager.getMeetingHour(req)
                 // get parent information
-                req.body.username = row.ParentsId;
+                req.query.username = row.ParentsId;
                 let parent = await accountManager.getUser(req)
                 // create meeting
                 let meeting= new Meeting(
