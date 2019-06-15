@@ -119,7 +119,7 @@ export class TeacherAbsenceManager extends TableManager {
 
         if (!(this.result instanceof Error) || (this.result instanceof CustomError)) {
             // send absence notice
-            req.body.id = teacherAbsenceID
+            req.query.id = teacherAbsenceID
             this.result = await this.sendAbsenceNotice(req)
         }
 
@@ -158,7 +158,8 @@ export class TeacherAbsenceManager extends TableManager {
         req.body.class = teacherAbsence.lessonHour.ClassesId
         let classStudents = await classManager.getClassStudents(req)
         req.body.targets = classStudents
-        await noticeManager.postNotice(req)
+        this.result = await noticeManager.postNotice(req)
+        return this.result
 
     }
 
@@ -181,7 +182,8 @@ export class TeacherAbsenceManager extends TableManager {
         req.body.class = teacherAbsence.lessonHour.ClassesId
         let classStudents = await classManager.getClassStudents(req)
         req.body.targets = classStudents
-        await noticeManager.postNotice(req)
+        this.result = await noticeManager.postNotice(req)
+        return this.result
 
     }
 }
