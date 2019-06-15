@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR } from '@angular/core/src/view/provider';
 import { AbsenceService } from 'src/app/services/absence.service';
-import { LessonHour } from 'src/app/models.1/models';
+import { LessonHour, User } from 'src/app/models.1/models';
 import { ClassService } from 'src/app/services/class.service';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
@@ -17,6 +17,7 @@ export class AbsenceComponent implements OnInit {
   private date: string;
   private markDisabled;
   private availableHours: LessonHour[];
+  private selectedLessonHour: LessonHour;
 
   constructor(private absenceService: AbsenceService, private classService: ClassService) { }
 
@@ -41,7 +42,20 @@ export class AbsenceComponent implements OnInit {
   }
 
   public addAbsence(){
-    //this.absenceService.addAbsence()
+    if(this.selectedLessonHour == null){
+      alert("You must select a lesson hour");
+    }
+    if(this.date == null){
+      alert("You must select a date");
+    }
+    let teacher: User = JSON.parse(localStorage.getItem('user'));
+    this.absenceService.addAbsence(teacher, this.selectedLessonHour, new Date(this.date))
+      .subscribe(res => {
+        alert("Absence succesfully added.");
+      },
+      error => {
+        alert("There was an error adding the absence");
+      })
 
   }
 

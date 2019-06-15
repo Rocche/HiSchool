@@ -1,8 +1,8 @@
 <div class="col-centered text-center">
     <input class="form-control text-center" placeholder="yyyy-mm-dd" name="d" [(ngModel)]="this.date" ngbDatepicker #d="ngbDatepicker" [markDisabled]="this.markDisabled" (click)="d.toggle()" (ngModelChange)="selectDate($event)">
-    <select class="form-control" name="hour" [(ngModel)]="this.selectedHour">
+    <select class="form-control" name="hour" [(ngModel)]="this.selectedLessonHour">
         <option selected=""> Select absence hour </option> 
-        <option *ngFor="let lessonHour of this.availableHours">{{lessonHour.hour}}</option>
+        <option *ngFor="let lessonHour of this.availableHours" [ngValue]="lessonHour">{{lessonHour.hour}}</option>
     </select>
     <button type="submit" class="btn btn-info" (click) = "addAbsence()">Confirm Absence</button>
 </div>
