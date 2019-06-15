@@ -1,6 +1,6 @@
 import { Request } from "express"
 import { MeetingHourManager, AccountManager, NoticeManager  } from "../managers";
-import { Meeting, NoticeType } from "../../models/models";
+import { Meeting, NoticeType, CustomError } from "../../models/models";
 import { v4 as uuid } from 'uuid';
 import { TableManager } from "../utils/tableManager";
 
@@ -127,6 +127,9 @@ export class MeetingManager extends TableManager {
         // post a new notice regarding the meeting cancellation
         // get meeting information
         let meeting = await this.getMeeting(req)
+        if (meeting instanceof Error || meeting instanceof CustomError) {
+            return meeting
+        }
         // create notice
         let strDate = new Date(meeting.date).toDateString()
         let noticeManager = new NoticeManager();
