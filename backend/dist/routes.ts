@@ -93,12 +93,12 @@ module.exports = function (app, passport) {
                     res.status(200).send({ SuccessMessage: stdPostSuccessMsg, ServerResponse: serverResponse })
                     return
                 }
-                // else, return standar error message
+                // else, return standard error message
                 res.status(500).send({ ErrorMessage: stdPostErrMsg })
                 return
             }
             //------------------------UPDATE RESPONSE MESSAGES--------------------------//
-            case 'UPDATE': {
+            case 'PUT': {
                 // standard response messages
                 let stdUpdateErrMsg = 'Error: could not update database with input data.'
                 let stdUpdateSuccessMsg = 'Success: data correctly updated into the database'

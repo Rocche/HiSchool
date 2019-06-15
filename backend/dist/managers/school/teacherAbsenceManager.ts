@@ -138,6 +138,7 @@ export class TeacherAbsenceManager extends TableManager {
         this.result = await this.dbManager.updateQuery(this.sql, this.params)
 
         // send substitution notices
+        req.query.id = req.body.id;
         this.result = await this.sendSubstitutionNotice(req)
 
         return this.result
@@ -169,7 +170,6 @@ export class TeacherAbsenceManager extends TableManager {
     }
 
     private async sendSubstitutionNotice(req: Request): Promise<any> {
-
         // post a new notice regarding the substitution
         // get teacherAbsence information
         let teacherAbsence = await this.getTeacherAbsence(req)

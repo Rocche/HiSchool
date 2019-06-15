@@ -6,17 +6,15 @@
       <th scope="col">Hour</th>
       <th scope="col">Class</th>
       <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let absence of this.absences">
-      <td>{{absence.teacher}}</td>
+      <td>{{absence.lessonHour.teacher.firstName}} {{absence.lessonHour.teacher.lastName}}</td>
       <td>{{absence.date}}</td>
-      <td>{{absence.hour}}</td>
-      <td>{{absence.class}}</td>
-      <td><button class="btn btn-info" (click) = "setSubstitutionDisponibility(absence, true)">Confirm Substitution</button></td>
-      <td><button class="btn btn-danger" (click) = "setSubstitutionDisponibility(absence, false)">Ignore Substitution</button></td>
+      <td>{{absence.lessonHour.hour}}</td>
+      <td>{{absence.lessonHour.class}}</td>
+      <td><button class="btn btn-info" (click) = "setSubstitutionDisponibility(absence)">Confirm Substitution</button></td>
     </tr>
   </tbody>
 </table>
