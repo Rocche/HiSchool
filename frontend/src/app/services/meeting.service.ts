@@ -41,8 +41,8 @@ export class MeetingService {
   }
 
   public dismissMeeting(meeting: Meeting){
-    console.log(meeting.ID);
-    return this.http.delete('/api/meeting?id=' + meeting.ID);
+    console.log(meeting.id);
+    return this.http.delete('/api/meeting?id=' + meeting.id);
   }
 
 }

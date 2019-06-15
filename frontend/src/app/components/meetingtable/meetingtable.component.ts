@@ -19,8 +19,14 @@ export class MeetingtableComponent implements OnInit {
 
   
   public dismiss(meeting: Meeting){
-    this.meetingService.dismissMeeting(meeting);
-    this.getMeetings();
+    this.meetingService.dismissMeeting(meeting)
+      .subscribe(res => {
+        alert("Meeting dismissed succesfully");
+        this.getMeetings();
+      },
+      error => {
+        alert("Error while dismissing meeting");
+      })
   }
   
 

@@ -11,7 +11,7 @@
     <tr *ngFor="let meeting of this.meetings">
       <th scope="row">{{meeting.parent.firstName}} {{meeting.parent.lastName}}</th>
       <td>{{meeting.date}}</td>
-      <td>{{meeting.meetingHour.hour}}</td>
+      <td>{{meeting.meetingHour.hour}} {{meeting.id}}</td>
       <td><button class="btn btn-danger" (click)="dismiss(meeting)">Dismiss</button></td>
     </tr>
   </tbody>

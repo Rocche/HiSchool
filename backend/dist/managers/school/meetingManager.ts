@@ -44,6 +44,7 @@ export class MeetingManager extends TableManager {
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
+        console.log(this.result);
         if (this.result.rowCount > 0) {
 
             let meetingHourManager = new MeetingHourManager();
@@ -74,7 +75,7 @@ export class MeetingManager extends TableManager {
     public async postMeeting(req: Request): Promise<any> {
         
         let meetingID = uuid();
-        this.sql = 'INSERT INTO "Meetings" ( id, date, "MeetingHourId", "ParentsUsername" ) VALUES ($1,$2,$3,$4)'
+        this.sql = 'INSERT INTO "Meetings" ( id, date, "MeetingHoursId", "ParentsUsername" ) VALUES ($1,$2,$3,$4)'
         this.params = [
             meetingID,
             req.body.date,
