@@ -33,8 +33,10 @@ export class MeetingHourManager extends TableManager {
     public async getMeetingHours(req: Request): Promise<any> {
 
 
-        this.sql = 'SELECT * FROM "MeetingHours"'
-        this.params = []
+        this.sql = 'SELECT * FROM "MeetingHours" WHERE "TeachersUsername" = $1'
+        this.params = [
+            req.query.teacher
+        ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
         if (this.result.rowCount > 0) {
@@ -44,7 +46,7 @@ export class MeetingHourManager extends TableManager {
 
             for (let row of this.result.rows) {
                 // get teacher information
-                req.body.username = row.TeachersUsername
+                req.query.username = row.TeachersUsername
                 let teacher = await accountManager.getUser(req)
                 // create meetingHour
                 let meetingHour = new MeetingHour(

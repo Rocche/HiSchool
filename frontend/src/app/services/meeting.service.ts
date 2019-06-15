@@ -3,6 +3,7 @@ import { MeetingHour } from '../models/MeetingHour';
 import { Meeting } from '../models/Meeting';
 import * as moment from 'moment';
 import { Teacher } from '../models.1/models';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class MeetingService {
   private meetingHours: MeetingHour[];
   private meetings: Meeting[];
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.meetingHours = [
       new MeetingHour(2, 2, 'Marcantoni'),
       new MeetingHour(6, 1, 'Gagliardi')
@@ -23,8 +24,8 @@ export class MeetingService {
     ]
    }
 
-  public getTeacherMeetingHours(teacher: Teacher): MeetingHour[]{
-    return this.meetingHours;
+  public getTeacherMeetingHours(teacherUsername: string){
+    return this.http.get("/api/meetingHours?teacher=" + teacherUsername);
   }
 
   public reserveMeeting(meeting: MeetingHour){

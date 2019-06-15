@@ -14,7 +14,7 @@
       <td>{{notice.notice.body}}</td>
       <td>{{notice.notice.type}}</td>
       <td>{{notice.status}}</td>
-      <td><button class="btn btn-info" (click)="this.currentNotice = notice.notice" data-toggle="modal" data-target="#noticeDetails">Open Specification</button></td>
+      <td><button class="btn btn-info" (click)="this.currentNotice = notice" data-toggle="modal" data-target="#noticeDetails">Open Specification</button></td>
     </tr>
   </tbody>
 </table>
@@ -28,17 +28,17 @@
           </button>
         </div>
         <div class="modal-body">
-          <h3>{{this.currentNotice.title}}</h3>
-          <p>{{this.currentNotice.body}}</p>
+          <h3>{{this.currentNotice.notice.title}}</h3>
+          <p>{{this.currentNotice.notice.body}}</p>
         </div>
-        <div *ngIf="this.currentNotice.type == 'Authorization'" class="modal-footer">
+        <div *ngIf="this.currentNotice.notice.type == 'Authorization'" class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button  *ngIf="this.role != 'student'" type="button" class="btn btn-info" data-dismiss="modal" (click)="setNoticeAuthorization(true)">Authorize</button>
-          <button *ngIf="this.role != 'student'" type="button" class="btn btn-danger" data-dismiss="modal" (click)="setNoticeAuthorization(false)">Do Not Authorize</button>
+          <button  *ngIf="this.role != 'STUDENT' && this.currentNotice.status == 'Unsigned'" type="button" class="btn btn-info" data-dismiss="modal" (click)="setNoticeAuthorization(true)">Authorize</button>
+          <button *ngIf="this.role != 'STUDENT' && this.currentNotice.status == 'Unsigned'" type="button" class="btn btn-danger" data-dismiss="modal" (click)="setNoticeAuthorization(false)">Do Not Authorize</button>
         </div>
-        <div *ngIf="this.currentNotice.type == 'Standard'" class="modal-footer">
+        <div *ngIf="this.currentNotice.notice.type == 'Standard'" class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button *ngIf="this.role != 'student'" type="button" class="btn btn-info" data-dismiss="modal">Ok</button>
+            <button *ngIf="this.role != 'STUDENT' && this.currentNotice.status != 'Unsigned'" type="button" class="btn btn-info" data-dismiss="modal">Ok</button>
           </div>
       </div>
     </div>

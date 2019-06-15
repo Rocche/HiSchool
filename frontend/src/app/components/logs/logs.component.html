@@ -3,13 +3,15 @@
       <tr>
         <th scope="col">Sender</th>
         <th scope="col">Body</th>
+        <th scope="col">Date</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let log of this.logs">
-        <td>{{log.sender}}</td>
+        <td>{{log.username}}</td>
         <td>{{log.body}}</td>
+        <td>{{log.date}}</td>
       </tr>
     </tbody>
   </table>
