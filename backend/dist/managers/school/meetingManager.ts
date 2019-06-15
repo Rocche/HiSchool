@@ -20,7 +20,7 @@ export class MeetingManager extends TableManager {
             let meetingHour = await meetingHourManager.getMeetingHour(req)
             // get parent information
             let accountManager = new AccountManager();
-            req.query.username = this.result.rows[0].ParentsId;
+            req.query.username = this.result.rows[0].ParentsUsername;
             let parent = await accountManager.getUser(req)
             // create meeting
             let meeting = new Meeting(
@@ -30,6 +30,7 @@ export class MeetingManager extends TableManager {
                 parent,
             )
             this.result = meeting
+            console.log(meeting)
         }
         return this.result
     }
