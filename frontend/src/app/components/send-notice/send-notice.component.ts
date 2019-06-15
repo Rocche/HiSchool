@@ -24,7 +24,7 @@ export class SendNoticeComponent implements OnInit {
   private selectedClasses: Class[];
 
   constructor(private noticesService: NoticesService, private classService: ClassService) { 
-    //this.notice = new Notice(null, null, null, NOTICE_TYPES.authorization);
+    this.notice = new Notice(null, null, null, null, null);
   }
 
   ngOnInit() {
@@ -39,7 +39,13 @@ export class SendNoticeComponent implements OnInit {
   public selectTarget(){
     switch(this.targetType){
       case "class":
-        this.classes = this.classService.getClasses();
+        this.classService.getClasses()
+          .subscribe((res: Class[]) => {
+            this.classes = res;
+          },
+          error => {
+            alert("Error while getting classes")
+          })
         break;
       case "teacher":
         //this.teachers = this.teacherService.getTeachers();
@@ -52,6 +58,10 @@ export class SendNoticeComponent implements OnInit {
 
   public addClass(){
     this.selectedClasses.push(this.selectedClass);
+    let index = this.classes.indexOf(this.selectedClass, 0);
+    if (index > -1) {
+       this.classes.splice(index, 1);
+    }
   }
 
   public addTeacher(){
@@ -63,6 +73,7 @@ export class SendNoticeComponent implements OnInit {
     if (index > -1) {
        this.selectedClasses.splice(index, 1);
     }
+    this.classes.push(c);
   }
 
   public removeFromTeachers(teacher: Teacher){

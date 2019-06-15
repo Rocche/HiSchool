@@ -20,7 +20,7 @@ export class ClassService {
   }
 
   public getClasses(){
-    return this.classes;
+    return this.http.get('api/classes');
   }
 
   //get class

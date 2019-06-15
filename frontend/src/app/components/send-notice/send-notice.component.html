@@ -2,20 +2,20 @@
     <div class="form-group input-group">
         <label for="target_type">Select target type:</label>
         <select class="form-control" name="target_type" [(ngModel)]="this.targetType" (change)="selectTarget()">
-            <option selected=""> Select user type </option>
+            <option selected=""> Select target type </option>
             <option>class</option>
             <option>teacher</option>
         </select>
     </div>
   <div *ngIf="this.targetType != null" class="form-group">
     <label for="targets">To:</label>
-    <div  *ngIf="this.targetType == 'class'">
+    <div *ngIf="this.targetType == 'class'">
         <select class="form-control" name="target_type" [(ngModel)]="this.selectedClass" (change)="addClass()">
-            <option *ngFor="let class of this.classes" [ngValue]="class">{{class.year}}{{class.section}}{{class.branch}}</option>
+            <option *ngFor="let class of this.classes" [ngValue]="class">{{class.id}}</option>
         </select>
         <table>
             <tr *ngFor="let class of this.selectedClasses">
-                <td>{{class.year}}{{class.section}}{{class.branch}}</td>
+                <td>{{class.id}}         </td>
                 <td><button class="btn btn-danger" (click)="removeFromClasses(class)">Remove</button></td>
             </tr>
         </table>
