@@ -14,18 +14,23 @@ export class MeetingtableComponent implements OnInit {
   constructor(private meetingService: MeetingService) { }
 
   ngOnInit() {
-    this.meetingService.getMeetings()
-      .subscribe((res: Meeting[]) => {
-        this.meetings = res;
-      },
-      error => {
-        alert("Error getting meetings")
-      })
+    this.getMeetings();
   }
 
-  /*
+  
   public dismiss(meeting: Meeting){
     this.meetingService.dismissMeeting(meeting);
+    this.getMeetings();
   }
-  */
+  
+
+  private getMeetings(){
+    this.meetingService.getMeetings()
+    .subscribe((res: Meeting[]) => {
+      this.meetings = res;
+    },
+    error => {
+      alert("Error getting meetings");
+    })
+  }
 }

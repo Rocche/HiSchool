@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MeetingHour } from '../models.1/school/meetingHour';
-import { Meeting } from '../models/Meeting';
+import { Meeting } from '../models.1/school/meeting';
 import * as moment from 'moment';
 import { Teacher, Parent, User } from '../models.1/models';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -41,7 +41,8 @@ export class MeetingService {
   }
 
   public dismissMeeting(meeting: Meeting){
-    alert('Meeting dismissed: ' + ', ' + meeting.getDate() + ', ' +  meeting.getHour());
+    console.log(meeting.ID);
+    return this.http.delete('/api/meeting?id=' + meeting.ID);
   }
 
 }
