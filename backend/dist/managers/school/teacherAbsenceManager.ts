@@ -111,7 +111,7 @@ export class TeacherAbsenceManager extends TableManager {
         this.params = [
             teacherAbsenceID,
             req.body.teacher.username,
-            new Date(req.body.date),
+            req.body.date,
             req.body.lessonHour.id,
             'nobody'
         ]
