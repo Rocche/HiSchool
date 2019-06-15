@@ -33,9 +33,12 @@ export class AbsenceService {
     return this.http.get('/api/availableTeacherAbsences?teacher=' + username);
   }
 
-  public setSubstitutionDisponibility(absence: TeacherAbsence, canSubstitute: boolean){
-    let result = canSubstitute ? 'confirmed' : 'not confirmed';
-    //alert("substitution " + result + ": " + absence.getDate() + ", " + absence.getHour() + ", " + absence.getClass());
+  public setSubstitutionDisponibility(id: string){
+    let substitute = JSON.parse(localStorage.getItem('user')).username;
+    let body: any = {};
+    body.substitute = substitute;
+    body.id = id;
+    return this.http.put('api/teacherAbsence', body, httpOptions)
   }
 
 }

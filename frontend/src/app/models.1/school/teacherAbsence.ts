@@ -3,13 +3,13 @@ import { Teacher } from "../people/teacher";
 
 export class TeacherAbsence {
 
-    ID: string;
+    id: string;
     date: Date;
     lessonHour: LessonHour;
     substitute: Teacher;
 
-    constructor (ID: string, date: Date, lessonHour: LessonHour, substitute: Teacher) {
-        this.ID = ID;
+    constructor (id: string, date: Date, lessonHour: LessonHour, substitute: Teacher) {
+        this.id = id;
         this.date = date;
         this.lessonHour = lessonHour;
         this.substitute = substitute;
