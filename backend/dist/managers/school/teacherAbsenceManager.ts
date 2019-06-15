@@ -149,7 +149,6 @@ export class TeacherAbsenceManager extends TableManager {
         let teacherAbsence = await this.getTeacherAbsence(req)
         // create notice information
         let noticeManager = new NoticeManager();
-        req.body.date = Date.now();
         req.body.type = NoticeType.Standard
         req.body.title = 'SUBSTITUTION'
         req.body.body = "The lesson of date " + teacherAbsence.date +
@@ -171,7 +170,6 @@ export class TeacherAbsenceManager extends TableManager {
         let teacherAbsence = await this.getTeacherAbsence(req)
         // create notice informationW
         let noticeManager = new NoticeManager();
-        req.body.date = Date.now();
         req.body.type = NoticeType.Standard
         req.body.title = 'SUBSTITUTION'
         req.body.body = "The lesson of date " + teacherAbsence.date +
