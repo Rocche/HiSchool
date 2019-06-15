@@ -58,7 +58,7 @@ export class NoticeManager extends TableManager {
         this.sql = 'INSERT INTO "Notices" ( id, date, type, title, body) VALUES ($1,$2,$3,$4,$5)'
         this.params = [
             noticeID,
-            new Date(req.body.date),
+            req.body.date,
             req.body.type,
             req.body.title, 
             req.body.body

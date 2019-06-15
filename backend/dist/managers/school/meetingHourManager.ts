@@ -9,14 +9,14 @@ export class MeetingHourManager extends TableManager {
 
         this.sql = 'SELECT * FROM "MeetingHours" WHERE id = $1'
         this.params = [
-            req.body.id
+            req.query.id
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
         if (this.result.rowCount > 0) {
             // get teacher information
             let accountManager = new AccountManager()
-            req.body.username = this.result.rows[0].TeachersUsername
+            req.query.username = this.result.rows[0].TeachersUsername
             let teacher = await accountManager.getUser(req)
             // create meetingHour
             let meetingHour = new MeetingHour(
