@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Notice } from '../models/Notice';
-import { NOTICE_TYPES } from '../models/noticeTypes';
 import { HttpClient } from '@angular/common/http';
 import { Role } from '../models.1/models';
 
@@ -9,14 +7,8 @@ import { Role } from '../models.1/models';
 })
 export class NoticesService {
 
-  private notices: Notice[];
 
   constructor(private http: HttpClient) {
-    this.notices = [
-      new Notice('student', 'School meeting', 'We inform students that bla bla bla...', NOTICE_TYPES.authorization),
-      new Notice('student', 'School bomb', 'We inform students that bla bla bla...', NOTICE_TYPES.authorization),
-      new Notice('student', 'School SBANF', 'We inform students that bla bla bla...', NOTICE_TYPES.normal)
-    ]
   }
 
   public getNotices(){

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Class } from '../models/Class';
+import { Class } from '../models.1/school/class';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LessonHour, User, Role } from '../models.1/models';
 
@@ -17,12 +17,6 @@ export class ClassService {
   private classes: Class[];
 
   constructor(private http: HttpClient) { 
-    this.classes = [
-      new Class(1, 'A', ''),
-      new Class(1, 'B', ''),
-      new Class(1, 'A', 'S'),
-      new Class(2, 'B', 'S')
-    ]
   }
 
   public getClasses(){
@@ -41,6 +35,11 @@ export class ClassService {
       c = user.sons[0].class;
     }
     return this.http.get('/api/classTimeTable?class='+c);
+  }
+
+  public getTeacherTimeTable(){
+    let username = JSON.parse(localStorage.getItem('user')).username;
+    return this.http.get('/api/teacherTimeTable?teacher=' + username);
   }
   //getTeachers(class)
   //getStudents(class)

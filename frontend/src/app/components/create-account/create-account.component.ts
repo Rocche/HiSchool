@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Account } from 'src/app/models/Account';
+import { UserAuth } from 'src/app/models.1/utils/userAuth';
 import { AccountService } from 'src/app/services/account.service';
-import { ROLES } from '../../models/roles';
 import { Subject } from 'rxjs';
 //import { ParentService } from 'src/app/services/parent.service';
-import { Parent } from 'src/app/models/Parent';
+import { Parent } from 'src/app/models.1/people/parent';
 import { ClassService } from 'src/app/services/class.service';
-import { Class } from 'src/app/models/Class';
+import { Class } from 'src/app/models.1/school/class';
+import { Role } from 'src/app/models.1/models';
 //import { SubjectService } from 'src/app/services/subject.service';
 
 @Component({
@@ -16,7 +16,7 @@ import { Class } from 'src/app/models/Class';
 })
 export class CreateAccountComponent implements OnInit {
 
-  private account: Account;
+  private account: UserAuth;
   private selectedRole: string;
   private parents: Parent[];
   private classes: Class[];
@@ -25,7 +25,7 @@ export class CreateAccountComponent implements OnInit {
   private selectedSubject: string;
 
   constructor(private accountService: AccountService, private classService: ClassService) { 
-    this.account = new Account(null, null, null, null, null);
+    this.account = new UserAuth(null, null, null, null, null, null);
     this.parents = [];
     this.teacherSubjects = [];
   }
@@ -38,11 +38,11 @@ export class CreateAccountComponent implements OnInit {
   }
 
   public selectRole(){
-    if(this.account.getRole() == 'student'){
+    if(this.account.role == Role.STUDENT){
       //this.parents = this.parentService.getParents();
       this.classes = this.classService.getClasses();
     }
-    if(this.account.getRole() == 'teacher'){
+    if(this.account.role == Role.TEACHER){
       //this.subjects = this.subjectService.getSubjects();
     }
   }

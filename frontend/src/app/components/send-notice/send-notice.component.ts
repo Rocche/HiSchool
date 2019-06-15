@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Notice } from 'src/app/models/Notice';
+import { Notice } from 'src/app/models.1/school/notice';
 import { NoticesService } from 'src/app/services/notices.service';
-import { NOTICE_TYPES } from 'src/app/models/noticeTypes';
+import { NoticeType } from 'src/app/models.1/enums/noticeType';
 import { ClassService } from 'src/app/services/class.service';
-import { Class } from 'src/app/models/Class';
+import { Class } from 'src/app/models.1/school/class';
 //import { TeacherService } from 'src/app/services/teacher.service';
-import { Teacher } from 'src/app/models/Teacher';
+import { Teacher } from 'src/app/models.1/people/teacher';
 
 @Component({
   selector: 'app-send-notice',
@@ -24,7 +24,7 @@ export class SendNoticeComponent implements OnInit {
   private selectedClasses: Class[];
 
   constructor(private noticesService: NoticesService, private classService: ClassService) { 
-    this.notice = new Notice(null, null, null, NOTICE_TYPES.authorization);
+    //this.notice = new Notice(null, null, null, NOTICE_TYPES.authorization);
   }
 
   ngOnInit() {
