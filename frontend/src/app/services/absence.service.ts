@@ -1,5 +1,14 @@
 import { Injectable } from '@angular/core';
-import { TeacherAbsence } from '../models/TeacherAbsence';
+import { TeacherAbsence } from '../models.1/school/teacherAbsence';
+import { User } from '../models.1/utils/user';
+import { LessonHour } from '../models.1/school/lessonHour';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -8,15 +17,15 @@ export class AbsenceService {
 
   private absences: TeacherAbsence[];
 
-  constructor() { 
-    this.absences = [
-      new TeacherAbsence('Samuele Cucchi', '31/02/2019', 3, '3A'),
-      new TeacherAbsence('Alessandro Liscio', '31/02/2019', 2, '4BL')
-    ]
+  constructor(private http: HttpClient) { 
   }
 
-  public addAbsence(absence: TeacherAbsence){
-    console.log(absence);
+  public addAbsence(teacher: User, lessonHour: LessonHour, date: Date){
+    let body: any = {};
+    body.teacher = teacher;
+    body.lessonHour = lessonHour;
+    body.date = date;
+    return this.http.post('/api/teacherAbsence', body, httpOptions);
   }
 
   public getAbsences(): TeacherAbsence[]{
@@ -25,7 +34,7 @@ export class AbsenceService {
 
   public setSubstitutionDisponibility(absence: TeacherAbsence, canSubstitute: boolean){
     let result = canSubstitute ? 'confirmed' : 'not confirmed';
-    alert("substitution " + result + ": " + absence.getDate() + ", " + absence.getHour() + ", " + absence.getClass());
+    //alert("substitution " + result + ": " + absence.getDate() + ", " + absence.getHour() + ", " + absence.getClass());
   }
 
 }
