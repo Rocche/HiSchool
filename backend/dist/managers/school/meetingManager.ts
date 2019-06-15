@@ -113,15 +113,10 @@ export class MeetingManager extends TableManager {
         req.body.title = 'NEW MEETING'
         req.body.body = "Parent " + req.body.parent.firstName +
                         " " + req.body.parent.lastName +
-                        " requested a meeting in date" + req.body.date.toDateString() +
+                        " requested a meeting in date " + req.body.date.toDateString() +
                         " and hour " + req.body.meetingHour.hour +
                         ".";
-<<<<<<< HEAD
-        req.body.date = Date.now();
-        req.body.targets = [req.body.meetingHour.teacher.username]
-=======
         req.body.targets = [req.body.meetingHour.teacher]
->>>>>>> 312fc692dfd48403301ced0a5baf09391fa995be
         this.result = await noticeManager.postNotice(req)
         return this.result
     }
@@ -137,7 +132,7 @@ export class MeetingManager extends TableManager {
         req.body.title = 'MEETING CANCELLATION'
         req.body.body = "Teacher " + meeting.meetingHour.teacher.firstName +
                         " " + meeting.meetingHour.teacher.lastName +
-                        " cancelled the meeting in date" + meeting.date.toDateString() +
+                        " cancelled the meeting in date " + meeting.date.toDateString() +
                         " and hour " + meeting.meetingHour.hour +
                         ".";
         req.body.date = Date.now();

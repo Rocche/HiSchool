@@ -169,7 +169,7 @@ module.exports = function (app, passport) {
                 .send(err)
         }
     })
-    
+
     //------------------------------------------------------/api/login-------------------------------------------//
     // GET login
     app.get('/api/login', function (req: Request, res: Response) {
@@ -410,6 +410,19 @@ module.exports = function (app, passport) {
                 .send(err)
         }
     })
+
+    // GET availableTeacherAbsence
+    app.get('/api/availableTeacherAbsences', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await teacherAbsenceManager.getAvailableTeacherAbsences(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+
     // POST teacherAbsence
     app.post('/api/notice', async (req: Request, res: Response) => {
         try {
@@ -563,7 +576,7 @@ module.exports = function (app, passport) {
         }
     })
 
-    
+
     // ==========================================================================================================================================================
     // ==============================================   OTHER FUNCTIONS   =======================================================================================
     // ==========================================================================================================================================================

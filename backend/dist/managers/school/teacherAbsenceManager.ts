@@ -11,18 +11,18 @@ export class TeacherAbsenceManager extends TableManager {
 
         this.sql = 'SELECT * FROM "TeacherAbsences" WHERE id = $1'
         this.params = [
-            req.body.id
+            req.query.id
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
         if (this.result.rowCount > 0) {
             // get lessonHour information
             let lessonHourManager = new LessonHourManager()
-            req.body.id = this.result.rows[0].LessonHoursId
+            req.query.id = this.result.rows[0].LessonHoursId
             let lessonHour = await lessonHourManager.getLessonHour(req)
             // get substitute teacher information
             let accountManager = new AccountManager();
-            req.body.username = this.result.rows[0].substitute
+            req.query.username = this.result.rows[0].substitute
             let substitute = await accountManager.getUser(req)
             // create teacherAbsence
             let teacherAbsence = new TeacherAbsence(
@@ -39,8 +39,41 @@ export class TeacherAbsenceManager extends TableManager {
     public async getTeacherAbsences(req: Request): Promise<any> {
 
         this.sql = 'SELECT * FROM "TeacherAbsences"'
+        this.params = []
+        this.result = await this.dbManager.getQuery(this.sql, this.params)
+
+        if (this.result.rowCount > 0) {
+
+            let teacherAbsencesArray = []
+            let lessonHourManager = new LessonHourManager()
+            let accountManager = new AccountManager();
+
+            for (let row of this.result.rows) {
+                // get lessonHour information
+                req.query.id = row.LessonHoursId
+                let lessonHour = await lessonHourManager.getLessonHour(req)
+                // get substitute teacher information
+                req.query.username = row.substitute
+                let substitute = await accountManager.getUser(req)
+                // create teacherAbsence
+                let teacherAbsence = new TeacherAbsence(
+                    this.result.rows[0].id,
+                    this.result.rows[0].date,
+                    lessonHour,
+                    substitute
+                )
+                teacherAbsencesArray.push(teacherAbsence)
+            }
+            this.result = teacherAbsencesArray
+        }
+        return this.result
+    }
+
+    public async getAvailableTeacherAbsences(req: Request): Promise<any> {
+
+        this.sql = 'SELECT * FROM "TeacherAbsences" WHERE "substitute" = $1'
         this.params = [
-            req.body.id
+            'nobody'
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
@@ -52,15 +85,15 @@ export class TeacherAbsenceManager extends TableManager {
 
             for (let row of this.result.rows) {
                 // get lessonHour information
-                req.body.id = row.LessonHoursId
+                req.query.id = row.LessonHoursId
                 let lessonHour = await lessonHourManager.getLessonHour(req)
                 // get substitute teacher information
-                req.body.username = row.substitute
+                req.query.username = row.substitute
                 let substitute = await accountManager.getUser(req)
                 // create teacherAbsence
                 let teacherAbsence = new TeacherAbsence(
-                    this.result.rows[0].id,
-                    this.result.rows[0].date,
+                    row.id,
+                    row.date,
                     lessonHour,
                     substitute
                 )
