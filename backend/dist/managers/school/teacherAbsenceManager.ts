@@ -132,7 +132,7 @@ export class TeacherAbsenceManager extends TableManager {
         // post a new notice regarding the substitution
         // get teacherAbsence information
         let teacherAbsence = await this.getTeacherAbsence(req)
-        // create notice information
+        // create notice informationW
         let noticeManager = new NoticeManager();
         req.body.date = Date.now();
         req.body.type = NoticeType.Standard

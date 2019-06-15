@@ -2,7 +2,6 @@ import { Teacher, User } from "../../models/models"
 
 import { Request } from "express"
 import { TableManager } from "../utils/tableManager";
-import { SubjectManager } from "../school/subjectManager";
 
 export class TeacherManager extends TableManager {
 

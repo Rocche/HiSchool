@@ -24,5 +24,3 @@ export * from './school/TimeTableManager'
 // utils 
 export * from './utils/tableManager'
 export * from './utils/accountManager'
-
-

@@ -157,6 +157,19 @@ module.exports = function (app, passport) {
     })
     */
 
+    //------------------------------------------------------/api/test-------------------------------------------//
+    // GET test
+    app.get('/api/test', async (req: Request, res: Response) => {
+        try {
+            let serverResponse = new Date(Date.now()).toDateString()
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+    
     //------------------------------------------------------/api/login-------------------------------------------//
     // GET login
     app.get('/api/login', function (req: Request, res: Response) {
