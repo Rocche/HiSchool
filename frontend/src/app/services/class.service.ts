@@ -41,6 +41,14 @@ export class ClassService {
     let username = JSON.parse(localStorage.getItem('user')).username;
     return this.http.get('/api/teacherTimeTable?teacher=' + username);
   }
+
+  public getTeachers(){
+    return this.http.get('/api/teachers');
+  }
+
+  public getClassStudent(c: Class){
+    return this.http.get('api/classStudents?class=' + c.id);
+  }
   //getTeachers(class)
   //getStudents(class)
 }

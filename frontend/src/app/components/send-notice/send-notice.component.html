@@ -25,22 +25,29 @@
         <option *ngFor="let teacher of this.teachers" [ngValue]="teacher">{{teacher.lastName}} {{teacher.firstName}}</option>
     </select>
     <table>
-        <tr *ngFor="let class of this.selectedTeachers">
+        <tr *ngFor="let teacher of this.selectedTeachers">
             <td>{{teacher.lastName}} {{teacher.firstName}}</td>
             <td><button class="btn btn-danger" (click)="removeFromTeachers(teacher)">Remove</button></td>
         </tr>
     </table>
     </div>
   </div>
-  <div *ngIf="this.notice.target != null">
+  <div *ngIf="this.targetType != null">
     
   <div class="form-group">
     <label for="title">Title:</label>
-    <input type="text" class="form-control" id="title" name = "title" [(ngModel)] = "this.notice.title">
+    <input type="text" class="form-control" id="title" name = "title" [(ngModel)] = "this.title">
   </div>
   <div class="form-group">
+        <select class="form-control" name="notice_type" [(ngModel)]="this.noticeType">
+                <option selected="">Select notice type</option>
+                <option>Standard</option>
+                <option>Authorization</option>
+        </select>
+    </div>
+  <div class="form-group">
     <label for="body">Body:</label>
-    <textarea class="form-control" id="body" rows="3" name="body" [(ngModel)] = "this.notice.body"></textarea>
+    <textarea class="form-control" id="body" rows="3" name="body" [(ngModel)] = "this.body"></textarea>
   </div>
   <button type="submit" class="btn btn-info" (click)="sendNotice()">Send Notice</button>
 </div>

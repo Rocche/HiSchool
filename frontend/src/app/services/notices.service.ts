@@ -1,6 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Role } from '../models.1/models';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Role, Class, Student, Teacher } from '../models.1/models';
+import { ClassService } from './class.service';
+
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+};
+
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +17,7 @@ import { Role } from '../models.1/models';
 export class NoticesService {
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private classService: ClassService) {
   }
 
   public getNotices(){
@@ -23,15 +32,34 @@ export class NoticesService {
     return this.http.get('/api/personalNotices?target=' + target);
   }
 
-  public sendNotice(notice: Notice){
-    alert(notice);
+  public sendNoticeToClasses(type: string, title: string, body: string, targets: string[]){
+    let http_body: any = {};
+    http_body.type = type;
+    http_body.title = title;
+    http_body.body = body;
+    http_body.targets = targets;
+    console.log(http_body.targets)
+    return this.http.post('/api/notice', http_body, httpOptions);
   }
 
+  public sendNoticeToTeachers(type: string, title: string, body: string, targets: Teacher[]){
+    let targetTeachers = [];
+    targets.forEach((target: Teacher) => {
+      targetTeachers.push(target.username);
+    });
+    let http_body: any = {};
+    http_body.type = type;
+    http_body.title = title;
+    http_body.body = body;
+    http_body.targets = targetTeachers;
+    return this.http.post('/api/notice', http_body, httpOptions);
+  }
+  /*
   public setNoticeAuthorization(notice: Notice, authorized: boolean){
     let result = authorized ? 'Notice authorized' : 'Notice not authorized';
     alert(result + ": " + notice.getTitle());
   }
-
+  */
   public getNoticeboard(){
     return this.http.get('/api/noticeBoard');
   }

@@ -142,7 +142,7 @@ module.exports = function (app, passport) {
                     res.status(200).send({ SuccessMessage: stdDeleteSuccessMsg })
                     return
                 }
-                // else, return standard error message
+                // else, return standar error message
                 res.status(500).send({ ErrorMessage: stdDeleteErrMsg })
             }
             default: {
@@ -577,6 +577,7 @@ module.exports = function (app, passport) {
         }
     })
 
+    // GET teachers
     app.get('/api/teachers', async (req: Request, res: Response) => {
         try {
             serverResponse = await teacherManager.getTeachers(req);

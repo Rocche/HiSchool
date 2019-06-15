@@ -1,12 +1,12 @@
 export class Class {
 
-    ID: string;
+    id: string;
     year: number;
     section: string;
     branch: string;
 
-    constructor (ID: string, year:number, section:string, branch:string) {
-        this.ID = ID;
+    constructor (id: string, year:number, section:string, branch:string) {
+        this.id = id;
         this.year = year;
         this.section = section;
         this.branch = branch
