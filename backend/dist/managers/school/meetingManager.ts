@@ -1,5 +1,5 @@
 import { Request } from "express"
-import { MeetingHourManager, AccountManager, NoticeManager  } from "../managers";
+import { MeetingHourManager, AccountManager, NoticeManager } from "../managers";
 import { Meeting, NoticeType, CustomError } from "../../models/models";
 import { v4 as uuid } from 'uuid';
 import { TableManager } from "../utils/tableManager";
@@ -58,12 +58,12 @@ export class MeetingManager extends TableManager {
                 req.query.username = row.ParentsUsername;
                 let parent = await accountManager.getUser(req)
                 // create meeting
-                let meeting= new Meeting(
+                let meeting = new Meeting(
                     row.id,
                     row.date,
                     meetingHour,
                     parent
-                    )
+                )
                 meetingsArray.push(meeting)
             }
             this.result = meetingsArray
@@ -72,9 +72,9 @@ export class MeetingManager extends TableManager {
     }
 
     public async postMeeting(req: Request): Promise<any> {
-        
+
         let meetingID = uuid();
-        this.sql = 'INSERT INTO "Meetings" ( id, date, "MeetingHourId", "ParentsUsername" ) VALUES ($1,$2,$3,$4)'
+        this.sql = 'INSERT INTO "Meetings" ( id, date, "MeetingHoursId", "ParentsUsername" ) VALUES ($1,$2,$3,$4)'
         this.params = [
             meetingID,
             req.body.date,
@@ -83,13 +83,15 @@ export class MeetingManager extends TableManager {
         ]
         this.result = await this.dbManager.postQuery(this.sql, this.params)
 
-        // send meeting request notice
-        this.result = await this.sendMeetingRequestNotice(req)
+        if (!(this.result instanceof Error) && !(this.result instanceof CustomError)) {
+            // send meeting request notice
+            this.result = await this.sendMeetingRequestNotice(req)
+        }
 
         return this.result
     }
 
-    public async deleteMeeting(req: Request): Promise<any>{
+    public async deleteMeeting(req: Request): Promise<any> {
 
         let meetingID = req.query.id
         // send meeting cancelling notice
@@ -99,8 +101,8 @@ export class MeetingManager extends TableManager {
         this.params = [
             meetingID
         ]
-        this.result = await this.dbManager.deleteQuery(this.sql,this.params)
-        
+        this.result = await this.dbManager.deleteQuery(this.sql, this.params)
+
         return this.result
 
     }
@@ -113,10 +115,10 @@ export class MeetingManager extends TableManager {
         req.body.type = NoticeType.Standard
         req.body.title = 'NEW MEETING'
         req.body.body = "Parent " + req.body.parent.firstName +
-                        " " + req.body.parent.lastName +
-                        " requested a meeting in date " + strDate +
-                        " and hour " + req.body.meetingHour.hour +
-                        ".";
+            " " + req.body.parent.lastName +
+            " requested a meeting in date " + strDate +
+            " and hour " + req.body.meetingHour.hour +
+            ".";
         req.body.targets = [req.body.meetingHour.teacher]
         this.result = await noticeManager.postNotice(req)
         return this.result
@@ -136,10 +138,10 @@ export class MeetingManager extends TableManager {
         req.body.type = NoticeType.Standard
         req.body.title = 'MEETING CANCELLATION'
         req.body.body = "Teacher " + meeting.meetingHour.teacher.firstName +
-                        " " + meeting.meetingHour.teacher.lastName +
-                        " cancelled the meeting in date " + strDate +
-                        " and hour " + meeting.meetingHour.hour +
-                        ".";
+            " " + meeting.meetingHour.teacher.lastName +
+            " cancelled the meeting in date " + strDate +
+            " and hour " + meeting.meetingHour.hour +
+            ".";
         req.body.date = Date.now();
         req.body.targets = [meeting.parent.username]
         this.result = await noticeManager.postNotice(req)
