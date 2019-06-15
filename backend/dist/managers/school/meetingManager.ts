@@ -40,9 +40,9 @@ export class MeetingManager extends TableManager {
 
         this.sql = 'SELECT ("Meetings".id AS id, "Meetings".date, "Meetings"."ParentsUsername", "Meetings"."MeetingHoursId", \
                             "MeetingHours".id AS meetinghoursid, "MeetingHours".hour, "MeetingHours"."dayOfWeek", "MeetingHours"."TeachersUsername") \
-        FROM "Meetings" INNER JOIN "MeetingHours" \
-        ON "Meetings"."MeetingHoursId" = "MeetingHours".id \
-        WHERE "MeetingHours"."TeachersUsername" = $1'
+                            FROM "Meetings" INNER JOIN "MeetingHours" \
+                            ON "Meetings"."MeetingHoursId" = "MeetingHours".id \
+                            WHERE "MeetingHours"."TeachersUsername" = $1'
         this.params = [
             req.query.teacher
         ]
