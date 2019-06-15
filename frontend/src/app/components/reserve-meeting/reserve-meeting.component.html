@@ -20,12 +20,26 @@
             <th scope="row">{{meetingHour.teacher.firstName}} {{meetingHour.teacher.lastName}}</th>
             <td>{{this.fromDayOfWeekToString(meetingHour.dayOfWeek)}}</td>
             <td>{{meetingHour.hour}}</td>
+            <td>
+                <button class="btn btn-info" (click)="selectMeetingHour(meetingHour)" data-toggle="modal" data-target="#meeting">Reserve</button></td>
           </tr>
         </tbody>
       </table>
-      <div class="col-4 offset-4 form-group text-center">
-      <input class="form-control text-center" placeholder="yyyy-mm-dd" name="d" [(ngModel)]="this.date" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" [markDisabled]="this.markDisabled">
-      
-          <button class="btn btn-info" (click)="reserveMeeting(meetingHour)">Reserve</button>
-        </div>
 </div>
+
+<div class="modal fade" id="meeting" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <input class="form-control text-center" placeholder="yyyy-mm-dd" name="d" [(ngModel)]="this.date" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" [markDisabled]="this.markDisabled" (ngModelChange)=" selectDate($event)">
+        </div>
+        <button type="button" class="btn btn-info" data-dismiss="modal" (click)="reserveMeeting()">Reserve</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>

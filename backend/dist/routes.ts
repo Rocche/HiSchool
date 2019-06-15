@@ -472,6 +472,7 @@ module.exports = function (app, passport) {
         try {
             serverResponse = await meetingManager.postMeeting(req)
             sendServerResponse(req, res, serverResponse)
+            console.log("FATTO CIAOOOOOOOO")
         }
         catch (err) {
             res.status(500)

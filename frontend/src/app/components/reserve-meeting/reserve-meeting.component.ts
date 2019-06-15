@@ -3,8 +3,10 @@ import { MeetingHour } from 'src/app/models.1/school/meetingHour';
 import { MeetingService } from 'src/app/services/meeting.service';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
-import { Teacher, Class } from 'src/app/models.1/models';
+import { Teacher, Class, Parent, Meeting } from 'src/app/models.1/models';
 import { UserService } from 'src/app/services/user.service';
+import { AccountService } from 'src/app/services/account.service';
+import { User } from 'src/app/models.1/utils/user';
 
 @Component({
   selector: 'app-reserve-meeting',
@@ -17,8 +19,10 @@ export class ReserveMeetingComponent implements OnInit {
   private teachers: Teacher[];
   private selectedTeacher: Teacher;
   private markDisabled;
+  private date: string;
+  private selectedMeetingHour: MeetingHour;
 
-  constructor(private meetingService: MeetingService, private userService: UserService) { }
+  constructor(private meetingService: MeetingService, private userService: UserService, private accountService: AccountService) { }
 
   ngOnInit() {
     this.userService.getTeachers()
@@ -40,18 +44,33 @@ export class ReserveMeetingComponent implements OnInit {
         let availableDays = [];
         this.meetingHours.forEach((meetingHour: MeetingHour) => {
           availableDays.push(meetingHour.dayOfWeek);
-          this.markDisabled = (date: NgbDate) => {
-            let d = moment(date.year + "-" + date.month + "-" + date.day);
-            return !availableDays.includes(d.day());
-          }
+          
         })
       })
   }
-  /*
-  public reserveMeeting(meetinghour: MeetingHour){
-    this.meetingService.reserveMeeting(meetinghour);
+
+  public selectMeetingHour(meetingHour: MeetingHour){
+    this.selectedMeetingHour = meetingHour;
+    this.markDisabled = (date: NgbDate) => {
+      let d = moment(date.year + "-" + date.month + "-" + date.day);
+      return  d.day() != this.selectedMeetingHour.dayOfWeek;
+    }
   }
-  */
+
+  public reserveMeeting(){
+    if(this.date == null){
+      alert("First you must select a date");
+      return;
+    }
+    let parent: User = this.accountService.getUser();
+    this.meetingService.reserveMeeting(parent, this.selectedMeetingHour, new Date(this.date))
+      .subscribe(res => {
+        alert("Meeting reserved successfully");
+      },
+      error => {
+        alert("There was an error in reserving meeting: " + error.message);
+      })
+  }
 
   private fromDayOfWeekToString(dayOfWeek: number): string{
     switch(dayOfWeek){
@@ -70,5 +89,9 @@ export class ReserveMeetingComponent implements OnInit {
       default:
         return "Undefined";
     }
+  }
+
+  public selectDate(date: any){
+    this.date = date.year + '-' + date.month + '-' + date.day;
   }
 }

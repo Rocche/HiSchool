@@ -25,6 +25,10 @@ export class AccountService {
     this.roleLoggedIn$ = new Subject<string>();
   }
 
+  public getUser(): User{
+    return JSON.parse(localStorage.getItem('user'));
+  }
+
   public createAccount(account: Account) {
     console.log(account);
   }
