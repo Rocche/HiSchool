@@ -114,11 +114,7 @@ export class MeetingManager extends TableManager {
         req.body.title = 'NEW MEETING'
         req.body.body = "Parent " + req.body.parent.firstName +
                         " " + req.body.parent.lastName +
-<<<<<<< HEAD
-                        " requested a meeting in date " + req.body.date.toDateString() +
-=======
                         " requested a meeting in date " + strDate +
->>>>>>> 0048f3f482773c2d182fedf161044f85c8d8869f
                         " and hour " + req.body.meetingHour.hour +
                         ".";
         req.body.targets = [req.body.meetingHour.teacher]
@@ -138,11 +134,7 @@ export class MeetingManager extends TableManager {
         req.body.title = 'MEETING CANCELLATION'
         req.body.body = "Teacher " + meeting.meetingHour.teacher.firstName +
                         " " + meeting.meetingHour.teacher.lastName +
-<<<<<<< HEAD
-                        " cancelled the meeting in date " + meeting.date.toDateString() +
-=======
                         " cancelled the meeting in date " + strDate +
->>>>>>> 0048f3f482773c2d182fedf161044f85c8d8869f
                         " and hour " + meeting.meetingHour.hour +
                         ".";
         req.body.date = Date.now();
