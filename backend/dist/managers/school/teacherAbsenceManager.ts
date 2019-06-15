@@ -111,15 +111,16 @@ export class TeacherAbsenceManager extends TableManager {
         this.params = [
             teacherAbsenceID,
             req.body.teacher.username,
-            req.body.date,
+            new Date(req.body.date),
             req.body.lessonHour.id,
             'nobody'
         ]
         this.result = await this.dbManager.postQuery(this.sql, this.params)
 
+
         if (!(this.result instanceof Error) || (this.result instanceof CustomError)) {
             // send absence notice
-            req.body.id = teacherAbsenceID
+            req.query.id = teacherAbsenceID
             this.result = await this.sendAbsenceNotice(req)
         }
 
