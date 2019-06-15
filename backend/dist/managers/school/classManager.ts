@@ -2,8 +2,7 @@ import { Class } from "../../models/models"
 
 import { Request } from "express"
 import { TableManager } from "../utils/tableManager";
-import { AccountManager } from "../utils/accountManager";
-import { BranchManager } from "../managers";
+import { AccountManager, BranchManager } from "../managers";
 
 export class ClassManager extends TableManager {
 

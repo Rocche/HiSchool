@@ -1,6 +1,6 @@
 import { Request } from "express"
 import { MeetingHourManager, AccountManager, NoticeManager  } from "../managers";
-import { Meeting, Role, NoticeType } from "../../models/models";
+import { Meeting, NoticeType } from "../../models/models";
 import { v4 as uuid } from 'uuid';
 import { TableManager } from "../utils/tableManager";
 

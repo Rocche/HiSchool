@@ -2,9 +2,7 @@ import { TeacherAbsence, NoticeType, Role } from '../../models/models'
 import { v4 as uuid } from 'uuid';
 
 import { Request } from "express"
-import { LessonHourManager, NoticeManager } from "../managers";
-import { AccountManager } from '../utils/accountManager';
-import { ClassManager } from './classManager';
+import { AccountManager, LessonHourManager, NoticeManager, ClassManager } from "../managers";
 import { TableManager } from '../utils/tableManager';
 
 export class TeacherAbsenceManager extends TableManager {
