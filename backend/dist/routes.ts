@@ -424,7 +424,7 @@ module.exports = function (app, passport) {
     })
 
     // POST teacherAbsence
-    app.post('/api/notice', async (req: Request, res: Response) => {
+    app.post('/api/teacherAbsence', async (req: Request, res: Response) => {
         try {
             serverResponse = await teacherAbsenceManager.postTeacherAbsence(req)
             sendServerResponse(req, res, serverResponse)
