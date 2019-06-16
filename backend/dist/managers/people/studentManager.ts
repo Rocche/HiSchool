@@ -34,7 +34,7 @@ export class StudentManager extends TableManager {
         this.params = [
             req.body.username,
             req.body.class,
-            req.body.parent
+            req.body.parent.username
         ]
         this.result = await this.dbManager.postQuery(this.sql, this.params)
         return this.result

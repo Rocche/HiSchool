@@ -6,7 +6,7 @@ import { TableManager } from "../utils/tableManager";
 export class ParentManager extends TableManager {
 
     public async getParent(user: User): Promise<any> {
-        //I only need to take sons (user is already token)
+        // I only need to take sons (user is already taken)
         this.sql = 'SELECT * FROM "Users" INNER JOIN "Students" ON "Users".username = "Students"."UsersUsername" WHERE "Students"."ParentsUsername" = $1'
         this.params = [
             user.username

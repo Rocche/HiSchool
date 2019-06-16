@@ -8,11 +8,13 @@ export default class DbManager {
 
     // check if the parameters array is correct
 
-    private checkParams(params: any[]): boolean {
+    private checkParams(params: any[], sql:string): boolean {
         for (let element of params) {
             if (element == null) {
                 this.error.name = "PARAMS ERROR"
                 this.error.details = ("important parameter is null or misspelled")
+                console.log(sql)
+                console.log(this.error)
                 return false
             }
         }
@@ -26,7 +28,7 @@ export default class DbManager {
     public async getQuery(sql: string, params: any[]): Promise<any> {
 
         // check that parameters are not null
-        if (!(this.checkParams(params))) { return this.error }
+        if (!(this.checkParams(params,sql))) { return this.error }
 
         // create new clients pool
         let pool = new Pool()
@@ -64,7 +66,7 @@ export default class DbManager {
     public async postQuery(sql: string, params: any[]): Promise<any> {
 
         // check that parameters are not null
-        if (!(this.checkParams(params))) { return this.error }
+        if (!(this.checkParams(params,sql))) { return this.error }
 
         // create new clients pool
         let pool = new Pool()
@@ -92,7 +94,7 @@ export default class DbManager {
     public async updateQuery(sql: string, params: any[]): Promise<any> {
 
         // check that parameters are not null
-        if (!(this.checkParams(params))) { return this.error }
+        if (!(this.checkParams(params,sql))) { return this.error }
 
         // create new clients pool
         let pool = new Pool()
@@ -130,7 +132,7 @@ export default class DbManager {
     public async deleteQuery(sql: string, params: any[]): Promise<any> {
 
         // check that parameters are not null
-        if (!(this.checkParams(params))) { return this.error }
+        if (!(this.checkParams(params,sql))) { return this.error }
 
         // create new clients pool
         let pool = new Pool()

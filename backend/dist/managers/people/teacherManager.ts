@@ -39,9 +39,9 @@ export class TeacherManager extends TableManager {
         this.result = await this.dbManager.postQuery(this.sql, this.params)
 
         req.body.subjects.forEach(async subject => {
+            req.body.id = subject.id
             this.result = await this.postTS(req)
         });
-        this.result = await this.postTS
         return this.result
 
     }
@@ -51,7 +51,7 @@ export class TeacherManager extends TableManager {
         this.sql = 'INSERT INTO "Teaches" ( "TeachersUsername", "SubjectsId" ) VALUES ($1, $2)'
         this.params = [
             req.body.username,
-            req.body.subject.ID
+            req.body.id
         ]
         this.result = await this.dbManager.postQuery(this.sql, this.params)
 
