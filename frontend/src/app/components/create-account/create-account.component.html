@@ -23,15 +23,15 @@
             </div>
             <div *ngIf="this.insertedRole == 'STUDENT'">
                 <div class="form-group">
-                    <select class="form-control" name="parent">
+                    <select class="form-control" name="parent" [(ngModel)]="this.selectedParent">
                             <option selected=""> Select parent </option>
-                        <option *ngFor="let parent of this.parents">{{parent.firstName}} {{parent.lastName}}</option>
+                        <option *ngFor="let parent of this.parents" [ngValue] = "parent">{{parent.firstName}} {{parent.lastName}}</option>
                     </select>
                 </div>
                 <div class="form-group">
-                        <select class="form-control" name="class">
+                        <select class="form-control" name="class" [(ngModel)]="this.selectedClass">
                             <option selected=""> Select class </option>
-                            <option *ngFor="let class of this.classes">{{class.year}}{{class.section}}{{class.branch}}</option>
+                            <option *ngFor="let class of this.classes" [ngValue] = "class">{{class.id}}</option>
                         </select>
                 </div>
             </div>

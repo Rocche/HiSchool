@@ -21,6 +21,10 @@ export class UserService {
     }
     return this.http.get('/api/classTeachers?class=' + c);
   }
+
+  public getParents(){
+    return this.http.get('/api/parents');
+  }
   //get student
   //get parent
 }
