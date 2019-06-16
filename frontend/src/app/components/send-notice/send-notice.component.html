@@ -2,20 +2,20 @@
     <div class="form-group input-group">
         <label for="target_type">Select target type:</label>
         <select class="form-control" name="target_type" [(ngModel)]="this.targetType" (change)="selectTarget()">
-            <option selected=""> Select user type </option>
+            <option selected=""> Select target type </option>
             <option>class</option>
             <option>teacher</option>
         </select>
     </div>
   <div *ngIf="this.targetType != null" class="form-group">
     <label for="targets">To:</label>
-    <div  *ngIf="this.targetType == 'class'">
+    <div *ngIf="this.targetType == 'class'">
         <select class="form-control" name="target_type" [(ngModel)]="this.selectedClass" (change)="addClass()">
-            <option *ngFor="let class of this.classes" [ngValue]="class">{{class.year}}{{class.section}}{{class.branch}}</option>
+            <option *ngFor="let class of this.classes" [ngValue]="class">{{class.id}}</option>
         </select>
         <table>
             <tr *ngFor="let class of this.selectedClasses">
-                <td>{{class.year}}{{class.section}}{{class.branch}}</td>
+                <td>{{class.id}}         </td>
                 <td><button class="btn btn-danger" (click)="removeFromClasses(class)">Remove</button></td>
             </tr>
         </table>
@@ -25,22 +25,29 @@
         <option *ngFor="let teacher of this.teachers" [ngValue]="teacher">{{teacher.lastName}} {{teacher.firstName}}</option>
     </select>
     <table>
-        <tr *ngFor="let class of this.selectedTeachers">
+        <tr *ngFor="let teacher of this.selectedTeachers">
             <td>{{teacher.lastName}} {{teacher.firstName}}</td>
             <td><button class="btn btn-danger" (click)="removeFromTeachers(teacher)">Remove</button></td>
         </tr>
     </table>
     </div>
   </div>
-  <div *ngIf="this.notice.target != null">
+  <div *ngIf="this.targetType != null">
     
   <div class="form-group">
     <label for="title">Title:</label>
-    <input type="text" class="form-control" id="title" name = "title" [(ngModel)] = "this.notice.title">
+    <input type="text" class="form-control" id="title" name = "title" [(ngModel)] = "this.title">
   </div>
   <div class="form-group">
+        <select class="form-control" name="notice_type" [(ngModel)]="this.noticeType">
+                <option selected="">Select notice type</option>
+                <option>Standard</option>
+                <option>Authorization</option>
+        </select>
+    </div>
+  <div class="form-group">
     <label for="body">Body:</label>
-    <textarea class="form-control" id="body" rows="3" name="body" [(ngModel)] = "this.notice.body"></textarea>
+    <textarea class="form-control" id="body" rows="3" name="body" [(ngModel)] = "this.body"></textarea>
   </div>
   <button type="submit" class="btn btn-info" (click)="sendNotice()">Send Notice</button>
 </div>

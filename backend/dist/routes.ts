@@ -21,6 +21,7 @@ module.exports = function (app, passport) {
     var meetingManager = new managers.MeetingManager;
     var subjectManager = new managers.SubjectManager;
     var classManager = new managers.ClassManager;
+    var teacherManager = new managers.TeacherManager;
 
     /*
     // people managers
@@ -141,7 +142,7 @@ module.exports = function (app, passport) {
                     res.status(200).send({ SuccessMessage: stdDeleteSuccessMsg })
                     return
                 }
-                // else, return standard error message
+                // else, return standar error message
                 res.status(500).send({ ErrorMessage: stdDeleteErrMsg })
             }
             default: {
@@ -568,6 +569,30 @@ module.exports = function (app, passport) {
     app.get('/api/classTeachers', async (req: Request, res: Response) => {
         try {
             serverResponse = await classManager.getClassTeachers(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+
+    // GET teachers
+    app.get('/api/teachers', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await teacherManager.getTeachers(req);
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+
+    // GET classes
+    app.get('/api/classes', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await classManager.getClasses(req)
             sendServerResponse(req, res, serverResponse)
         }
         catch (err) {

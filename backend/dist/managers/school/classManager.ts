@@ -34,6 +34,7 @@ export class ClassManager extends TableManager {
 
         this.sql = 'SELECT * FROM "Classes"'
         this.params = []
+        this.result = await this.dbManager.getQuery(this.sql, this.params);
 
         if (this.result.rowCount > 0) {
 
@@ -44,6 +45,7 @@ export class ClassManager extends TableManager {
             // get branch information
             req.query.id = row.BranchesId
             let branch = await branchManager.getBranch(req)
+            console.log(branch)
             // create class
                 let cl = new Class(
                     row.id,

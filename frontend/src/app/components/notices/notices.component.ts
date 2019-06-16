@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Notice } from 'src/app/models.1/school/notice';
 import { NoticesService } from 'src/app/services/notices.service';
 import { AccountService } from 'src/app/services/account.service';
-import { ROLES } from 'src/app/models/roles';
 import { PersonalNotice } from 'src/app/models.1/models';
 
 @Component({

@@ -3,6 +3,7 @@ import { Teacher, User } from "../../models/models"
 import { Request } from "express"
 import { TableManager } from "../utils/tableManager";
 import { SubjectManager } from "../school/subjectManager";
+import { AccountManager } from "../managers";
 
 export class TeacherManager extends TableManager {
 
@@ -26,6 +27,36 @@ export class TeacherManager extends TableManager {
                 subjects
             )
             this.result = teacher
+        }
+        return this.result
+    }
+
+    public async getTeachers(req: Request): Promise<any> {
+
+        this.sql = 'SELECT * FROM "Teachers"'
+        this.params = []
+        this.result = await this.dbManager.getQuery(this.sql, this.params)
+        
+        if (this.result.rowCount > 0) {
+            let teachers = [];
+            for(let row of this.result.rows){
+            // get subjects information
+            let subjects = await this.getTeacherSubjects(row.UsersUsername)
+            let accountManager = new AccountManager();
+            req.query.username = row.UsersUsername;
+            let teacher = await accountManager.getUser(req);
+            // create teacher
+            let newTeacher = new Teacher(
+                teacher.username,
+                teacher.email,
+                teacher.role,
+                teacher.firstName,
+                teacher.lastName,
+                subjects
+            )
+            teachers.push(teacher);
+            }
+            this.result = teachers;
         }
         return this.result
     }
