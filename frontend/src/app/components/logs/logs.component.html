@@ -12,6 +12,27 @@
         <td>{{log.username}}</td>
         <td>{{log.body}}</td>
         <td>{{log.date}}</td>
+        <td><button class="btn btn-info"  data-toggle="modal" data-target="#reportDetails" (click)="selectLog(log)">Send Report</button></td>
       </tr>
     </tbody>
   </table>
+
+  <div class="modal fade" id="reportDetails" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h4>To: {{this.currentLog.username}}</h4>
+          <textarea [(ngModel)]="this.reportBody" name="content"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-info" data-dismiss="modal" (click)="sendReport()">Send Report</button>
+        </div>
+      </div>
+    </div>
+  </div>

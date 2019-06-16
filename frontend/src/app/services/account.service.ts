@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RoutingService } from './routing.service';
 import { BehaviorSubject } from 'rxjs';
-import { Role, User, Student } from '../models.1/models';
+import { Role, User, Student, Class, Parent } from '../models.1/models';
 import { Subject } from '../models.1/school/subject';
 
 const httpOptions = {
@@ -43,8 +43,31 @@ export class AccountService {
     body.lastName = user.lastName;
     body.role = user.role;
     body.subjects = subjects;
-    console.log(body)
     return this.http.post('/api/user', body, httpOptions_post) 
+  }
+
+  public createParentAccount(user: User){
+    let body: any = {};
+    body.username = user.username;
+    body.email = user.email;
+    body.password = 'aa';
+    body.firstName = user.firstName;
+    body.lastName = user.lastName;
+    body.role = user.role;
+    return this.http.post('/api/user', body, httpOptions_post) 
+  }
+
+  public createStudentAccount(user: User, c: Class, parent: Parent){
+    let body: any = {};
+    body.username = user.username;
+    body.email = user.email;
+    body.password = 'aa';
+    body.firstName = user.firstName;
+    body.lastName = user.lastName;
+    body.role = user.role;
+    body.class = c;
+    body.parent = parent;
+    return this.http.post('/api/user', body, httpOptions_post);
   }
 
   public authenticate(username: string, password: string) {

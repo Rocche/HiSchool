@@ -6,6 +6,7 @@ import { Parent } from 'src/app/models.1/people/parent';
 import { ClassService } from 'src/app/services/class.service';
 import { Class } from 'src/app/models.1/school/class';
 import { Role, Subject, User } from 'src/app/models.1/models';
+import { UserService } from 'src/app/services/user.service';
 //import { SubjectService } from 'src/app/services/subject.service';
 
 @Component({
@@ -25,8 +26,10 @@ export class CreateAccountComponent implements OnInit {
   private insertedLastName: string;
   private insertedEmail: string;
   private insertedRole: string;
+  private selectedParent: Parent;
+  private selectedClass: Class;
 
-  constructor(private accountService: AccountService, private classService: ClassService) { 
+  constructor(private accountService: AccountService, private classService: ClassService, private userService: UserService) { 
     this.parents = [];
     this.teacherSubjects = [];
   }
@@ -45,13 +48,43 @@ export class CreateAccountComponent implements OnInit {
           alert("There was an error in creating the account")
         })
     }
+    if(this.insertedRole == 'PARENT'){
+      this.accountService.createParentAccount(user)
+        .subscribe(res => {
+          alert("Account created succesfully");
+        },
+        error => {
+          alert("There was an error in creating the account");
+        })
+    }
+    if(this.insertedRole == 'STUDENT'){
+      this.accountService.createStudentAccount(user, this.selectedClass, this.selectedParent)
+        .subscribe(res => {
+          alert("Account created succesfully");
+        },
+        error => {
+          alert("There was an error in creating the account");
+        })
+    }
     //this.accountService.createAccount(this.account);
   }
 
   public selectRole(){
     if(this.insertedRole == 'STUDENT'){
-      //this.parents = this.parentService.getParents();
-      //this.classes = this.classService.getClasses();
+      this.userService.getParents()
+        .subscribe((res: Parent[]) => {
+          this.parents = res;
+        },
+        error => {
+          alert("Error while getting parents");
+        })
+      this.classService.getClasses()
+        .subscribe((res: Class[]) => {
+          this.classes = res;
+        },
+        error => {
+          alert("Error while getting classes");
+        })
     }
     if(this.insertedRole == 'TEACHER'){
       this.classService.getAllSubjects()
@@ -79,4 +112,5 @@ export class CreateAccountComponent implements OnInit {
     }
     this.subjects.push(subject);
   }
+
 }

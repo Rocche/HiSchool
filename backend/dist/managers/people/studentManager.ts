@@ -30,7 +30,7 @@ export class StudentManager extends TableManager {
     }
     public async postStudent(req: Request): Promise<any> {
 
-        this.sql = 'INSERT INTO "Students" ( "UsersUsername", "ClassId", "ParentsUsername" ) VALUES ($1,$2, $3)'
+        this.sql = 'INSERT INTO "Students" ( "UsersUsername", "ClassesId", "ParentsUsername" ) VALUES ($1,$2, $3)'
         this.params = [
             req.body.username,
             req.body.class.id,
