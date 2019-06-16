@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RoutingService } from './routing.service';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Role, User, Student } from '../models.1/models';
+import { Subject } from '../models.1/school/subject';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -10,26 +11,40 @@ const httpOptions = {
   })
 };
 
+const httpOptions_post = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+};
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
 
   public loggedIn$: BehaviorSubject<boolean>;
-  public roleLoggedIn$: Subject<string>;
+  public roleLoggedIn$: BehaviorSubject<string>;
   public role: string;
 
   constructor(private http: HttpClient, private routingService: RoutingService) {
     this.loggedIn$ = new BehaviorSubject<boolean>(false);
-    this.roleLoggedIn$ = new Subject<string>();
+    this.roleLoggedIn$ = new BehaviorSubject<string>(null);
   }
 
   public getUser(): User{
     return JSON.parse(localStorage.getItem('user'));
   }
 
-  public createAccount(account: Account) {
-    console.log(account);
+  public createTeacherAccount(user: User, subjects: Subject[]){
+    let body: any = {};
+    body.username = user.username;
+    body.email = user.email;
+    body.password = 'aa';
+    body.firstName = user.firstName;
+    body.lastName = user.lastName;
+    body.role = user.role;
+    body.subjects = subjects;
+    console.log(body)
+    return this.http.post('/api/user', body, httpOptions_post) 
   }
 
   public authenticate(username: string, password: string) {

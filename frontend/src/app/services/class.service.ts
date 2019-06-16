@@ -49,6 +49,10 @@ export class ClassService {
   public getClassStudent(c: Class){
     return this.http.get('api/classStudents?class=' + c.id);
   }
+
+  public getAllSubjects(){
+    return this.http.get('/api/subjects');
+  }
   //getTeachers(class)
   //getStudents(class)
 }

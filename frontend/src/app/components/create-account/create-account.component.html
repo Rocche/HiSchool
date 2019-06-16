@@ -1,27 +1,27 @@
 <div class="container">
     <div>
         <form>
-            <div class="form-group input-group">
+            <div class="form-group input-group"> 
                 <input name="name" class="form-control" placeholder="First Name" type="text"
-                    [(ngModel)]="this.account.firstname">
+                    [(ngModel)]="this.insertedFirstName">
             </div>
             <div class="form-group input-group">
                 <input name="surname" class="form-control" placeholder="Last Name" type="text"
-                    [(ngModel)]="this.account.lastname">
+                    [(ngModel)]="this.insertedLastName">
             </div>
             <div class="form-group input-group">
                 <input name="email" class="form-control" placeholder="Email address" type="email"
-                    [(ngModel)]="this.account.email">
+                    [(ngModel)]="this.insertedEmail">
             </div>
             <div class="form-group input-group">
-                <select class="form-control" name="role" [(ngModel)]="this.account.role" (change)="selectRole()">
+                <select class="form-control" name="role" [(ngModel)]="this.insertedRole" (change)="selectRole()">
                     <option selected=""> Select user type </option>
-                    <option>student</option>
-                    <option>parent</option>
-                    <option>teacher</option>
+                    <option>STUDENT</option>
+                    <option>PARENT</option>
+                    <option>TEACHER</option>
                 </select>
             </div>
-            <div *ngIf="this.account.role == 'student'">
+            <div *ngIf="this.insertedRole == 'STUDENT'">
                 <div class="form-group">
                     <select class="form-control" name="parent">
                             <option selected=""> Select parent </option>
@@ -35,16 +35,16 @@
                         </select>
                 </div>
             </div>
-            <div *ngIf="this.account.role == 'teacher'">
+            <div *ngIf="this.insertedRole == 'TEACHER'">
                 <div class="form-group">
-                    <select class="form-control" name="subject" [(ngModel)] ="selectedSubject" (change)="addSubject()">
+                    <select class="form-control" name="subject" [(ngModel)] ="this.selectedSubject" (change)="addSubject()">
                         <option selected=""> Select subject </option>
-                        <option *ngFor="let subject of this.subjects">{{subject}}</option>
+                        <option *ngFor="let subject of this.subjects" [ngValue]="subject">{{subject.name}}</option>
                     </select>
                 </div>
                 <table>
                     <tr *ngFor="let subject of this.teacherSubjects">
-                        <td>{{subject}}</td>
+                        <td>{{subject.name}}</td>
                         <td><button class="btn btn-danger" (click)="removeFromSubjects(subject)">Remove</button></td>
                     </tr>
                 </table>

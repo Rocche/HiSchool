@@ -122,9 +122,9 @@ export class AccountManager extends TableManager {
         if ((this.result instanceof Error) || (this.result instanceof CustomError)) {
             return this.result
         }
-        console.log("crostata", this.result)
 
         // check if the user is already on the db
+        req.query.username = req.body.username;
         this.result = await this.getUser(req)
         if (this.result instanceof User) {
             this.error.name = "DB ERROR"
@@ -146,6 +146,7 @@ export class AccountManager extends TableManager {
 
         // add the new user to the right table
         if (!(this.result instanceof Error) && !(this.result instanceof CustomError)) {
+            console.log(req.body.role)
             switch (req.body.role) {
                 case "STUDENT": {
                     let studentManager = new StudentManager()
@@ -198,14 +199,6 @@ export class AccountManager extends TableManager {
 
         let subjectManager = new SubjectManager;
         this.result = await subjectManager.getSubject(req)
-        console.log('subject', this.result)
-        if (!(this.result instanceof Subject)) {
-            this.error = new CustomError(
-                "SUBJECT ERROR",
-                "Subject not found"
-            )
-            return this.error
-        }
         return this.result
     }
 
@@ -235,18 +228,13 @@ export class AccountManager extends TableManager {
                     this.error.details = "subjects parameter null or misspelled"
                     return this.error
                 } else {
-                    console.log("0", req.body.subjects)
                     req.body.subjects.forEach(async subject => {
-                        console.log("foreach: ", subject)
                         req.query.id = subject.id
                         this.result = await this.checkSubject(req)
                         if (!(this.result instanceof Subject)) {
-                            console.log("Subject error:", this.result)
                             return this.result
                         }
-                        console.log("Subject correct")
                     });
-                    console.log("All subjects correct", this.result)
                     return this.result
                 }
             }
