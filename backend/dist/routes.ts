@@ -1,11 +1,10 @@
 import { Request, Response } from 'express'
-import { CustomError, LessonHour, Teacher, Subject, Role, PersonalNotice, Notice, NoticeType, NoticeStatus } from './models/models'
+import { CustomError } from './models/models'
 import * as managers from './managers/managers'
-import * as path from 'path'
 
 module.exports = function (app, passport) {
 
-    // variable used for the responses
+    // variable used for the responses 
     var serverResponse: any
 
     // initialize all the tables managers

@@ -87,7 +87,7 @@ export class ReportManager extends TableManager {
         // post a new notice regarding the meeting cancellation
         // create notice
         let noticeManager = new NoticeManager();
-        req.body.date = Date.now();
+        req.body.date = new Date();
         req.body.type = NoticeType.Standard
         req.body.title = 'REPORT RECEIVED'
         req.body.body = "An administrator has responded to your log of date "
