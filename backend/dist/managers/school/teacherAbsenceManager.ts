@@ -82,21 +82,17 @@ export class TeacherAbsenceManager extends TableManager {
 
             let teacherAbsencesArray = []
             let lessonHourManager = new LessonHourManager()
-            let accountManager = new AccountManager();
 
             for (let row of this.result.rows) {
                 // get lessonHour information
                 req.query.id = row.LessonHoursId
                 let lessonHour = await lessonHourManager.getLessonHour(req)
-                // get substitute teacher information
-                req.query.username = row.substitute
-                let substitute = await accountManager.getUser(req)
                 // create teacherAbsence
                 let teacherAbsence = new TeacherAbsence(
                     row.id,
                     row.date,
                     lessonHour,
-                    substitute
+                    row.substitute
                 )
                 teacherAbsencesArray.push(teacherAbsence)
             }

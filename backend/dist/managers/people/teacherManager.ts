@@ -100,13 +100,13 @@ export class TeacherManager extends TableManager {
 
         if (this.result.rowCount > 0) {
 
-            let branchManager = new SubjectManager();
+            let subjectManager = new SubjectManager();
             let subjectsArray = []
 
             for (let row of this.result.rows) {
                 // get subject information
                 let id = row.SubjectsId
-                let subject = await branchManager.getSubjectById(id)
+                let subject = await subjectManager.getSubjectById(id)
                 // push result into array
                 subjectsArray.push(subject)
             }

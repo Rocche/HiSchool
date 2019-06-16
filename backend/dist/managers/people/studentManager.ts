@@ -33,7 +33,7 @@ export class StudentManager extends TableManager {
         this.sql = 'INSERT INTO "Students" ( "UsersUsername", "ClassId", "ParentsUsername" ) VALUES ($1,$2, $3)'
         this.params = [
             req.body.username,
-            req.body.class,
+            req.body.class.id,
             req.body.parent.username
         ]
         this.result = await this.dbManager.postQuery(this.sql, this.params)
