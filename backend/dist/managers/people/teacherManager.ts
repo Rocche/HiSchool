@@ -52,7 +52,7 @@ export class TeacherManager extends TableManager {
                 teacher.role,
                 teacher.firstName,
                 teacher.lastName,
-                subjects
+                subjects 
             )
             teachers.push(teacher);
             }

@@ -241,12 +241,12 @@ export class AccountManager extends TableManager {
                         req.query.id = subject.id
                         this.result = await this.checkSubject(req)
                         if (!(this.result instanceof Subject)) {
-                            console.log("meringata", this.result)
+                            console.log("Subject error:", this.result)
                             return this.result
                         }
-                        console.log("cheesecake", this.result)
+                        console.log("Subject correct")
                     });
-                    console.log("1", this.result)
+                    console.log("All subjects correct", this.result)
                     return this.result
                 }
             }
