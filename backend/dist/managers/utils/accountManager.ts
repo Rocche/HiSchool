@@ -122,7 +122,6 @@ export class AccountManager extends TableManager {
         if ((this.result instanceof Error) || (this.result instanceof CustomError)) {
             return this.result
         }
-        console.log("crostata", this.result)
 
         // check if the user is already on the db
         this.result = await this.getUser(req)
@@ -136,7 +135,7 @@ export class AccountManager extends TableManager {
         this.sql = 'INSERT INTO "Users" ( username, password, email, "firstName", "lastName", role ) VALUES ($1,$2,$3,$4,$5,$6)'
         this.params = [
             req.body.username,
-            req.body.password,
+            bcrypt.hashSync(req.body.password, 8),
             req.body.email,
             req.body.firstName,
             req.body.lastName,
@@ -198,7 +197,6 @@ export class AccountManager extends TableManager {
 
         let subjectManager = new SubjectManager;
         this.result = await subjectManager.getSubject(req)
-        console.log('subject', this.result)
         if (!(this.result instanceof Subject)) {
             this.error = new CustomError(
                 "SUBJECT ERROR",
@@ -235,18 +233,13 @@ export class AccountManager extends TableManager {
                     this.error.details = "subjects parameter null or misspelled"
                     return this.error
                 } else {
-                    console.log("0", req.body.subjects)
                     req.body.subjects.forEach(async subject => {
-                        console.log("foreach: ", subject)
                         req.query.id = subject.id
                         this.result = await this.checkSubject(req)
                         if (!(this.result instanceof Subject)) {
-                            console.log("Subject error:", this.result)
                             return this.result
                         }
-                        console.log("Subject correct")
                     });
-                    console.log("All subjects correct", this.result)
                     return this.result
                 }
             }

@@ -22,6 +22,7 @@ module.exports = function (app, passport) {
     var subjectManager = new managers.SubjectManager;
     var classManager = new managers.ClassManager;
     var teacherManager = new managers.TeacherManager;
+    var parentManager = new managers.ParentManager;
 
     /*
     // people managers
@@ -577,6 +578,19 @@ module.exports = function (app, passport) {
         }
     })
 
+    // GET classes
+    app.get('/api/classes', async (req: Request, res: Response) => {
+        try {
+            serverResponse = await classManager.getClasses(req)
+            sendServerResponse(req, res, serverResponse)
+        }
+        catch (err) {
+            res.status(500)
+                .send(err)
+        }
+    })
+
+    //------------------------------------------------------/api/teacher-------------------------------------------//
     // GET teachers
     app.get('/api/teachers', async (req: Request, res: Response) => {
         try {
@@ -589,10 +603,11 @@ module.exports = function (app, passport) {
         }
     })
 
-    // GET classes
-    app.get('/api/classes', async (req: Request, res: Response) => {
+    //------------------------------------------------------/api/parent-------------------------------------------//
+    // GET parents
+    app.get('/api/parents', async (req: Request, res: Response) => {
         try {
-            serverResponse = await classManager.getClasses(req)
+            serverResponse = await parentManager.getParents(req);
             sendServerResponse(req, res, serverResponse)
         }
         catch (err) {

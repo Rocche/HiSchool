@@ -54,7 +54,7 @@ export class TeacherManager extends TableManager {
                 teacher.lastName,
                 subjects 
             )
-            teachers.push(teacher);
+            teachers.push(newTeacher);
             }
             this.result = teachers;
         }
