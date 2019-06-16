@@ -199,16 +199,6 @@ export class AccountManager extends TableManager {
 
         let subjectManager = new SubjectManager;
         this.result = await subjectManager.getSubject(req)
-<<<<<<< HEAD
-        if (!(this.result instanceof Subject)) {
-            this.error = new CustomError(
-                "SUBJECT ERROR",
-                "Subject not found"
-            )
-            return this.error
-        }
-=======
->>>>>>> c75cedee64886b68d3d8793c2dee8f74518e78b9
         return this.result
     }
 
