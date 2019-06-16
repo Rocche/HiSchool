@@ -1,12 +1,15 @@
 export class Log {
 
-    ID: string;
+    id: string;
     date: Date;
     username: string;
     body: string;
 
-    constructor (ID: string, date: Date, username:string, body:string) {
-        this.ID = ID;
+    constructor (id
+: string, date: Date, username:string, body:string) {
+        this.id
+ = id
+;
         this.date = date;
         this.username = username;
         this.body = body
