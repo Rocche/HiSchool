@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UserAuth } from 'src/app/models.1/utils/userAuth';
 import { AccountService } from 'src/app/services/account.service';
-import { Subject } from 'rxjs';
 //import { ParentService } from 'src/app/services/parent.service';
 import { Parent } from 'src/app/models.1/people/parent';
 import { ClassService } from 'src/app/services/class.service';
 import { Class } from 'src/app/models.1/school/class';
-import { Role } from 'src/app/models.1/models';
+import { Role, Subject, User } from 'src/app/models.1/models';
 //import { SubjectService } from 'src/app/services/subject.service';
 
 @Component({
@@ -16,16 +15,18 @@ import { Role } from 'src/app/models.1/models';
 })
 export class CreateAccountComponent implements OnInit {
 
-  private account: UserAuth;
   private selectedRole: string;
   private parents: Parent[];
   private classes: Class[];
-  private subjects: string[];
-  private teacherSubjects: string[];
-  private selectedSubject: string;
+  private subjects: Subject[];
+  private teacherSubjects: Subject[];
+  private selectedSubject: Subject;
+  private insertedFirstName: string;
+  private insertedLastName: string;
+  private insertedEmail: string;
+  private insertedRole: string;
 
   constructor(private accountService: AccountService, private classService: ClassService) { 
-    this.account = new UserAuth(null, null, null, null, null, null);
     this.parents = [];
     this.teacherSubjects = [];
   }
@@ -34,27 +35,48 @@ export class CreateAccountComponent implements OnInit {
   }
 
   public createAccount(){
+    let user = new User(this.insertedEmail, this.insertedEmail, this.insertedFirstName, this.insertedLastName, this.insertedRole as Role);
+    if(this.insertedRole == 'TEACHER'){
+      this.accountService.createTeacherAccount(user, this.teacherSubjects)
+        .subscribe(res => {
+          alert("Account created succesfully");
+        },
+        error => {
+          alert("There was an error in creating the account")
+        })
+    }
     //this.accountService.createAccount(this.account);
   }
 
   public selectRole(){
-    if(this.account.role == Role.STUDENT){
+    if(this.insertedRole == 'STUDENT'){
       //this.parents = this.parentService.getParents();
       //this.classes = this.classService.getClasses();
     }
-    if(this.account.role == Role.TEACHER){
-      //this.subjects = this.subjectService.getSubjects();
+    if(this.insertedRole == 'TEACHER'){
+      this.classService.getAllSubjects()
+        .subscribe((res: Subject[]) => {
+          this.subjects = res;
+        },
+        error => {
+          alert("Error while getting subjects");
+        })
     }
   }
 
   public addSubject(){
     this.teacherSubjects.push(this.selectedSubject);
+    let index = this.subjects.indexOf(this.selectedSubject, 0);
+    if (index > -1) {
+       this.subjects.splice(index, 1);
+    }
   }
 
-  public removeFromSubjects(subject: string){
+  public removeFromSubjects(subject: Subject){
     let index = this.teacherSubjects.indexOf(subject, 0);
     if (index > -1) {
        this.teacherSubjects.splice(index, 1);
     }
+    this.subjects.push(subject);
   }
 }

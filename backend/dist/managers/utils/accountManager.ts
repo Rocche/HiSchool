@@ -124,6 +124,7 @@ export class AccountManager extends TableManager {
         }
 
         // check if the user is already on the db
+        req.query.username = req.body.username;
         this.result = await this.getUser(req)
         if (this.result instanceof User) {
             this.error.name = "DB ERROR"
@@ -145,6 +146,7 @@ export class AccountManager extends TableManager {
 
         // add the new user to the right table
         if (!(this.result instanceof Error) && !(this.result instanceof CustomError)) {
+            console.log(req.body.role)
             switch (req.body.role) {
                 case "STUDENT": {
                     let studentManager = new StudentManager()
@@ -197,6 +199,7 @@ export class AccountManager extends TableManager {
 
         let subjectManager = new SubjectManager;
         this.result = await subjectManager.getSubject(req)
+<<<<<<< HEAD
         if (!(this.result instanceof Subject)) {
             this.error = new CustomError(
                 "SUBJECT ERROR",
@@ -204,6 +207,8 @@ export class AccountManager extends TableManager {
             )
             return this.error
         }
+=======
+>>>>>>> c75cedee64886b68d3d8793c2dee8f74518e78b9
         return this.result
     }
 

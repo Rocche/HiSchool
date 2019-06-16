@@ -19,6 +19,7 @@ export class SubjectManager extends TableManager {
             )
             this.result = subject
         }
+        console.log("get subject ", this.result);
         return this.result
         
     }
@@ -28,6 +29,7 @@ export class SubjectManager extends TableManager {
         this.sql = 'SELECT * FROM "Subjects"'
         this.params = []
 
+        this.result = await this.dbManager.getQuery(this.sql, this.params);
         if (this.result.rowCount > 0) {
             let subjectsArray = []
             for (let row of this.result.rows) {

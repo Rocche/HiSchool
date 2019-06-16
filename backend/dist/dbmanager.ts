@@ -14,6 +14,7 @@ export default class DbManager {
                 this.error.name = "PARAMS ERROR"
                 this.error.details = ("important parameter is null or misspelled")
                 console.log(sql)
+                console.log(params)
                 console.log(this.error)
                 return false
             }

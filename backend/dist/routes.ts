@@ -238,6 +238,7 @@ module.exports = function (app, passport) {
     // POST user
     app.post('/api/user', async (req: Request, res: Response) => {
         try {
+            console.log(req.body)
             serverResponse = await accountManager.postUser(req)
             sendServerResponse(req, res, serverResponse)
         }
