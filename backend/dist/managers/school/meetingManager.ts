@@ -144,7 +144,7 @@ export class MeetingManager extends TableManager {
             " cancelled the meeting in date " + strDate +
             " and hour " + meeting.meetingHour.hour +
             ".";
-        req.body.date = Date.now();
+        req.body.date = new Date();
         req.body.targets = [meeting.parent.username]
         this.result = await noticeManager.postNotice(req)
         return this.result
