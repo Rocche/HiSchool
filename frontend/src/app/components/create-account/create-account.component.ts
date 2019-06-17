@@ -28,10 +28,12 @@ export class CreateAccountComponent implements OnInit {
   private insertedRole: string;
   private selectedParent: Parent;
   private selectedClass: Class;
+  private role: string;
 
   constructor(private accountService: AccountService, private classService: ClassService, private userService: UserService) { 
     this.parents = [];
     this.teacherSubjects = [];
+    this.role = JSON.parse(localStorage.getItem('user')).role;
   }
 
   ngOnInit() {
@@ -48,8 +50,8 @@ export class CreateAccountComponent implements OnInit {
           alert("There was an error in creating the account")
         })
     }
-    if(this.insertedRole == 'PARENT'){
-      this.accountService.createParentAccount(user)
+    if(this.insertedRole == 'STUDENT'){
+      this.accountService.createStudentAccount(user, this.selectedClass, this.selectedParent)
         .subscribe(res => {
           alert("Account created succesfully");
         },
@@ -57,8 +59,8 @@ export class CreateAccountComponent implements OnInit {
           alert("There was an error in creating the account");
         })
     }
-    if(this.insertedRole == 'STUDENT'){
-      this.accountService.createStudentAccount(user, this.selectedClass, this.selectedParent)
+    else{
+      this.accountService.createAccount(user)
         .subscribe(res => {
           alert("Account created succesfully");
         },
