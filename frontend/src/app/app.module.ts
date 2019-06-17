@@ -20,6 +20,7 @@ import { LogsComponent } from './components/logs/logs.component';
 import { ReserveMeetingComponent } from './components/reserve-meeting/reserve-meeting.component';
 import { MeetingtableComponent } from './components/meetingtable/meetingtable.component';
 import { TeachertimetableComponent } from './components/teachertimetable/teachertimetable.component';
+import { SonsNoticesComponent } from './components/sons-notices/sons-notices.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent},
@@ -36,7 +37,8 @@ const appRoutes: Routes = [
   { path: 'noticeboard', component: NoticeboardComponent },
   { path: 'logs', component: LogsComponent },
   { path: 'reserve_meeting', component: ReserveMeetingComponent },
-  { path: 'meeting_table', component: MeetingtableComponent }
+  { path: 'meeting_table', component: MeetingtableComponent },
+  { path: 'sons_notices', component: SonsNoticesComponent }
 ];
 
 @NgModule({
@@ -54,7 +56,8 @@ const appRoutes: Routes = [
     LogsComponent,
     ReserveMeetingComponent,
     MeetingtableComponent,
-    TeachertimetableComponent
+    TeachertimetableComponent,
+    SonsNoticesComponent
   ],
   imports: [
     RouterModule.forRoot(

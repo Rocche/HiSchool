@@ -25,18 +25,7 @@ export class NoticesComponent implements OnInit {
     this.currentNotice = new PersonalNotice(null, null, null, new Notice(null, null, null, null, null), null);
     this.role = this.accountService.role;
     this.user = JSON.parse(localStorage.getItem('user'));
-    if(this.role == Role.PARENT){
-      this.sons = JSON.parse(localStorage.getItem('user')).sons;
-      this.selectedTarget = null;
-    }
-    else{
-      this.selectedTarget = this.user;
-      this.getNotices(this.selectedTarget.username)
-    }
-  }
-
-  public selectTarget(){
-    this.getNotices(this.selectedTarget.username)
+    this.getNotices(this.user.username)
   }
 
   private getNotices(target: string){

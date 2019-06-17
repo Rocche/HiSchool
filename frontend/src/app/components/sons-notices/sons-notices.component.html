@@ -1,4 +1,12 @@
-<table class="table">
+<div>
+  <select class="form-control" name="target" [(ngModel)]="this.selectedTarget">
+    <option selected="">Select target</option>
+    <option *ngFor="let son of this.sons" [ngValue] = "son">{{son.firstName}} {{son.lastName}}</option>
+  </select>
+  <button class="btn btn-info" (click)="this.selectTarget()">Load Notices</button>
+</div>
+
+<table class="table" *ngIf="this.selectedTarget != null">
   <thead>
     <tr>
       <th scope="col">Title</th>

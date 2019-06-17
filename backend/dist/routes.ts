@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { CustomError } from './models/models'
 import * as managers from './managers/managers'
+import * as path from 'path';
 
 module.exports = function (app, passport) {
 
