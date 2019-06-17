@@ -19,6 +19,8 @@
                     <option>STUDENT</option>
                     <option>PARENT</option>
                     <option>TEACHER</option>
+                    <option *ngIf="this.role == 'ADMINISTRATOR'">SECRETARY</option>
+                    <option *ngIf="this.role == 'ADMINISTRATOR'">ADMINISTRATOR</option>
                 </select>
             </div>
             <div *ngIf="this.insertedRole == 'STUDENT'">

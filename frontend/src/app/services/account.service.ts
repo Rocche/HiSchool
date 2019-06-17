@@ -46,7 +46,7 @@ export class AccountService {
     return this.http.post('/api/user', body, httpOptions_post) 
   }
 
-  public createParentAccount(user: User){
+  public createAccount(user: User){
     let body: any = {};
     body.username = user.username;
     body.email = user.email;
