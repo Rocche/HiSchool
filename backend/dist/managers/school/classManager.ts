@@ -45,7 +45,6 @@ export class ClassManager extends TableManager {
             // get branch information
             req.query.id = row.BranchesId
             let branch = await branchManager.getBranch(req)
-            console.log(branch)
             // create class
                 let cl = new Class(
                     row.id,

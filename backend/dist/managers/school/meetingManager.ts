@@ -30,7 +30,6 @@ export class MeetingManager extends TableManager {
                 parent,
             )
             this.result = meeting
-            console.log(meeting)
         }
         return this.result
     }
@@ -48,7 +47,6 @@ export class MeetingManager extends TableManager {
         ]
         this.result = await this.dbManager.getQuery(this.sql, this.params)
 
-        console.log(this.result);
         if (this.result.rowCount > 0) {
 
             let meetingHourManager = new MeetingHourManager();
@@ -130,7 +128,6 @@ export class MeetingManager extends TableManager {
     }
 
     private async sendMeetingCancellationNotice(req: Request): Promise<any> {
-        console.log("send meeting cancellation")
         // post a new notice regarding the meeting cancellation
         // get meeting information
         let meeting = await this.getMeeting(req)

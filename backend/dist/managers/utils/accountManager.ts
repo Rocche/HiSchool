@@ -4,7 +4,7 @@ import { Request } from "express"
 
 // import models and managers
 import { User, UserAuth, CustomError, Parent, Subject } from "../../models/models";
-import { ParentManager, StudentManager, TeacherManager } from "../managers";
+import { ParentManager, StudentManager, TeacherManager, SecretaryManager, AdministratorManager } from "../managers";
 import { TableManager } from "./tableManager";
 import { isNull } from "util";
 import { SubjectManager } from "../school/subjectManager";
@@ -115,6 +115,27 @@ export class AccountManager extends TableManager {
         }
     }
 
+    public async getUserAuth(req: Request): Promise<any> {
+
+        this.sql = 'SELECT * FROM "Users" WHERE username = $1'
+        this.params = [
+            req.body.username
+        ]
+        this.result = await this.dbManager.getQuery(this.sql, this.params)
+        if (this.result.rowCount > 0) {
+            let user = new UserAuth(
+                this.result.rows[0].username,
+                this.result.rows[0].password,
+                this.result.rows[0].email,
+                this.result.rows[0].firstName,
+                this.result.rows[0].lastName,
+                this.result.rows[0].role
+            )
+            this.result = user
+        }
+        return this.result
+    }
+
     public async postUser(req: Request): Promise<any> {
 
         // check if the role of the new user is correct
@@ -146,7 +167,6 @@ export class AccountManager extends TableManager {
 
         // add the new user to the right table
         if (!(this.result instanceof Error) && !(this.result instanceof CustomError)) {
-            console.log(req.body.role)
             switch (req.body.role) {
                 case "STUDENT": {
                     let studentManager = new StudentManager()
@@ -164,11 +184,13 @@ export class AccountManager extends TableManager {
                     break;
                 }
                 case "SECRETARY": {
-                    //statements; 
+                    let secretaryManager = new SecretaryManager()
+                    this.result = await secretaryManager.postSecretary(req)
                     break;
                 }
                 case "ADMINISTRATOR": {
-                    //statements; 
+                    let administratorManager = new AdministratorManager()
+                    this.result = await administratorManager.postAdministrator(req)
                     break;
                 } default: {
                     this.error.name = "ROLE ERROR"
@@ -180,28 +202,6 @@ export class AccountManager extends TableManager {
         return this.result
 
     }
-
-    private async checkParent(parent: User): Promise<any> {
-
-        let parentManager = new ParentManager;
-        this.result = await parentManager.getParent(parent)
-        if (!(this.result instanceof Parent)) {
-            this.error = new CustomError(
-                "PARENT ERROR",
-                "Parent not found"
-            )
-            return this.error
-        }
-        return this.result
-    }
-
-    private async checkSubject(req: Request): Promise<any> {
-
-        let subjectManager = new SubjectManager;
-        this.result = await subjectManager.getSubject(req)
-        return this.result
-    }
-
 
     private checkUserRole(req: Request): any {
         switch (req.body.role) {
@@ -258,24 +258,24 @@ export class AccountManager extends TableManager {
         return null
     }
 
-    public async getUserAuth(req: Request): Promise<any> {
+    private async checkParent(parent: User): Promise<any> {
 
-        this.sql = 'SELECT * FROM "Users" WHERE username = $1'
-        this.params = [
-            req.body.username
-        ]
-        this.result = await this.dbManager.getQuery(this.sql, this.params)
-        if (this.result.rowCount > 0) {
-            let user = new UserAuth(
-                this.result.rows[0].username,
-                this.result.rows[0].password,
-                this.result.rows[0].email,
-                this.result.rows[0].firstName,
-                this.result.rows[0].lastName,
-                this.result.rows[0].role
+        let parentManager = new ParentManager;
+        this.result = await parentManager.getParent(parent)
+        if (!(this.result instanceof Parent)) {
+            this.error = new CustomError(
+                "PARENT ERROR",
+                "Parent not found"
             )
-            this.result = user
+            return this.error
         }
+        return this.result
+    }
+
+    private async checkSubject(req: Request): Promise<any> {
+
+        let subjectManager = new SubjectManager;
+        this.result = await subjectManager.getSubject(req)
         return this.result
     }
 

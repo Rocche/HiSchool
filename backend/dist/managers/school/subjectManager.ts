@@ -19,7 +19,6 @@ export class SubjectManager extends TableManager {
             )
             this.result = subject
         }
-        console.log("get subject ", this.result);
         return this.result
         
     }
