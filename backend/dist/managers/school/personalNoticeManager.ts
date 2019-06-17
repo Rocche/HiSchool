@@ -36,7 +36,7 @@ export class PersonalNoticeManager extends TableManager {
 
     public async getPersonalNotices(req: Request): Promise<any> {
 
-        this.sql = 'SELECT * FROM "PersonalNotices" WHERE "UsersUsername" = $1 ORDER BY "date" DESC'
+        this.sql = 'SELECT * FROM "PersonalNotices" WHERE "UsersUsername" = $1'
         this.params = [
             req.query.target
         ]

@@ -27,7 +27,7 @@ app.use(bodyParser.json({ limit: '5mb'})) // get information from html forms
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(compression())
 //app.use(redirectToHTTPS())
-//app.use(express.static(path.join(__dirname, '../public')))
+app.use(express.static(path.join(__dirname, '../public')))
 app.set('view engine', 'ejs') // set up ejs for templating
 
 // required for passport

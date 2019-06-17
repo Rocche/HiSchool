@@ -11,12 +11,12 @@ import { PersonalNotice, Student, Role, User } from 'src/app/models.1/models';
 })
 export class NoticesComponent implements OnInit {
 
-  private notices: PersonalNotice[];
-  private currentNotice: PersonalNotice;
-  private role: string;
-  private selectedTarget: User;
-  private sons: Student[];
-  private user: User;
+  public notices: PersonalNotice[];
+  public currentNotice: PersonalNotice;
+  public role: string;
+  public selectedTarget: User;
+  public sons: Student[];
+  public user: User;
 
   constructor(private noticesService: NoticesService, private accountService: AccountService) { }
 

@@ -15,12 +15,12 @@ import { User } from 'src/app/models.1/utils/user';
 })
 export class ReserveMeetingComponent implements OnInit {
 
-  private meetingHours: MeetingHour[];
-  private teachers: Teacher[];
-  private selectedTeacher: Teacher;
-  private markDisabled;
-  private date: string;
-  private selectedMeetingHour: MeetingHour;
+  public meetingHours: MeetingHour[];
+  public teachers: Teacher[];
+  public selectedTeacher: Teacher;
+  public markDisabled;
+  public date: string;
+  public selectedMeetingHour: MeetingHour;
 
   constructor(private meetingService: MeetingService, private userService: UserService, private accountService: AccountService) { }
 

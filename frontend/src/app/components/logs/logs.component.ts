@@ -9,9 +9,9 @@ import { LogService } from 'src/app/services/log.service';
 })
 export class LogsComponent implements OnInit {
 
-  private logs: Log[];
-  private currentLog: Log;
-  private reportBody: string;
+  public logs: Log[];
+  public currentLog: Log;
+  public reportBody: string;
 
   constructor(private logService: LogService) { 
     this.currentLog = new Log(null, null, null, null);

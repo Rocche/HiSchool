@@ -9,8 +9,8 @@ import { AccountService } from 'src/app/services/account.service';
 })
 export class NavbarComponent implements OnInit {
 
-  private isLoggedIn$: Observable<boolean>;
-  private role: string;
+  public isLoggedIn$: Observable<boolean>;
+  public role: string;
 
   constructor(private accountService: AccountService) { }
 

@@ -9,7 +9,7 @@ import { Meeting } from 'src/app/models.1/school/meeting';
 })
 export class MeetingtableComponent implements OnInit {
 
-  private meetings: Meeting[];
+  public meetings: Meeting[];
 
   constructor(private meetingService: MeetingService) { }
 

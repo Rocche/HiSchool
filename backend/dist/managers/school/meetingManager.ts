@@ -145,7 +145,9 @@ export class MeetingManager extends TableManager {
             " and hour " + meeting.meetingHour.hour +
             ".";
         req.body.date = new Date();
-        req.body.targets = [meeting.parent.username]
+        req.body.targets = [meeting.parent]
+        console.log("PORCODDIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
+        console.log(req.body)
         this.result = await noticeManager.postNotice(req)
         return this.result
     }

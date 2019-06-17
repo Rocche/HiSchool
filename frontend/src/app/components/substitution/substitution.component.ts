@@ -9,7 +9,7 @@ import { TeacherAbsence } from 'src/app/models.1/school/teacherAbsence';
 })
 export class SubstitutionComponent implements OnInit {
 
-  private absences: TeacherAbsence[];
+  public absences: TeacherAbsence[];
 
   constructor(private absenceService: AbsenceService) { }
 

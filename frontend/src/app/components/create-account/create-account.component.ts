@@ -16,19 +16,19 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class CreateAccountComponent implements OnInit {
 
-  private selectedRole: string;
-  private parents: Parent[];
-  private classes: Class[];
-  private subjects: Subject[];
-  private teacherSubjects: Subject[];
-  private selectedSubject: Subject;
-  private insertedFirstName: string;
-  private insertedLastName: string;
-  private insertedEmail: string;
-  private insertedRole: string;
-  private selectedParent: Parent;
-  private selectedClass: Class;
-  private role: string;
+  public selectedRole: string;
+  public parents: Parent[];
+  public classes: Class[];
+  public subjects: Subject[];
+  public teacherSubjects: Subject[];
+  public selectedSubject: Subject;
+  public insertedFirstName: string;
+  public insertedLastName: string;
+  public insertedEmail: string;
+  public insertedRole: string;
+  public selectedParent: Parent;
+  public selectedClass: Class;
+  public role: string;
 
   constructor(private accountService: AccountService, private classService: ClassService, private userService: UserService) { 
     this.parents = [];

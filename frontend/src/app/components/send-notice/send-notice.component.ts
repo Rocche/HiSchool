@@ -15,17 +15,17 @@ import { Student } from 'src/app/models.1/models';
 })
 export class SendNoticeComponent implements OnInit {
 
-  private notice: Notice;
-  private targetType: string;
-  private classes: Class[];
-  private teachers: Teacher[];
-  private selectedTeacher: Teacher;
-  private selectedTeachers: Teacher[];
-  private selectedClass: Class;
-  private selectedClasses: Class[];
-  private noticeType: string;
-  private title: string;
-  private body: string;
+  public notice: Notice;
+  public targetType: string;
+  public classes: Class[];
+  public teachers: Teacher[];
+  public selectedTeacher: Teacher;
+  public selectedTeachers: Teacher[];
+  public selectedClass: Class;
+  public selectedClasses: Class[];
+  public noticeType: string;
+  public title: string;
+  public body: string;
 
   constructor(private noticesService: NoticesService, private classService: ClassService) { 
     this.notice = new Notice(null, null, null, null, null);

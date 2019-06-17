@@ -10,7 +10,7 @@ import { Class } from 'src/app/models.1/models';
 })
 export class TeachertimetableComponent implements OnInit {
 
-  private timetable: string[][];
+  public timetable: string[][];
 
   constructor(private classService: ClassService) { }
 

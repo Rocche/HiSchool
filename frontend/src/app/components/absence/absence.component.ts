@@ -13,11 +13,11 @@ import * as moment from 'moment';
 })
 export class AbsenceComponent implements OnInit {
 
-  private lessonHours: LessonHour[];
-  private date: string;
-  private markDisabled;
-  private availableHours: LessonHour[];
-  private selectedLessonHour: LessonHour;
+  public lessonHours: LessonHour[];
+  public date: string;
+  public markDisabled;
+  public availableHours: LessonHour[];
+  public selectedLessonHour: LessonHour;
 
   constructor(private absenceService: AbsenceService, private classService: ClassService) { }
 

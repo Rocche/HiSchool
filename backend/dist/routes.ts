@@ -151,12 +151,10 @@ module.exports = function (app, passport) {
         }
     }
 
-    /*
     //-----------------------------------------------------APPLICATION-------------------------------------------//
     app.get(/^((?!\/api).)*$/, (req: Request, res: Response, next) => {
         res.sendFile(path.join(__dirname, '../public/index.html'))
     })
-    */
 
     //------------------------------------------------------/api/test-------------------------------------------//
     // GET test

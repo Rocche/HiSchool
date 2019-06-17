@@ -9,8 +9,8 @@ import { NoticesService } from 'src/app/services/notices.service';
 })
 export class NoticeboardComponent implements OnInit {
 
-  private noticeboard: Notice[];
-  private currentNotice: Notice;
+  public noticeboard: Notice[];
+  public currentNotice: Notice;
 
   constructor(private noticesService: NoticesService) { }
 
