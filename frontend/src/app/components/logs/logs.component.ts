@@ -24,7 +24,7 @@ export class LogsComponent implements OnInit {
         console.log(this.logs)
       },
       error => {
-        alert("There was an error in getting logs")
+        //alert("There was an error in getting logs")
       })
   }
 

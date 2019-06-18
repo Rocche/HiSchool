@@ -34,13 +34,7 @@ export class NoticesComponent implements OnInit {
       this.notices = res;
     },
     error => {
-      alert("Error while getting personal notices");
+      //alert("Error while getting personal notices");
     })
   }
-
-  /*
-  public setNoticeAuthorization(authorized: boolean){
-    this.noticesService.setNoticeAuthorization(this.currentNotice, authorized);
-  }
-  */
 }

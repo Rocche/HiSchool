@@ -32,7 +32,7 @@ export class SonsNoticesComponent implements OnInit {
         this.notices = res;
       },
       error => {
-        alert("There was an error while getting notices");
+        //alert("There was an error while getting notices");
       })
   }
 

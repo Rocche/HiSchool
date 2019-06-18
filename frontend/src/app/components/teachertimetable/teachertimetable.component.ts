@@ -23,7 +23,7 @@ export class TeachertimetableComponent implements OnInit {
 
   private buildStudentTimetable(timetable: LessonHour[]): string[][]{
     let tt: string[][] = [];
-    for(let i = 0; i < 5; i++){
+    for(let i = 1; i < 6; i++){
       let l = timetable.filter(hour => hour.hour == i);
       let classes = []
       l.forEach((lessonHour: LessonHour) => {

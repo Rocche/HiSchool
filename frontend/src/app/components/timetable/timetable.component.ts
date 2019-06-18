@@ -24,7 +24,7 @@ export class TimetableComponent implements OnInit {
 
   private buildStudentTimetable(timetable: LessonHour[]): Subject[][]{
     let tt: Subject[][] = [];
-    for(let i = 0; i < 5; i++){
+    for(let i = 1; i < 6; i++){
       let l = timetable.filter(hour => hour.hour == i);
       let subjects = []
       l.forEach((lessonHour: LessonHour) => {

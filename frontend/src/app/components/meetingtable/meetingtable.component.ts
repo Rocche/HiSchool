@@ -36,7 +36,7 @@ export class MeetingtableComponent implements OnInit {
       this.meetings = res;
     },
     error => {
-      alert("Error getting meetings");
+      //alert("Error getting meetings");
     })
   }
 }

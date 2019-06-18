@@ -20,7 +20,7 @@ export class NoticeboardComponent implements OnInit {
         this.noticeboard = res;
       },
       error => {
-        alert("Error while getting noticeboard")
+        //alert("Error while getting noticeboard")
       })
     this.currentNotice = new Notice(null, null, null, null, null);
   }

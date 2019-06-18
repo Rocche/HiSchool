@@ -34,7 +34,7 @@ export class SubstitutionComponent implements OnInit {
       this.absences = res;
     },
     error => {
-      alert("There was an error getting substitutions")
+      //alert("There was an error getting substitutions")
     })
   }
 
