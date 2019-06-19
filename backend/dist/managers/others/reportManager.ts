@@ -3,6 +3,7 @@ import { NoticeManager, LogManager } from "../managers";
 import { Report, NoticeType } from "../../models/models";
 import { v4 as uuid } from 'uuid';
 import { TableManager } from "../utils/tableManager";
+import { AccountManager } from "../utils/accountManager";
 
 export class ReportManager extends TableManager {
 
@@ -92,7 +93,9 @@ export class ReportManager extends TableManager {
         req.body.title = 'REPORT RECEIVED'
         req.body.body = "An administrator has responded to your log of date "
                         + req.body.log.date + ".";
-        req.body.targets = [req.body.log.username]
+        let accountManager = new AccountManager();
+        let target = await accountManager.getUserByUsername(req.body.log.username);
+        req.body.targets = [target]
         this.result = await noticeManager.postNotice(req)
         return this.result
 
